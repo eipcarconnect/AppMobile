@@ -274,7 +274,9 @@ class SiginScreen extends React.Component {
     super(props);
     this.state = {
       email: '',
+      email_confirm: '',
       password: '',
+      password_confirm: '',
       goBack: '',
     }
     setTimeout(() => {
@@ -299,10 +301,23 @@ class SiginScreen extends React.Component {
           />
           <TextInput
             style={styles.textinput}
+            onChangeText={(text) => this.setState({ email_confirm: text })}
+            value={this.state.email_confirm}
+            placeholder={"Email Address Confirm"}
+          />
+          <TextInput
+            style={styles.textinput}
             onChangeText={(text) => this.setState({ password: text })}
             value={this.state.password}
             secureTextEntry={true}
             placeholder={"Password"}
+          />
+          <TextInput
+            style={styles.textinput}
+            onChangeText={(text) => this.setState({ password_confirm: text })}
+            value={this.state.password_confirm}
+            secureTextEntry={true}
+            placeholder={"Password Confirm"}
           />
 
           <Button
@@ -323,6 +338,14 @@ class SiginScreen extends React.Component {
     }
     if (this.state.password.length < 4) {
       alert('Please enter a password.');
+      return;
+    }
+    if (this.state.email!= this.state.email_confirm) {
+      alert('Les adresses mail ne correspondent pas');
+      return;
+    }
+    if (this.state.password != this.state.password_confirm) {
+      alert('Les mots de passes ne correspondent pas');
       return;
     }
     // Sign in with email and pass.
@@ -346,25 +369,36 @@ class SiginScreen extends React.Component {
     NavigationService.navigate('MainHome');
   }
 }
-const Nav = createStackNavigator(
-  {
-    Home: {
-      screen: HomeScreen
-    },
-    Verif: {
-      screen: notverif
-    },
-    Sigin: {
-      screen: SiginScreen
-    },
-    MainHome: {
-      screen: mainHome
-    },
-  },
-  {
-    initialRouteName: 'Home',
-  }
-);
+
+const Nav = createStackNavigator({
+  Home: HomeScreen,
+  Verif: notverif,
+  Sigin: SiginScreen,
+  MainHome: mainHome,
+},
+{
+  initialRouteName: 'Home',
+});
+
+// const Nav = createStackNavigator(
+//   {
+//     Home: {
+//       screen: HomeScreen
+//     },
+//     Verif: {
+//       screen: notverif
+//     },
+//     Sigin: {
+//       screen: SiginScreen
+//     },
+//     MainHome: {
+//       screen: mainHome
+//     },
+//   },
+//   {
+//     initialRouteName: 'Home',
+//   }
+// );
 
 const Container = createAppContainer(Nav);
 
