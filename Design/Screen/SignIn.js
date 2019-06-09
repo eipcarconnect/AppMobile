@@ -67,10 +67,10 @@ export default class SignIn extends React.Component {
 
     render () {
         return (
-            <View style={{flex:1, paddingTop: 20, backgroundColor: "#2f4159", alignItems:"center"}}>
+            <View style={{flex:1, paddingTop: 20, backgroundColor: "#353535", alignItems:"center"}}>
                 <KeyboardAvoidingView keyboardVerticalOffset="-100" behavior="position" enabled>
                     <View style={{alignItems:"center"}}>
-                        <Image source={require("../assets/icon.png")} style={{width: 150, height: 150, marginTop: 25}} />
+                        <Image source={require("../assets/Logo.png")} style={{width: 150, height: 150, marginTop: 75}} />
                         <TextInput style={{marginTop: 30, height:40, width:300, borderColor: 'white', borderBottomWidth: 1}} 
                             placeholder="Email"
                             autoCapitalize="none"
@@ -86,12 +86,11 @@ export default class SignIn extends React.Component {
                             onChangeText={(text) => this.setPassword(text)}>
                         </TextInput>
                         <Button
-                            onPress={() => this.handleSubmit()}
+                            onPress={() => this.props.navigation.navigate('Home')}
                             title="Sign In"
-                            color="#32d7fb"
-                            buttonStyle={{marginTop: 35, height:40, width:300}}>
+                            buttonStyle={{marginTop: 35, height:40, width:300, backgroundColor:"#2c84cc"}}>
                         </Button>
-                        <Text style={{color: "#30d5ff", marginTop: 35}}
+                        <Text style={{color: "#2c84cc", marginTop: 35}}
                         onPress={() => this.props.navigation.navigate('SignUp')}>
                             Create account
                         </Text>

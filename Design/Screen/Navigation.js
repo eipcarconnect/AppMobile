@@ -6,9 +6,9 @@ import AppletScreen from './Home'
 //import ServiceScreen from './Settings'
 
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
+import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation'
 
-const AppStack = createBottomTabNavigator({ 
+const AppStack = createDrawerNavigator({ 
   Home: AppletScreen
   //Service: ServiceScreen
 });

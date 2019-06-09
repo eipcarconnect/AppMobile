@@ -56,7 +56,7 @@ export default class SignUp extends React.Component {
 
     render () {
         return (
-            <View style={{flex:1, paddingTop: 20, backgroundColor: "#2f4159", alignItems:"center"}}>
+            <View style={{flex:1, paddingTop: 20, backgroundColor: "#353535", alignItems:"center"}}>
                 <KeyboardAvoidingView keyboardVerticalOffset="-100" behavior="position" enabled>
                     <View style={{alignItems:"center"}}>
                         <Image source={require("../assets/Logo.png")} style={{width: 150, height: 150, marginTop: 25}} />
@@ -83,9 +83,9 @@ export default class SignUp extends React.Component {
                             onPress={() => this.handleSubmit()}
                             title="Sign Up"
                             color="#32d7fb"
-                            buttonStyle={{marginTop: 40, height:40, width:300}}>
+                            buttonStyle={{marginTop: 40, height:40, width:300, backgroundColor:"#2c84cc"}}>
                         </Button>
-                        <Text style={{color: "#30d5ff", marginTop: 40}}
+                        <Text style={{color: "#2c84cc", marginTop: 40}}
                         onPress={() => this.props.navigation.navigate('SignIn')}>
                             Sign in instead
                         </Text>

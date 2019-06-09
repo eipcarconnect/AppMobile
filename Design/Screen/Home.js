@@ -15,13 +15,14 @@ export default class Home extends React.Component {
 
     render () {
         return (
-            <View>
+            <View style={{flex:1, paddingTop: 20, backgroundColor: "#2f4159", alignItems:"center"}}>
                 <ScrollView>
-                    <View style={{flex:1, paddingTop: 20, backgroundColor: "#2f4159", alignItems:"center"}}>
+                    <View>
+                        <Text>
+                            Salut ca va ?
+                        </Text>
                     </View>
                 </ScrollView>
-                <View style={{ backgroundColor: "#2f4159", width: 1000, height: 500}}>
-                </View>
             </View>
         )
     }
