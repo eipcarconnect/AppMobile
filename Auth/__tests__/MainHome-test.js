@@ -4,11 +4,10 @@
 
 import 'react-native';
 import React from 'react';
-import Home from '../Home';
-import firebase from 'firebase'
-
-// Note: test renderer must be required after react-native.
+import firebase from 'firebase';
+import MainHome from '../MainHome';
 import renderer from 'react-test-renderer';
+
 
 var config = {
     apiKey: "AIzaSyDYxR513RoV3YdPGJAmLr2rS4-mRzpTq8g",
@@ -23,12 +22,11 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
 
-
 it('firebase is initialized correctly', () => {
     expect(firebase.apps.length).toEqual(1);
 });
 
-it('renders correctly', () => {
-    renderer.create(<Home />);
-});
 
+it('renders correctly', () => {
+    renderer.create(<MainHome />);
+});
