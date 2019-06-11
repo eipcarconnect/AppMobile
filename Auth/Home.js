@@ -77,11 +77,11 @@ export default class HomeScreen extends React.Component {
   toggleSignIn() {
     if (this.state.email.length < 4) {
       alert('Please enter an email address.');
-      return;
+      return(84);
     }
     if (this.state.password.length < 4) {
       alert('Please enter a password.');
-      return;
+      return(84);
     }
     //  Sign in with email and pass.
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
@@ -92,11 +92,9 @@ export default class HomeScreen extends React.Component {
       } else {
         alert(errorMessage);
       }
+    }).then(function(){
+        NavigationService.navigate('MainHome');
     });
-    this.setState({ email: '', password: '', goBack: 'Home' });
-    setTimeout(() => {
-      NavigationService.navigate('MainHome', { goBack: this.state.goBack });
-    }, 1000)
   }
 
   changeToMainHome() {
