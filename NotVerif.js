@@ -8,7 +8,7 @@ export default class  notverif extends React.Component {
   render() {
     const { navigation } = this.props;
     if (!firebase.auth().currentUser) {
-      this.ChangeBack(navigation.getParam('goBack', 'Home'));
+      // this.ChangeBack(navigation.getParam('goBack', 'Home'));
       return (<View style={styles.container}>
       </View>);
     }

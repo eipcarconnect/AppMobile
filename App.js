@@ -8,7 +8,6 @@
 
 import React from 'react';
 import NavigationService from './NavigationService';
-import { StyleSheet, View, TextInput, Button, Text } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import HomeScreen from './Home';
@@ -35,23 +34,4 @@ const Nav = createStackNavigator({
 });
 
 const Container = createAppContainer(Nav);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 

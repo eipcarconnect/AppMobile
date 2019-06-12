@@ -20,7 +20,7 @@ export default class mainHome extends React.Component {
     render() {
         const { navigation } = this.props;
         if (!firebase.auth().currentUser) {
-            this.GoBack(navigation.getParam('goBack', 'Home'));
+            // this.GoBack(navigation.getParam('goBack', 'Home'));
             return (<View style={styles.container}>
             </View>);
         }
