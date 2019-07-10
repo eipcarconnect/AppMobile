@@ -90,13 +90,11 @@ export default class SiginScreen extends React.Component {
                 alert('The password is too weak.');
             } else {
                 alert(errorMessage);
+                return;
             }
-            console.warn(error);
+        }).then(function() {
+            NavigationService.navigate('Verif', { goBack: 'Sigin' });
         });
-        this.setState({ email: '', password: '', goBack: 'Sigin' });
-        setTimeout(() => {
-            NavigationService.navigate('Verif', { goBack: this.state.goBack });
-        }, 1000)
     }
 
     changeToMainHome() {

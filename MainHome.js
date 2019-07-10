@@ -8,12 +8,12 @@ export default class mainHome extends React.Component {
         super(props);
 
         this.state = {
-            email: '',
+            // email: firebase.auth().currentUser.email,
             password: '',
             goBack: '',
         }
         setTimeout(() => {
-            this.setState({ email: '' })
+            this.setState({ email: firebase.auth().currentUser.email })
         }, 1000)
 
     }
@@ -34,7 +34,8 @@ export default class mainHome extends React.Component {
             console.warn(firebase.auth().currentUser.emailVerified);
             return (<View style={styles.container}>
                 <View style={styles.body}>
-                    <Text h1>Welcome on our application</Text>
+                    <Text h1>Welcome on our application{'\n'}</Text>
+                    <Text h1>{this.state.email}</Text>
                     <Button
                         title="SingOut"
                         onPress={this.singOut.bind(this)}
