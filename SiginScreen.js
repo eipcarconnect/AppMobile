@@ -1,6 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 import firebase from 'firebase'
 import NavigationService from './NavigationService.js';
+import DateTimePicker from "react-native-modal-datetime-picker";
 import { StyleSheet, View, TextInput, Button } from 'react-native';
 
 export default class SiginScreen extends React.Component {
@@ -11,12 +13,40 @@ export default class SiginScreen extends React.Component {
             email_confirm: '',
             password: '',
             password_confirm: '',
+            name: '',
+            last_name: '',
+            date: '',
+            isDateTimePickerVisible: false,
             goBack: '',
+            months: [ 
+                'Jan', 'Feb', 'Marh', 'Apr', 'May',
+                'Jun', 'Jul', 'Aug', 'Sep',
+                'Oct', 'Nov', 'Dec'
+            ],
         }
         setTimeout(() => {
             this.setState({ email: '' })
         }, 1000)
     }
+
+    showDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: true });
+    };
+
+    hideDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: false });
+    };
+
+    month_to_number = (monthname) => {
+        console.warn(monthname);
+        var month = this.state.months.indexOf(monthname);
+        return month ? month + 1 : 0;
+    };
+
+    handleDatePicked = date => {
+        this.state.date = moment(date).format('DD-MM-YYYY');
+        this.hideDateTimePicker();
+    };
 
     render() {
         if (firebase.auth().currentUser) {
@@ -27,6 +57,26 @@ export default class SiginScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.body}>
+
+                    <Button title="Birth Date" onPress={this.showDateTimePicker} />
+                    <DateTimePicker
+                        isVisible={this.state.isDateTimePickerVisible}
+                        onConfirm={this.handleDatePicked}
+                        onCancel={this.hideDateTimePicker}
+                    />
+
+                    <TextInput
+                        style={styles.textinput}
+                        onChangeText={(text) => this.setState({ name: text })}
+                        value={this.state.name}
+                        placeholder={"First Name"}
+                    />
+                    <TextInput
+                        style={styles.textinput}
+                        onChangeText={(text) => this.setState({ last_name: text })}
+                        value={this.state.last_name}
+                        placeholder={"Last Name"}
+                    />
                     <TextInput
                         style={styles.textinput}
                         onChangeText={(text) => this.setState({ email: text })}
@@ -66,12 +116,24 @@ export default class SiginScreen extends React.Component {
     }
 
     handleSignUp() {
-        if (this.state.email.length < 4) {
+        if (this.state.date.length < 1) {
+            alert('Select a Birth Date.');
+            return;
+        }
+        if (this.state.name.length < 1) {
+            alert('Please enter a First Name.');
+            return;
+        }
+        if (this.state.last_name.length < 1) {
+            alert('Please enter a Last Name.');
+            return;
+        }
+        if (this.state.email.length < 1) {
             alert('Please enter an email address.');
             return;
         }
         if (this.state.password.length < 4) {
-            alert('Please enter a password.');
+            alert('Your password is too short.');
             return;
         }
         if (this.state.email != this.state.email_confirm) {
@@ -93,7 +155,7 @@ export default class SiginScreen extends React.Component {
                 return;
             }
         }).then(function() {
-            NavigationService.navigate('Verif', { goBack: 'Sigin' });
+            NavigationService.navigate('Verif');
         });
     }
 
