@@ -12,38 +12,38 @@ export default class mainHome extends React.Component {
             password: '',
             goBack: '',
         }
-        setTimeout(() => {
-            this.setState({ email: firebase.auth().currentUser.email })
-        }, 1000)
+        // setTimeout(() => {
+        //     this.setState({ email: ' })
+        // }, 1000)
 
     }
     render() {
-        const { navigation } = this.props;
-        if (!firebase.auth().currentUser) {
-            // this.GoBack(navigation.getParam('goBack', 'Home'));
-            return (<View style={styles.container}>
-            </View>);
-        }
-        else if (firebase.auth().currentUser.emailVerified === false) {
-            console.warn(firebase.auth().currentUser.emailVerified);
-            this.GoVerif();
-            return (<View style={styles.container}>
-            </View>);
-        }
-        else {
-            console.warn(firebase.auth().currentUser.emailVerified);
+        // const { navigation } = this.props;
+        // if (!firebase.auth().currentUser) {
+        //     // this.GoBack(navigation.getParam('goBack', 'Home'));
+        //     return (<View style={styles.container}>
+        //     </View>);
+        // }
+        // else if (firebase.auth().currentUser.emailVerified === false) {
+        //     console.warn(firebase.auth().currentUser.emailVerified);
+        //     this.GoVerif();
+        //     return (<View style={styles.container}>
+        //     </View>);
+        // }
+        // else {
+        //     console.warn(firebase.auth().currentUser.emailVerified);
             return (<View style={styles.container}>
                 <View style={styles.body}>
                     <Text h1>Welcome on our application{'\n'}</Text>
-                    <Text h1>{this.state.email}</Text>
-                    <Button
+                    {/* <Text h1>{this.state.email}</Text> */}
+                    {/* <Button
                         title="SingOut"
                         onPress={this.singOut.bind(this)}
                         button_styles={styles.transparent_button}
-                        button_text_styles={styles.transparent_button_text} />
+                        button_text_styles={styles.transparent_button_text} /> */}
                 </View>
             </View>);
-        }
+        // }
     }
 
     singOut() {

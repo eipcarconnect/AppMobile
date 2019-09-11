@@ -73,7 +73,8 @@ export default class HomeScreen extends React.Component {
       );
     }
   }
-
+  
+  //  Sign in with email and pass.
   toggleSignIn() {
     if (this.state.email.length < 4) {
       alert('Please enter an email address.');
@@ -83,18 +84,41 @@ export default class HomeScreen extends React.Component {
       alert('Please enter a password.');
       return(84);
     }
-    //  Sign in with email and pass.
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message
-      if (errorCode === 'auth/wrong-password') {
-        alert('Wrong password.');
-      } else {
-        alert(errorMessage);
-      }
-    }).then(function(){
-        NavigationService.navigate('MainHome');
-    });
+
+    var data = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+      }),
+    }
+    
+    fetch('http://40.85.113.74:3000/auth/signin', data).then((res) => res.json())
+      .then((resjson) => {
+        if (resjson.success === true) {
+          alert("Login success");
+          NavigationService.navigate('MainHome');
+        }
+        else {
+          alert(resjson.error);
+          return;
+        }
+      });
+    // firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message
+    //   if (errorCode === 'auth/wrong-password') {
+    //     alert('Wrong password.');
+    //   } else {
+    //     alert(errorMessage);
+    //   }
+    // }).then(function(){
+    //     NavigationService.navigate('MainHome');
+    // });
   }
 
   changeToMainHome() {

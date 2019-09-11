@@ -18,11 +18,6 @@ export default class SiginScreen extends React.Component {
             date: '',
             isDateTimePickerVisible: false,
             goBack: '',
-            months: [ 
-                'Jan', 'Feb', 'Marh', 'Apr', 'May',
-                'Jun', 'Jul', 'Aug', 'Sep',
-                'Oct', 'Nov', 'Dec'
-            ],
         }
         setTimeout(() => {
             this.setState({ email: '' })
@@ -37,14 +32,9 @@ export default class SiginScreen extends React.Component {
         this.setState({ isDateTimePickerVisible: false });
     };
 
-    month_to_number = (monthname) => {
-        console.warn(monthname);
-        var month = this.state.months.indexOf(monthname);
-        return month ? month + 1 : 0;
-    };
-
     handleDatePicked = date => {
-        this.state.date = moment(date).format('DD-MM-YYYY');
+        this.state.date = moment(date).format('YYYY-MM-DD');
+        console.warn(this.state.date)
         this.hideDateTimePicker();
     };
 
@@ -145,18 +135,42 @@ export default class SiginScreen extends React.Component {
             return;
         }
         // Sign in with email and pass.
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if (errorCode == 'auth/weak-password') {
-                alert('The password is too weak.');
-            } else {
-                alert(errorMessage);
-                return;
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: this.state.name,
+                password: this.state.password,
+                email: this.state.email,
+                birthdate: this.state.date,
+            }),
+        }
+
+        fetch('http://40.85.113.74:3000/auth/signup', data).then((res) => res.json())
+        .then((resjson) => {
+            if (resjson.success === true) {
+                alert("User succesfully registered");
+                NavigationService.navigate('Home');
             }
-        }).then(function() {
-            NavigationService.navigate('Verif');
-        });
+            else {
+                alert(resjson.error);
+                return;
+            } });
+        // firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        //     if (errorCode == 'auth/weak-password') {
+        //         alert('The password is too weak.');
+        //     } else {
+        //         alert(errorMessage);
+        //         return;
+        //     }
+        // }).then(function() {
+        //     NavigationService.navigate('Verif');
+        // });
     }
 
     changeToMainHome() {
