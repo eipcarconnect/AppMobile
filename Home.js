@@ -1,23 +1,11 @@
 import React from 'react';
-import firebase from 'firebase'
-import NavigationService from './NavigationService.js';
+import global from './Global';
+import NavigationService from './NavigationService';
 import {StyleSheet ,View, TextInput, Button } from 'react-native';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    var config = {
-      apiKey: "AIzaSyDYxR513RoV3YdPGJAmLr2rS4-mRzpTq8g",
-      authDomain: "notifeiptest.firebaseapp.com",
-      databaseURL: "https://notifeiptest.firebaseio.com",
-      projectId: "notifeiptest",
-      storageBucket: "notifeiptest.appspot.com",
-      messagingSenderId: "250277878146",
-      appId: "1:250277878146:web:86e46286c0a9b875"
-    };
-    if (!firebase.apps.length) {
-      firebase.initializeApp(config);
-    }
 
     this.state = {
       email: '',
@@ -30,12 +18,6 @@ export default class HomeScreen extends React.Component {
 
   }
   render() {
-    if (firebase.auth().currentUser) {
-      this.changeToMainHome();
-      return (<View style={styles.container}>
-      </View>);
-    }
-    else {
       return (
         <View style={styles.container}>
           <View style={styles.body}>
@@ -72,15 +54,14 @@ export default class HomeScreen extends React.Component {
         </View>
       );
     }
-  }
   
   //  Sign in with email and pass.
   toggleSignIn() {
-    if (this.state.email.length < 4) {
+    if (this.state.email.length < 1) {
       alert('Please enter an email address.');
       return(84);
     }
-    if (this.state.password.length < 4) {
+    if (this.state.password.length < 1) {
       alert('Please enter a password.');
       return(84);
     }
@@ -101,6 +82,7 @@ export default class HomeScreen extends React.Component {
       .then((resjson) => {
         if (resjson.success === true) {
           alert("Login success");
+          global.email = this.state.email;
           NavigationService.navigate('MainHome');
         }
         else {
@@ -108,30 +90,10 @@ export default class HomeScreen extends React.Component {
           return;
         }
       });
-    // firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
-    //   var errorCode = error.code;
-    //   var errorMessage = error.message
-    //   if (errorCode === 'auth/wrong-password') {
-    //     alert('Wrong password.');
-    //   } else {
-    //     alert(errorMessage);
-    //   }
-    // }).then(function(){
-    //     NavigationService.navigate('MainHome');
-    // });
   }
 
   changeToMainHome() {
-    if (firebase.auth().currentUser.emailVerified == true) {
-      setTimeout(() => {
         NavigationService.navigate('MainHome', { goBack: this.state.goBack });
-      }, 1000)
-    }
-    else {
-      setTimeout(() => {
-        NavigationService.navigate('Verif', { goBack: this.state.goBack });
-      }, 1000)
-    }
   }
 }
 

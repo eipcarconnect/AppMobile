@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import firebase from 'firebase'
 import NavigationService from './NavigationService.js';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import { StyleSheet, View, TextInput, Button } from 'react-native';
@@ -34,16 +33,10 @@ export default class SiginScreen extends React.Component {
 
     handleDatePicked = date => {
         this.state.date = moment(date).format('YYYY-MM-DD');
-        console.warn(this.state.date)
         this.hideDateTimePicker();
     };
 
     render() {
-        if (firebase.auth().currentUser) {
-            this.changeToMainHome();
-            return (<View style={styles.container}>
-            </View>);
-        }
         return (
             <View style={styles.container}>
                 <View style={styles.body}>
@@ -159,18 +152,6 @@ export default class SiginScreen extends React.Component {
                 alert(resjson.error);
                 return;
             } });
-        // firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
-        //     var errorCode = error.code;
-        //     var errorMessage = error.message;
-        //     if (errorCode == 'auth/weak-password') {
-        //         alert('The password is too weak.');
-        //     } else {
-        //         alert(errorMessage);
-        //         return;
-        //     }
-        // }).then(function() {
-        //     NavigationService.navigate('Verif');
-        // });
     }
 
     changeToMainHome() {

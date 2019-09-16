@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from 'firebase'
+import global from './Global';
 import NavigationService from './NavigationService.js';
 import { StyleSheet, View, Button, Text } from 'react-native';
 
@@ -8,34 +9,17 @@ export default class mainHome extends React.Component {
         super(props);
 
         this.state = {
-            // email: firebase.auth().currentUser.email,
+            email: global.email,
             password: '',
             goBack: '',
         }
-        // setTimeout(() => {
-        //     this.setState({ email: ' })
-        // }, 1000)
 
     }
     render() {
-        // const { navigation } = this.props;
-        // if (!firebase.auth().currentUser) {
-        //     // this.GoBack(navigation.getParam('goBack', 'Home'));
-        //     return (<View style={styles.container}>
-        //     </View>);
-        // }
-        // else if (firebase.auth().currentUser.emailVerified === false) {
-        //     console.warn(firebase.auth().currentUser.emailVerified);
-        //     this.GoVerif();
-        //     return (<View style={styles.container}>
-        //     </View>);
-        // }
-        // else {
-        //     console.warn(firebase.auth().currentUser.emailVerified);
             return (<View style={styles.container}>
                 <View style={styles.body}>
                     <Text h1>Welcome on our application{'\n'}</Text>
-                    {/* <Text h1>{this.state.email}</Text> */}
+                    <Text h1>{this.state.email}</Text>
                     {/* <Button
                         title="SingOut"
                         onPress={this.singOut.bind(this)}
