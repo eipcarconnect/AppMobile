@@ -3,6 +3,7 @@ import moment from 'moment';
 import NavigationService from './NavigationService.js';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import { StyleSheet, View, TextInput, Button } from 'react-native';
+import axios from 'axios';
 
 export default class SiginScreen extends React.Component {
     constructor(props) {
@@ -127,7 +128,8 @@ export default class SiginScreen extends React.Component {
             alert('Les mots de passes ne correspondent pas');
             return;
         }
-        // Sign in with email and pass.
+        this.state.name = this.state.name + " " + this.state.last_name;
+        // Sign in with email, pass, birthdate, name.
         var data = {
             method: 'POST',
             headers: {

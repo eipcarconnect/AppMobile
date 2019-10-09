@@ -1,3 +1,5 @@
 let name = '';
+let date = '';
 let email = '';
-let last_name = '';
+let token = '';
+// let isConnect = '';

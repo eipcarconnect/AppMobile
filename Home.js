@@ -13,7 +13,7 @@ export default class HomeScreen extends React.Component {
       password: '',
     }
     setTimeout(() => {
-      this.setState({ email: '' })
+      this.setState({ email: '' });
     }, 1000)
 
   }
@@ -82,7 +82,37 @@ export default class HomeScreen extends React.Component {
       .then((resjson) => {
         if (resjson.success === true) {
           alert("Login success");
-          global.email = this.state.email;
+          var str = resjson.token;
+          global.token = str.slice(4, str.length);
+          this.getUserInfos();
+        }
+        else {
+          alert(resjson.error);
+          return;
+        }
+      });
+  }
+
+  getUserInfos() {
+    var data = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: global.token,
+      }),
+    }
+
+    fetch('http://40.85.113.74:3000/auth/getuserinfos', data).then((res) => res.json())
+      .then((resjson) => {
+        if (resjson.success === true) {
+          alert("token success");
+          global.name = resjson.name;
+          global.email = resjson.email
+          global.date = resjson.birthdate.split('T')[0];
+          this.setState({ email: '', password: '' });
           NavigationService.navigate('MainHome');
         }
         else {
