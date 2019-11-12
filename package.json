@@ -11,9 +11,9 @@
     "firebase": "^5.9.0",
     "moment": "^2.24.0",
     "nvm": "0.0.4",
-    "react-native": "^0.59.8",
+    "react-native": "^0.59.10",
     "react-native-gesture-handler": "^1.2.1",
-    "react-native-modal-datetime-picker": "^7.5.0",
+    "react-native-modal-datetime-picker": "^7.6.0",
     "react-navigation": "^3.9.1",
     "request": "^2.88.0",
     "whatwg-fetch": "^3.0.0"
