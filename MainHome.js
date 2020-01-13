@@ -1,5 +1,4 @@
 import React from 'react';
-import firebase from 'firebase'
 import global from './Global';
 import NavigationService from './NavigationService.js';
 import { StyleSheet, View, Button, Text } from 'react-native';
@@ -28,6 +27,16 @@ export default class mainHome extends React.Component {
                         onPress={this.singOut.bind(this)}
                         button_styles={styles.transparent_button}
                         button_text_styles={styles.transparent_button_text} />
+                    <Button
+                        title="Edit Informations"
+                        onPress={() => this.props.navigation.navigate('EditScreen')}
+                        button_styles={styles.transparent_button}
+                        button_text_styles={styles.transparent_button_text} />
+                    <Button
+                        title="Refresh"
+                        onPress={this.refresh.bind(this)}
+                        button_styles={styles.transparent_button}
+                        button_text_styles={styles.transparent_button_text} />
                 </View>
             </View>);
         // }
@@ -39,6 +48,35 @@ export default class mainHome extends React.Component {
         global.email = '';
         global.token = '';
         NavigationService.navigate('Home');
+    }
+
+    refresh() {
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: global.token,
+            }),
+        }
+
+        fetch('http://40.85.113.74:3000/auth/getuserinfos', data).then((res) => res.json())
+            .then((resjson) => {
+                if (resjson.success === true) {
+                    // alert("token success");
+                    global.name = resjson.name;
+                    global.email = resjson.email
+                    global.date = resjson.birthdate.split('T')[0];
+                    this.setState({ email: global.email, name: global.name, date: global.date});
+                    NavigationService.navigate('MainHome');
+                }
+                else {
+                    alert(resjson.error);
+                    return;
+                }
+            });
     }
 
     GoBack(goBack) {

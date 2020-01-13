@@ -14,6 +14,7 @@ import HomeScreen from './Home';
 import NotVerif from './NotVerif';
 import MainHome from './MainHome';
 import SiginScreen from './SiginScreen';
+import EditScreen from './EditSreen';
 
 export default class App extends React.Component {
   render() {
@@ -28,6 +29,7 @@ const Nav = createStackNavigator({
   Verif: NotVerif,
   Sigin: SiginScreen,
   MainHome: MainHome,
+  EditScreen: EditScreen,
 },
 {
   initialRouteName: 'Home',

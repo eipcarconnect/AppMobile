@@ -108,7 +108,7 @@ export default class HomeScreen extends React.Component {
     fetch('http://40.85.113.74:3000/auth/getuserinfos', data).then((res) => res.json())
       .then((resjson) => {
         if (resjson.success === true) {
-          alert("token success");
+          // alert("token success");
           global.name = resjson.name;
           global.email = resjson.email
           global.date = resjson.birthdate.split('T')[0];
