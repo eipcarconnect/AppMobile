@@ -15,6 +15,9 @@ import NotVerif from './NotVerif';
 import MainHome from './MainHome';
 import SiginScreen from './SiginScreen';
 import EditScreen from './EditSreen';
+import FuelInfo from './FuelInfos';
+import SpeedInfo from './SpeedInfos';
+import LocationInfo from './LocationInfos';
 
 export default class App extends React.Component {
   render() {
@@ -30,6 +33,9 @@ const Nav = createStackNavigator({
   Sigin: SiginScreen,
   MainHome: MainHome,
   EditScreen: EditScreen,
+  FuelInfo: FuelInfo,
+  SpeedInfo, SpeedInfo,
+  LocationInfo, LocationInfo
 },
 {
   initialRouteName: 'Home',

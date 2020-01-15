@@ -111,6 +111,34 @@ export default class HomeScreen extends React.Component {
           global.email = resjson.email
           global.date = resjson.birthdate.split('T')[0];
           this.setState({ email: '', password: '' });
+          this.getCarInfos();
+        }
+        else {
+          alert(resjson.error);
+          return;
+        }
+      });
+  }
+
+  getCarInfos() {
+    var data = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: global.token,
+      }),
+    }
+    fetch('http://40.85.113.74:3000/data/getvehiculeinfo', data).then((res) => res.json())
+      .then((resjson) => {
+        if (resjson.success === true) {
+          global.speed = resjson.speed;
+          global.fuel = resjson.fuel;
+          global.lat = resjson.latitude;
+          global.long = resjson.longitude;
+          this.setState({ email: '', password: '' });
           NavigationService.navigate('MainHome');
         }
         else {
@@ -119,6 +147,7 @@ export default class HomeScreen extends React.Component {
         }
       });
   }
+
 
   changeToMainHome() {
         NavigationService.navigate('MainHome', { goBack: this.state.goBack });
