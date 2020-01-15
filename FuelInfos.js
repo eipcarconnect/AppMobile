@@ -17,29 +17,29 @@ export default class mainHome extends React.Component {
 
     }
     render() {
-            return (<View style={styles.container}>
-                <View style={styles.body}>
-                    <Text h1>Welcome on our application {this.state.name + '\n'}</Text>
-                    <Text h1>Your email is {this.state.email + '\n'}</Text>
-                    <Text h1>Your birthdate is {this.state.date + '\n'}</Text>
-                    <Button
-                        title="SingOut"
-                        onPress={this.singOut.bind(this)}
-                        button_styles={styles.transparent_button}
-                        button_text_styles={styles.transparent_button_text} />
-                    <Button
-                        title="Edit infos"
-                        onPress={() => this.props.navigation.navigate('EditScreen')}
-                        button_styles={styles.transparent_button}
-                        button_text_styles={styles.transparent_button_text} />
-
-                </View>
+        return (<View style={styles.container}>
+            <View style={styles.body}>
+                <Text h1>Welcome on our application {this.state.name + '\n'}</Text>
+                <Text h1>Your email is {this.state.email + '\n'}</Text>
+                <Text h1>Your birthdate is {this.state.date + '\n'}</Text>
                 <Button
-                    title="refresh"
-                    onPress={this.Refresh.bind(this)}
+                    title="SingOut"
+                    onPress={this.singOut.bind(this)}
                     button_styles={styles.transparent_button}
                     button_text_styles={styles.transparent_button_text} />
-            </View>);
+                <Button
+                    title="Edit infos"
+                    onPress={() => this.props.navigation.navigate('EditScreen')}
+                    button_styles={styles.transparent_button}
+                    button_text_styles={styles.transparent_button_text} />
+
+            </View>
+            <Button
+                title="refresh"
+                onPress={this.Refresh.bind(this)}
+                button_styles={styles.transparent_button}
+                button_text_styles={styles.transparent_button_text} />
+        </View>);
     }
 
     singOut() {
