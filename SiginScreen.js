@@ -3,7 +3,6 @@ import moment from 'moment';
 import NavigationService from './NavigationService.js';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import { StyleSheet, View, TextInput, Button } from 'react-native';
-import axios from 'axios';
 
 export default class SiginScreen extends React.Component {
     constructor(props) {

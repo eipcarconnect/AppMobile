@@ -46,36 +46,41 @@ export default class LocationInfos extends React.Component {
                         button_text_styles={styles.transparent_button_text} />
 
                 </View>
+            <Button
+                title="refresh"
+                onPress={this.Refresh.bind(this)}
+                button_styles={styles.transparent_button}
+                button_text_styles={styles.transparent_button_text} />
             </View>
         );
     }
 
-    // getCarInfos() {
-    //     var data = {
-    //         method: 'POST',
-    //         headers: {
-    //             Accept: 'application/json',
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             token: global.token,
-    //         }),
-    //     }
-    //     fetch('http://40.85.113.74:3000/data/getvehiculeinfo', data).then((res) => res.json())
-    //         .then((resjson) => {
-    //             if (resjson.success === true) {
-    //                 global.speed = resjson.speed;
-    //                 global.fuel = resjson.fuel;
-    //                 global.lat = resjson.latitude;
-    //                 global.long = resjson.longitude;
-
-    //             }
-    //             else {
-    //                 alert(resjson.error);
-    //                 return;
-    //             }
-    //         });
-    // }
+    Refresh() {
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: global.token,
+            }),
+        }
+        fetch('http://40.85.113.74:3000/data/getvehiculeinfo', data).then((res) => res.json())
+            .then((resjson) => {
+                if (resjson.success === true) {
+                    global.speed = resjson.speed;
+                    global.fuel = resjson.fuel;
+                    global.lat = resjson.latitude;
+                    global.long = resjson.longitude;
+                    this.setState({ lat: global.lat, long: global.long });
+                }
+                else {
+                    alert(resjson.error);
+                    return;
+                }
+            });
+    }
 
     seeCar() {
         const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
