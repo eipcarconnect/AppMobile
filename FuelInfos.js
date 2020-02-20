@@ -12,8 +12,6 @@ export default class fuelInfos extends React.Component {
             speed: global.speed,
             long: global.long,
             lat: global.lat,
-            password: '',
-            goBack: '',
         }
 
     }
@@ -73,14 +71,6 @@ export default class fuelInfos extends React.Component {
                     return;
                 }
             });
-    }
-
-    GoBack(goBack) {
-        NavigationService.navigate(goBack);
-    }
-
-    GoVerif() {
-        NavigationService.navigate('Verif');
     }
 }
 

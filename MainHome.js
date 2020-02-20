@@ -11,8 +11,6 @@ export default class mainHome extends React.Component {
             email: global.email,
             name: global.name,
             date: global.date,
-            password: '',
-            goBack: '',
         }
 
     }
@@ -80,14 +78,6 @@ export default class mainHome extends React.Component {
                     return;
                 }
             });
-    }
-
-    GoBack(goBack) {
-        NavigationService.navigate(goBack);
-    }
-
-    GoVerif() {
-        NavigationService.navigate('Verif');
     }
 }
 

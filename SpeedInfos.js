@@ -13,8 +13,6 @@ export default class SpeedInfo extends React.Component {
             long: global.long,
             lat: global.lat,
             seconds: 0,
-            password: '',
-            goBack: '',
         }
 
     }
@@ -92,14 +90,6 @@ export default class SpeedInfo extends React.Component {
         global.email = '';
         global.token = '';
         NavigationService.navigate('Home');
-    }
-
-    GoBack(goBack) {
-        NavigationService.navigate(goBack);
-    }
-
-    GoVerif() {
-        NavigationService.navigate('Verif');
     }
 }
 

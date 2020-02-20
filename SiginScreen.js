@@ -16,7 +16,6 @@ export default class SiginScreen extends React.Component {
             last_name: '',
             date: '',
             isDateTimePickerVisible: false,
-            goBack: '',
         }
         setTimeout(() => {
             this.setState({ email: '' })

@@ -17,7 +17,6 @@ export default class EditScreen extends React.Component {
             last_name: '',
             date: '',
             isDateTimePickerVisible: false,
-            goBack: '',
         }
         setTimeout(() => {
             this.setState({ email: '' })

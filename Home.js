@@ -9,7 +9,6 @@ export default class HomeScreen extends React.Component {
 
     this.state = {
       email: '',
-      goBack: '',
       password: '',
     }
     setTimeout(() => {
@@ -150,7 +149,7 @@ export default class HomeScreen extends React.Component {
 
 
   changeToMainHome() {
-        NavigationService.navigate('MainHome', { goBack: this.state.goBack });
+        NavigationService.navigate('MainHome');
   }
 }
 
