@@ -1,7 +1,8 @@
 import React from 'react'
-import { TextInput, Text, View, Image, KeyboardAvoidingView, TouchableHighlight, AsyncStorage } from 'react-native'
+import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-elements'
 import Axios from 'axios'
+import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 export default class SignIn extends React.Component {
 
@@ -68,13 +69,14 @@ export default class SignIn extends React.Component {
     render () {
         return (
             <View style={styles.View}>
-                <KeyboardAvoidingView keyboardVerticalOffset="-100" behavior="position" enabled>
+                <KeyboardAvoidingView keyboardVerticalOffset={String(-heightPercentage('10%'))}  behavior="position" enabled>
                     <View style={{alignItems:"center"}}>
                         <Image source={require("../assets/Logo.png")} style={styles.Logo} />
                         <TextInput style={styles.TextInput} 
                             placeholder="Email"
                             autoCapitalize="none"
                             textContentType="emailAddress"
+                            placeholderTextColor= 'white'
                             value={this.state.email}
                             onChangeText={(text) => this.setEmail(text)}>
                         </TextInput>
@@ -82,6 +84,8 @@ export default class SignIn extends React.Component {
                             placeholder="Password"
                             autoCapitalize="none"
                             textContentType="password"
+                            secureTextEntry={true}
+                            placeholderTextColor= 'white'
                             value={this.state.password}
                             onChangeText={(text) => this.setPassword(text)}>
                         </TextInput>
@@ -109,25 +113,26 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     Logo: {
-        width: 150,
-        height: 150,
-        marginTop: 75
+        width: heightPercentage('25%'),
+        height: heightPercentage('25%'),
+        marginTop: heightPercentage('8%')
     },
     TextInput: {
-        marginTop: 30,
-        height:40,
-        width:300,
+        marginTop: heightPercentage('7%'),
+        height: heightPercentage('6%'),
+        width: widthPercentage('80%'),
         borderColor: 'white',
+        color: 'white',
         borderBottomWidth: 1
     },
     Button: {
-        marginTop: 35,
-        height:40,
-        width:300,
+        marginTop: heightPercentage('7%'),
+        height: heightPercentage('6%'),
+        width: widthPercentage('80%'),
         backgroundColor:"#2c84cc"
     },
     TextButton: {
         color: "#2c84cc",
-        marginTop: 35
+        marginTop: heightPercentage('7%')
     },
   });
