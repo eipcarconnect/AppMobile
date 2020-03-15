@@ -1,6 +1,7 @@
 import React from 'react'
 import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-elements'
+import global from "../Global"
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
@@ -55,8 +56,7 @@ export default class SignIn extends React.Component {
             if (resjson.success === true) {
               var str = resjson.token;
               global.token = str.slice(4, str.length);
-              this.props.navigation.navigate('Home');
-              //this.getUserInfos();
+              this.getUserInfos();
             }
             else {
               alert(resjson.error);
@@ -115,7 +115,7 @@ export default class SignIn extends React.Component {
               global.lat = resjson.latitude;
               global.long = resjson.longitude;
               this.setState({ email: '', password: '' });
-              NavigationService.navigate('MainHome');
+              this.props.navigation.navigate('Home');
             }
             else {
               alert(resjson.error);
