@@ -142,7 +142,7 @@ export default class SignUp extends React.Component {
         .then((resjson) => {
             if (resjson.success === true) {
                 alert("User succesfully registered");
-                this.props.navigation.navigate('Home');
+                this.props.navigation.navigate('SignIn');
             }
             else {
                 alert(resjson.error);
