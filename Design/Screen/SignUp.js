@@ -77,23 +77,77 @@ export default class SignUp extends React.Component {
         return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
-    handleSubmit() {
-        let data = JSON.stringify({
-            "user": {
-                "email": this.state.email,
-                "password": this.state.password,
+    // handleSubmit() {
+    //     let data = JSON.stringify({
+    //         "user": {
+    //             "email": this.state.email,
+    //             "password": this.state.password,
+    //         }
+    //     });
+    //         Axios.post(Global.IPServer + "/signup",
+    //             data,
+    //             { headers: { "Content-Type": "application/json" } })
+    //             .then((response) => {
+    //                 //console.error(response);
+    //                 this._storeData("userRef", response2.data);
+    //                 this.props.navigation.navigate('Home');
+    //             }).catch(function (error) {
+    //                 console.error(error);
+    //             })
+    // }
+
+
+    handleSignUp() {
+        if (this.state.date.length < 1) {
+            alert('Select a Birth Date.');
+            return;
+        }
+        if (this.state.firstname.length < 1) {
+            alert('Please enter a First Name.');
+            return;
+        }
+        if (this.state.lastname.length < 1) {
+            alert('Please enter a Last Name.');
+            return;
+        }
+        if (this.state.email.length < 1) {
+            alert('Please enter an email address.');
+            return;
+        }
+        if (this.state.password.length < 4) {
+            alert('Your password is too short.');
+            return;
+        }
+        if (this.state.password != this.state.password2) {
+            alert('Les mots de passes ne correspondent pas');
+            return;
+        }
+        
+        // Sign in with email, pass, birthdate, name.
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name:  this.state.firstname + " " + this.state.lastname,
+                password: this.state.password,
+                email: this.state.email,
+                birthdate: this.state.date,
+            }),
+        }
+
+        fetch('http://40.85.113.74:3000/auth/signup', data).then((res) => res.json())
+        .then((resjson) => {
+            if (resjson.success === true) {
+                alert("User succesfully registered");
+                this.props.navigation.navigate('Home');
             }
-        });
-            Axios.post(Global.IPServer + "/signup",
-                data,
-                { headers: { "Content-Type": "application/json" } })
-                .then((response) => {
-                    //console.error(response);
-                    this._storeData("userRef", response2.data);
-                    this.props.navigation.navigate('Home');
-                }).catch(function (error) {
-                    console.error(error);
-                })
+            else {
+                alert(resjson.error);
+                return;
+            } });
     }
 
     render () {
@@ -168,7 +222,7 @@ export default class SignUp extends React.Component {
                             </TextInput>
                         </View>
                         <Button
-                            onPress={() => this.handleSubmit()}
+                            onPress={() => this.handleSignUp()}
                             title="Sign Up"
                             color="#32d7fb"
                             buttonStyle={styles.Button}>
