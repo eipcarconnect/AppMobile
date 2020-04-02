@@ -30,6 +30,37 @@ export default class NameSettings extends React.Component {
         this.setState({newlastname: text})
     }
 
+    editInfos() {
+        if (this.state.newfirstname == "" || this.state.newlastname == "")
+            return
+        // edit user infos
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: global.token,
+                name: global.name,//this.state.newfirstname + " " + this.state.newlastname,
+                password: "",
+                email: global.email,
+                birthdate: global.date,
+            }),
+        }
+
+        fetch('http://40.85.113.74:3000/auth/edit', data).then((res) => res.json())
+            .then((resjson) => {
+                if (resjson.success === true) {
+                    this.props.navigation.navigate('SettingsAccount');
+                }
+                else {
+                    alert(resjson.error);
+                    return;
+                }
+            });
+    }
+
     render () {
         return (
             <View style={styles.View}>
@@ -50,7 +81,7 @@ export default class NameSettings extends React.Component {
                     onChangeText={(text) => this.setNewLastName(text)}>
                 </TextInput>
                 <Button
-                    onPress={() => this.confirm()}
+                    onPress={() => this.editInfos()}
                     title="Confirm"
                     buttonStyle={styles.Button}>
                 </Button>

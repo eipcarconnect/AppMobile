@@ -1,7 +1,9 @@
 import React from 'react'
 import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
+import {NavigationEvents} from 'react-navigation';
 import { Button } from 'react-native-elements'
 import Axios from 'axios'
+import global from '../../Tools/Global';
 import { heightPercentage, widthPercentage } from '../../Tools/ResponsiveTool'
 
 
@@ -10,20 +12,66 @@ export default class SettingsAccounts extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            data: {}
+            email: global.email,
+            name: global.name,
+            birthdate: global.date,
+            token: global.token
         }
+    }
+
+    Reload() {
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: this.state.token,
+            }),
+        }
+        fetch('http://40.85.113.74:3000/auth/getuserinfos', data).then((res) => res.json())
+        .then((resjson) => {
+            if (resjson.success === true) {
+                global.name = resjson.name;
+                global.email = resjson.email
+                global.date = resjson.birthdate.split('T')[0];
+                this.setState({ email: global.email, name: global.name, date: global.date });
+            }
+            else {
+                alert(resjson.error);
+                return;
+            }
+        });
+    }
+
+    formatDate(date) {
+        date = new Date(date);
+        var monthNames = [
+          "January", "February", "March",
+          "April", "May", "June", "July",
+          "August", "September", "October",
+          "November", "December"
+        ];
+      
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+      
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
     render () {
         return (
             <View style={styles.View}>
+                <NavigationEvents onDidFocus={() => this.Reload()}/>
                 <Text style={{color: "white", fontSize: 23}}>
                     Settings Account
                 </Text>
                 <View>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('EmailSettings')}>
                         <Text style={{color: "white", fontSize: 17}}>E-mail address</Text>
-                        <Text style={{color: "#8C8C8C", fontSize: 14 }}>exemple@gmail.com</Text>
+                        <Text style={{color: "#8C8C8C", fontSize: 14 }}>{global.email}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('PasswordSettings')}>
                         <Text style={{color: "white", fontSize: 17}}>Password</Text>
@@ -31,11 +79,11 @@ export default class SettingsAccounts extends React.Component {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('NameSettings')}>
                         <Text style={{color: "white", fontSize: 17}}>Name</Text>
-                        <Text style={{color: "#8C8C8C", fontSize: 14 }}>Eric DUPONT</Text>
+                        <Text style={{color: "#8C8C8C", fontSize: 14 }}>{global.name}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('BirthdaySettings')}>
                         <Text style={{color: "white", fontSize: 17}}>Date of birth</Text>
-                        <Text style={{color: "#8C8C8C", fontSize: 14 }}>12 January 1973</Text>
+                        <Text style={{color: "#8C8C8C", fontSize: 14 }}>{this.formatDate(this.state.date)}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

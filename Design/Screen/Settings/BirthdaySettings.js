@@ -2,6 +2,7 @@ import React from 'react'
 import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import Axios from 'axios'
+import global from '../../Tools/Global';
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../../Tools/ResponsiveTool'
 
@@ -11,16 +12,11 @@ export default class BirthdaySettings extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            date: new Date('2000-01-01'),
+            date: new Date(global.date),
             maxDate: new Date('2004-12-31'),
             minDate: new Date('1900-01-01'),
             show: false
         }
-    }
-
-    confirm()
-    {
-
     }
 
     setNewBirthday = (event, date) => {
@@ -52,6 +48,35 @@ export default class BirthdaySettings extends React.Component {
         this.setState({show: true})
     }
 
+    editInfos() {
+        // edit user infos
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: global.token,
+                name: global.name,
+                password: "",
+                email: global.email,
+                birthdate: this.state.date,
+            }),
+        }
+
+        fetch('http://40.85.113.74:3000/auth/edit', data).then((res) => res.json())
+            .then((resjson) => {
+                if (resjson.success === true) {
+                    this.props.navigation.navigate('SettingsAccount');
+                }
+                else {
+                    alert(resjson.error);
+                    return;
+                }
+            });
+    }
+
     render () {
         const { show, date } = this.state;
         return (
@@ -70,7 +95,7 @@ export default class BirthdaySettings extends React.Component {
                     }
                 </View>
                 <Button
-                    onPress={() => this.confirm()}
+                    onPress={() => this.editInfos()}
                     title="Confirm"
                     buttonStyle={styles.Button}>
                 </Button>
