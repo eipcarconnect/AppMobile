@@ -1,6 +1,7 @@
 import React from 'react'
 import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
+import global from '../../Tools/Global';
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../../Tools/ResponsiveTool'
 
@@ -42,10 +43,7 @@ export default class NameSettings extends React.Component {
             },
             body: JSON.stringify({
                 token: global.token,
-                name: global.name,//this.state.newfirstname + " " + this.state.newlastname,
-                password: "",
-                email: global.email,
-                birthdate: global.date,
+                name: this.state.newfirstname + " " + this.state.newlastname,
             }),
         }
 

@@ -27,7 +27,7 @@ export default class SettingsAccounts extends React.Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                token: this.state.token,
+                token: global.token,
             }),
         }
         fetch('http://40.85.113.74:3000/auth/getuserinfos', data).then((res) => res.json())

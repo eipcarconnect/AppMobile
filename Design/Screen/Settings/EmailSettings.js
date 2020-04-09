@@ -13,7 +13,9 @@ export default class EmailSettings extends React.Component {
         this.state = {
             newemail: ""
         }
+        console.log("actual token:" + global.token);
     }
+
 
     editInfos() {
         // edit user infos
@@ -25,16 +27,17 @@ export default class EmailSettings extends React.Component {
             },
             body: JSON.stringify({
                 token: global.token,
-                name: global.name,
-                password: "",
-                email: this.state.newemail,
-                birthdate: global.date,
+                email: this.state.newemail
             }),
         }
 
         fetch('http://40.85.113.74:3000/auth/edit', data).then((res) => res.json())
             .then((resjson) => {
                 if (resjson.success === true) {
+                    global.token = resjson.token;
+                    //console.log("new token: " + str);
+                    //global.token = str.slice(4, str.length);
+                    console.log("new token: " + global.token);
                     this.props.navigation.navigate('SettingsAccount');
                 }
                 else {

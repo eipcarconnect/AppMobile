@@ -1,6 +1,7 @@
 import React from 'react'
 import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
+import global from '../../Tools/Global';
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../../Tools/ResponsiveTool'
 
@@ -10,20 +11,9 @@ export default class PasswordSettings extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            currentpassword: "",
             newpassword: "",
             confirmnewpassword: ""
         }
-    }
-
-    confirm()
-    {
-
-    }
-
-    setCurrentPassword(text)
-    {
-        this.setState({currentpassword: text})
     }
 
     setNewPassword(text)
@@ -36,18 +26,37 @@ export default class PasswordSettings extends React.Component {
         this.setState({confirmnewpassword: text})
     }
 
+    editInfos() {
+        if (this.state.newpassword !== this.state.confirmnewpassword)
+            return
+        // edit user infos
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: global.token,
+                password: this.state.newpassword,
+            }),
+        }
+
+        fetch('http://40.85.113.74:3000/auth/edit', data).then((res) => res.json())
+            .then((resjson) => {
+                if (resjson.success === true) {
+                    this.props.navigation.navigate('SettingsAccount');
+                }
+                else {
+                    alert(resjson.error);
+                    return;
+                }
+            });
+    }
+
     render () {
         return (
             <View style={styles.View}>
-                <TextInput style={styles.TextInput} 
-                    placeholder="Current Password"
-                    autoCapitalize="none"
-                    textContentType="password"
-                    secureTextEntry={true}
-                    placeholderTextColor= 'white'
-                    value={this.state.currentpassword}
-                    onChangeText={(text) => this.setCurrentPassword(text)}>
-                </TextInput>
                 <TextInput style={styles.TextInput} 
                     placeholder="New Password"
                     autoCapitalize="none"
@@ -67,7 +76,7 @@ export default class PasswordSettings extends React.Component {
                     onChangeText={(text) => this.setConfirmNewPassword(text)}>
                 </TextInput>
                 <Button
-                    onPress={() => this.confirm()}
+                    onPress={() => this.editInfos()}
                     title="Confirm"
                     buttonStyle={styles.Button}>
                 </Button>
