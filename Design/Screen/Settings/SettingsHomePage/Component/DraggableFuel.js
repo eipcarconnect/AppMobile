@@ -14,13 +14,13 @@ export default class DraggableFuel extends React.Component {
             x: this.props.x,
             y: this.props.y,
             role: this.props.role, //"Draggable", "Button" or "Dislay"
-            fuelpoucentage: this.props.value
+            value: this.props.value
         };
     }
 
     render() 
     {
-        console.log(this.state.fuelpoucentage);
+        console.log(this.state.value);
         let ComponentView = 
         <View style={styles.View}>
             {/* <ImageBackground source={require("../../../../assets/fuel.png")} style={{flex: 1}} imageStyle={styles.ImageBackground}> */}
@@ -30,7 +30,7 @@ export default class DraggableFuel extends React.Component {
                     <GaugeProgress style={styles.AnimatedGaugeProgress}
                     size={heightPercentage('11%')}
                     width={7}
-                    fill={this.state.fuelpoucentage}
+                    fill={this.state.value}
                     rotation={90}
                     cropDegree={90}
                     tintColor="#2c84cc"
@@ -39,7 +39,7 @@ export default class DraggableFuel extends React.Component {
                     stroke={[2, 2]}
                     strokeCap="circle">
                         <View style={styles.ViewValue}>
-                            <Text style={styles.Value}>{this.state.fuelpoucentage}%</Text>
+                            <Text style={styles.Value}>{this.state.value}%</Text>
                         </View>
                     </GaugeProgress>
             </View>

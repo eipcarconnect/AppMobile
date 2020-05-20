@@ -13,37 +13,41 @@ export default class DraggableBattery extends React.Component {
         this.state = {
             x: this.props.x,
             y: this.props.y,
-            role: this.props.role //"Draggable", "Button" or "Dislay"
+            role: this.props.role, //"Draggable", "Button" or "Dislay"
+            value: this.props.value
         };
     }
 
-    ComponentView = 
-    <View style={styles.View}>
-        {/* <ImageBackground source={require("../../../../assets/fuel.png")} style={{flex: 1}} imageStyle={styles.ImageBackground}> */}
-        <ImageBackground source={require("../../../../assets/BatteryText.png")} style={{flex: 1}} imageStyle={styles.ImageTitle}>
-            <View  style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: widthPercentage('45%'),
-            height: heightPercentage('12%')}}>
-                <AnimatedGaugeProgress style={styles.AnimatedGaugeProgress}
-                size={heightPercentage('11%')}
-                width={7}
-                fill={62}
-                rotation={90}
-                cropDegree={90}
-                tintColor="#2c84cc"
-                delay={0}
-                backgroundColor="#C2d5ef"
-                stroke={[2, 2]}
-                strokeCap="circle">
-                    <View style={styles.ViewValue}>
-                        <Text style={styles.Value}>62%</Text>
-                    </View>
-                </AnimatedGaugeProgress>
-        </View>
-        </ImageBackground>
-        {/* </ImageBackground> */}
-    </View>
+    
 
     render() {
+
+        let ComponentView = 
+        <View style={styles.View}>
+            {/* <ImageBackground source={require("../../../../assets/fuel.png")} style={{flex: 1}} imageStyle={styles.ImageBackground}> */}
+            <ImageBackground source={require("../../../../assets/BatteryText.png")} style={{flex: 1}} imageStyle={styles.ImageTitle}>
+                <View  style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: widthPercentage('45%'),
+                height: heightPercentage('12%')}}>
+                    <AnimatedGaugeProgress style={styles.AnimatedGaugeProgress}
+                    size={heightPercentage('11%')}
+                    width={7}
+                    fill={this.state.value}
+                    rotation={90}
+                    cropDegree={90}
+                    tintColor="#2c84cc"
+                    delay={0}
+                    backgroundColor="#C2d5ef"
+                    stroke={[2, 2]}
+                    strokeCap="circle">
+                        <View style={styles.ViewValue}>
+                            <Text style={styles.Value}>{this.state.value}%</Text>
+                        </View>
+                    </AnimatedGaugeProgress>
+            </View>
+            </ImageBackground>
+            {/* </ImageBackground> */}
+        </View>
+
         if (this.state.role == "Draggable")
         {
             return (
@@ -56,7 +60,7 @@ export default class DraggableBattery extends React.Component {
                     this.props.OnChange(this.props.id + " " + Math.round(bounds.left) + " " + Math.round(bounds.top));
                 }}
                 >
-                    {this.ComponentView}
+                    {ComponentView}
                     <View  style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'flex-end'}}>
                         <Button
                             onPress={() => this.props.OnDelete(this.props.id)}
@@ -76,14 +80,14 @@ export default class DraggableBattery extends React.Component {
                 y={this.state.y}
                 disabled={true}
                 onPressIn={() => {}}>
-                    {this.ComponentView}
+                    {ComponentView}
                 </Draggable>
             );
         }
         else if (this.state.role == "Button")
         {
             return (
-                this.ComponentView
+                ComponentView
             )
         }
         
