@@ -2,12 +2,9 @@ import React from 'react'
 import { TextInput, Animated, Text, PanResponder,View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button } from 'react-native-elements'
-import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../../../Tools/ResponsiveTool'
-import Draggable from './Component/Draggable'
-import Draggable2 from './Component/Draggable2'
-
-var index = 0
+import DraggableBattery from './Component/DraggableBattery'
+import DraggableFuel from './Component/DraggableFuel'
 
 export default class SettingsHomePage extends React.Component {
 
@@ -18,7 +15,32 @@ export default class SettingsHomePage extends React.Component {
             scrollOffset: 0
         }
         this.UpdateElements = this.updateElement.bind(this);
-        AsyncStorage.clear();
+    }
+
+    componentDidMount() {
+        this.getUser()
+    }
+
+    async getUser() {
+        try
+        {
+            let res = await AsyncStorage.getItem("HomePageConfiguration");
+            if (res !== null)
+            {
+                console.log(res)
+                let i = 0;
+                let saveElement = res.split("\n")
+                while (saveElement[i]) 
+                {
+                    this.state.elements.push(saveElement[i])
+                    this.setState({
+                        elements: this.state.elements
+                    })
+                    i++
+                }
+            }
+        }
+        catch(error) {}
     }
 
     Panel()
@@ -30,39 +52,48 @@ export default class SettingsHomePage extends React.Component {
     }
 
     SaveAndQuit = async () => {
-        try {
-            let i = 0;
-            while (this.state.elements[i])
-            {
-                await AsyncStorage.setItem("Drag" + this.state.elements[i].split(" ")[0], 
-                this.state.elements[i].split(" ")[1] + " " + this.state.elements[i].split(" ")[2]
-                + " " + this.state.elements[i].split(" ")[3]);
-                i++;
+        try
+        {
+            const value = await AsyncStorage.getItem("HomePageConfiguration")
+            if (value !== null) {
+                await AsyncStorage.removeItem('HomePageConfiguration');
             }
-
-            let ress = await AsyncStorage.getAllKeys();
-            i = 0;
-            console.log("Resultat Sauvegarde"); 
-            while (ress[i])
-            {
-                let res = await AsyncStorage.getItem(ress[i]);
-                console.log(ress[i] + " : " + res);
-                i++
-            }
-            this.props.navigation.navigate('Settings')
-        } catch (error) {
         }
+        catch (error) {}
+
+        let HomePageConfiguration = ""
+        let i = 0;
+        while (this.state.elements[i])
+        {
+            HomePageConfiguration += this.state.elements[i].split(" ")[0] + " " +
+            this.state.elements[i].split(" ")[1] + " " + this.state.elements[i].split(" ")[2] + "\n"
+            i++
+        }
+        try 
+        {
+            await AsyncStorage.setItem("HomePageConfiguration", HomePageConfiguration);
+            this.props.navigation.navigate('Settings')
+        } 
+        catch (error) {}
     };
 
-    addElement(id)
+    addElement(name_component)
     {
-        let temp = index ++
-        let str = temp.toString() + " " + id.toString() + " " + 0 + " " + 0;
+        let str = name_component + " " + 0 + " " + 0;
         this.state.elements.push(str)
         this.setState({
             elements: this.state.elements
         })
         this.Panel();
+    }
+
+    addElement2(name_component, posx, posy)
+    {
+        let str = name_component + " " + posx + " " + posy;
+        this.state.elements.push(str)
+        this.setState({
+            elements: this.state.elements
+        })
     }
 
     updateElement(str)
@@ -79,52 +110,89 @@ export default class SettingsHomePage extends React.Component {
             i++;
         }
         this.setState({elements: temp})
+        console.log(this.state.elements)
+
     }
 
-    deleteElement(ind)
+    deleteElement(name_component)
     {
-        console.log("delete " + ind)
-        let temp = this.state.elements;
-        let res = [];
-        let i = 0;
+        let temp = [...this.state.elements];
         while (temp[i])
         {
-            if (temp[i].split(" ")[0] != ind)
+            if (temp[i].split(" ")[0] == name_component)
             {
-                res.push(temp[i]);
+                temp.splice(i, 1);
             }
             i++;
         }
-        this.setState({elements: res})
+        this.state.elements.splice(0, this.state.elements.length);
+        this.setState({elements: this.state.elements})
+        let i = 0;
+        while (temp[i])
+        {
+            if (temp[i].split(" ")[0] != name_component)
+            {
+                this.addElement2(temp[i].split(" ")[0], temp[i].split(" ")[1], temp[i].split(" ")[2])
+                console.log(temp[i]);
+            }
+            i++;
+        }
     }
 
-    render() {
+    checkElement(name_component)
+    {
+        let temp = this.state.elements;
+        let i = 0;
+        while (temp[i])
+        {
+            if (temp[i].split(" ")[0] == name_component)
+            {
+                return (true)
+            }
+            i++;
+        }
+        return (false)
+    }
+
+    render()
+    {
         let Arr = this.state.elements.map((a, i) => {
-            switch (parseInt(this.state.elements[i].split(" ")[1])) {
-                case 1:
-                    return <Draggable index={parseInt(this.state.elements[i].split(" ")[0])} id={parseInt(this.state.elements[i].split(" ")[1])}
-                    realx={parseInt(this.state.elements[i].split(" ")[2])} realy={parseInt(this.state.elements[i].split(" ")[3])} 
-                    OnChange={(str) => {this.updateElement(str)}} OnDelete={(ind) => {this.deleteElement(ind)}}></Draggable>                  
-               case 2:
-                    return <Draggable2 index={parseInt(this.state.elements[i].split(" ")[0])} id={parseInt(this.state.elements[i].split(" ")[1])}
-                    realx={parseInt(this.state.elements[i].split(" ")[2])} realy={parseInt(this.state.elements[i].split(" ")[3])} 
-                    OnChange={(str) => {this.updateElement(str)}} OnDelete={(ind) => {this.deleteElement(ind)}}></Draggable2>
+            switch (this.state.elements[i].split(" ")[0]) {
+                case "Battery":
+                    return <DraggableBattery role="Draggable" id={this.state.elements[i].split(" ")[0]} value="43" 
+                    x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2])} 
+                    OnChange={(str) => {this.updateElement(str)}} OnDelete={(id) => {this.deleteElement(id)}}></DraggableBattery>                  
+               case "Fuel":
+                    return <DraggableFuel role="Draggable"id={this.state.elements[i].split(" ")[0]} value="62"
+                    x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2])} 
+                    OnChange={(str) => {this.updateElement(str)}} OnDelete={(ind) => {this.deleteElement(ind)}}></DraggableFuel>
                 default:
                     break;
             }
         })
 
+        let Button1 = null
+        if (this.checkElement("Battery") == false)
+            Button1 = 
+                <TouchableOpacity style={{marginTop: heightPercentage('1%')}} onPress={() => {this.addElement("Battery")}}>
+                    <DraggableBattery role="Button" x={0} y={0} value="43"></DraggableBattery>
+                </TouchableOpacity>
+
+        let Button2 = null;
+        if (this.checkElement("Fuel") == false)
+        {
+            Button2 = 
+                <TouchableOpacity style={{marginTop: heightPercentage('1%')}} onPress={() => {this.addElement("Fuel")}}>
+                    <DraggableFuel role="Button" x={0} y={0} value="62"></DraggableFuel>
+                </TouchableOpacity>
+        }
+
         return (
             <View style={styles.View}>
                 <ScrollView
-                    onScroll={event => {
-                        this.state.scrollOffset = event.nativeEvent.contentOffset.y
-                      }}
-                    ref={ref => {
-                        this.scrollview = ref;
-                    }}
+                    onScroll={event => {this.state.scrollOffset = event.nativeEvent.contentOffset.y}}
+                    ref={ref => {this.scrollview = ref;}}
                     scrollEnabled={false}>
-
                     <View style={{height: heightPercentage('94%'), backgroundColor:"#353535", borderBottomColor:"#2c84cc", borderBottomWidth:1}}>
                         <View style={{height: heightPercentage('91%')}}>
                             {Arr}
@@ -139,16 +207,8 @@ export default class SettingsHomePage extends React.Component {
                     </View>
                     <View style={{flexDirection: "row", height: heightPercentage('84%')}}>
                         <ScrollView contentContainerStyle={{alignItems: "center"}}>
-                            <Button
-                                onPress={() => {this.addElement(1);}}
-                                title="Add Draggable Blue"
-                                buttonStyle={styles.Button1}>
-                            </Button>
-                            <Button
-                                onPress={() => {this.addElement(2);}}
-                                title="Add Draggable Gray"
-                                buttonStyle={styles.Button2}>
-                            </Button>
+                            {Button1}
+                            {Button2}
                         </ScrollView>
                     </View>
                     <View style={{flexDirection: "row", height: heightPercentage('7%')}}>
@@ -186,8 +246,6 @@ const styles = StyleSheet.create({
     ButtonPanel: {
         height: heightPercentage('3%'),
         width: widthPercentage('25%'),
-        //marginLeft: widthPercentage('1%'),
-        //marginVertical: widthPercentage('1%'),
         backgroundColor:"#2c84cc"
     },
     Button: {
