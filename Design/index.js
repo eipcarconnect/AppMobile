@@ -9,3 +9,4 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 
 AppRegistry.registerComponent(appName, () => App);
 AppRegistry.registerComponent(appName, () => gestureHandlerRootHOC(App));
+// AppRegistry.registerComponent(appName, () => App);
