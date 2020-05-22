@@ -7,6 +7,8 @@ import HomeScreen from './Home'
 import FuelScreen from './Fuel'
 import SettingsScreen from './Settings'
 
+import MapScreen from './Map'
+
 import SettingsAccountScreen from './Settings/SettingsAccount'
 import SettingsHomePageScreen from './Settings/SettingsHomePage/SettingsHomePage'
 
@@ -115,6 +117,7 @@ const AppStack = createDrawerNavigator(
     Home: HomeScreen,
     Fuel: FuelScreen,
     Settings: SettingsStack,
+    Map: MapScreen,
   }, 
   {
     transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,
@@ -144,7 +147,7 @@ const AppStack = createDrawerNavigator(
 
 const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
-  SignUp: SignUpScreen
+  SignUp: SignUpScreen,
 });
 
 export default createAppContainer(createSwitchNavigator(
