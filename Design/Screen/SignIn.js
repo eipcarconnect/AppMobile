@@ -2,8 +2,22 @@ import React from 'react'
 import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-elements'
 import global from "../Tools/Global"
+import messaging, { firebase } from '@react-native-firebase/messaging';
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
+
+const androidConfig = {
+  clientId: '272259501698-uehfn1fah6m8lmln8c3mtrdqev95gq8m.apps.googleusercontent.com',
+  appId: '1:272259501698:android:765aba57f14a38ac346e9b',
+  apiKey: 'AIzaSyC3-FdB64y8QG8A7BupPE72v36TH57nJ48',
+  databaseURL: '',
+  storageBucket: 'carconnect-e09c5.appspot.com',
+  messagingSenderId: '',
+  projectId: 'carconnect-e09c5',
+
+  // enable persistence by adding the below flag
+  persistence: true,
+};
 
 export default class SignIn extends React.Component {
 
@@ -30,6 +44,9 @@ export default class SignIn extends React.Component {
     }
 
     toggleSignIn() {
+      if (firebase.apps.length === 0) {
+        firebase.initializeApp(androidConfig);
+      }
         if (this.state.email.length < 1) {
           alert('Please enter an email address.');
           return(84);
@@ -115,6 +132,7 @@ export default class SignIn extends React.Component {
               global.lat = resjson.latitude;
               global.long = resjson.longitude;
               this.setState({ email: '', password: '' });
+              // this.sendNotifToken();
               this.props.navigation.navigate('Home');
             }
             else {
@@ -123,6 +141,36 @@ export default class SignIn extends React.Component {
             }
           });
       }
+
+      sendNotifToken() {
+        global.registToken = messaging().getToken()
+        console.log(global.token);
+              console.log("pop");
+              var data = {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  token: global.token,
+                  registrationToken: global.registToken,
+                }),
+              }
+        console.log("pip");
+              fetch('http://40.85.113.74:3000/data/addregistrationtoken', data).then((res) => res.json())
+                .then((resjson) => {
+                  console.log(resjson.text);
+                  // if (resjson.success === true) {
+                  //   this.setState({ email: '', password: '' });
+                    // this.props.navigation.navigate('Home');
+                  // }
+                  // else {
+                  //   alert(resjson.error);
+                  //   return;
+                  // }
+                });
+    }
 
     // handleSubmit() {
     //     let data = JSON.stringify({

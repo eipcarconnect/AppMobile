@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "272259501698",
+    "firebase_url": "https://carconnect-e09c5.firebaseio.com",
+    "project_id": "carconnect-e09c5",
+    "storage_bucket": "carconnect-e09c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272259501698:android:765aba57f14a38ac346e9b",
+        "android_client_info": {
+          "package_name": "com.appdesign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272259501698-anhrqfjdo32uqnhjq901tp7980t7jh33.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appdesign",
+            "certificate_hash": "cac3aa528e729436579282e6f14f8f00bfe95655"
+          }
+        },
+        {
+          "client_id": "272259501698-uehfn1fah6m8lmln8c3mtrdqev95gq8m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3-FdB64y8QG8A7BupPE72v36TH57nJ48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272259501698-uehfn1fah6m8lmln8c3mtrdqev95gq8m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
