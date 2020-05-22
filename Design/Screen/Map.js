@@ -15,6 +15,15 @@ export default class Map extends React.Component {
         this.state = {
             email: '',
             password: '',
+            seconds: 0,
+            lat: global.lat,
+            long: global.long,
+            region: {
+            latitude: global.lat,
+            longitude: global.long,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+            },
         }
     }
 
@@ -59,16 +68,12 @@ export default class Map extends React.Component {
             }}>
                 <MapView
                     style={{ ...StyleSheet.absoluteFillObject }}
-                    initialRegion={{
-                        latitude: global.lat,
-                        longitude: global.long,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                    }}
+                        region={this.state.region}
+                        onRegionChange={this.onRegionChange}
                         showsUserLocation={true}
                 >
-                    <Marker coordinate={{ latitude: global.lat, longitude: global.long }}
-                            pinColor={"#2c84cc"} // any color
+                    <Marker coordinate={{ latitude: this.state.lat, longitude: this.state.long }}
+                        pinColor={"#2c84cc"} // any color
                         title={"You"}
                         description={"Your car position"} />
                     </MapView>
@@ -76,7 +81,42 @@ export default class Map extends React.Component {
             </View>
         )
     }
+
+    // onRegionChange(region) {
+    //     this.setState({ region });
+    // }
+
+    getInitialState() {
+        return {
+            region: {
+                latitude: global.lat,
+                longitude: global.long,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+            },
+        };
+    }
+
+    tick() {
+        this.getCarInfos();
+        this.setState(prevState => ({
+            seconds: prevState.seconds + 1, region: {
+                latitude: prevState.lat + 1,
+                longitude: global.long,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,}, lat: prevState.lat + 1, long: global.long
+        }));
+    }
+    
+    componentDidMount() {
+        this.interval = setInterval(() => this.tick(), 5000);
+    }
+    
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
 }
+
 
 const styles = StyleSheet.create({
     View: {
