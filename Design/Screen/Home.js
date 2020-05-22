@@ -144,6 +144,11 @@ export default class Home extends React.Component {
                         </View>
                     </View> */}
                 {/* </ScrollView> */}
+                <Button
+                    onPress={() => this.toggleSignIn()/*this.handleSubmit()*//*this.props.navigation.navigate('Home')*/}
+                    title="Map"
+                    buttonStyle={styles.Button}>
+                </Button>
             </View>
         )
     }
