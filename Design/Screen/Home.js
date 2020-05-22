@@ -5,12 +5,15 @@ import { Icon } from 'react-native-elements'
 import {NavigationEvents} from 'react-navigation';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 
+import { Button } from 'react-native-elements'
+
 import global from '../Tools/Global';
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 import DraggableBattery from './Settings/SettingsHomePage/Component/DraggableBattery'
 import DraggableFuel from './Settings/SettingsHomePage/Component/DraggableFuel'
 import DraggableInformation from './Settings/SettingsHomePage/Component/DraggableInformation'
+import DraggableMap from './Settings/SettingsHomePage/Component/DraggableMap'
 
 
 export default class Home extends React.Component {
@@ -98,6 +101,9 @@ export default class Home extends React.Component {
                 case "Information":
                     return <DraggableInformation role="Display" x={parseInt(this.state.elements[i].split(" ")[1])}
                     y={parseInt(this.state.elements[i].split(" ")[2])}> </DraggableInformation>
+                case "Map":
+                    return <DraggableMap role="Display" x={parseInt(this.state.elements[i].split(" ")[1])}
+                        y={parseInt(this.state.elements[i].split(" ")[2])} onClick={() => { this.props.navigation.navigate('Map') }}> </DraggableMap>
                 default:
                     break;
             }
@@ -141,11 +147,6 @@ export default class Home extends React.Component {
                         </View>
                     </View> */}
                 {/* </ScrollView> */}
-                <Button
-                    onPress={() => this.toggleSignIn()/*this.handleSubmit()*//*this.props.navigation.navigate('Home')*/}
-                    title="Map"
-                    buttonStyle={styles.Button}>
-                </Button>
             </View>
         )
     }

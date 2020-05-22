@@ -7,6 +7,7 @@ import DraggableBattery from './Component/DraggableBattery'
 import DraggableFuel from './Component/DraggableFuel'
 import DraggableInformation from './Component/DraggableInformation'
 
+import DraggableMap from './Component/DraggableMap'
 
 export default class SettingsHomePage extends React.Component {
 
@@ -172,6 +173,10 @@ export default class SettingsHomePage extends React.Component {
                     return <DraggableInformation role="Draggable"id={this.state.elements[i].split(" ")[0]}
                     x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2])} 
                     OnChange={(str) => {this.updateElement(str)}} OnDelete={(ind) => {this.deleteElement(ind)}}></DraggableInformation>
+                case "Map":
+                    return <DraggableMap role="Draggable" id={this.state.elements[i].split(" ")[0]}
+                        x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2])}
+                        OnChange={(str) => { this.updateElement(str) }} OnDelete={(ind) => { this.deleteElement(ind) }}></DraggableMap>
                 default:
                     break;
             }
@@ -192,11 +197,18 @@ export default class SettingsHomePage extends React.Component {
                     <DraggableFuel role="Button" x={0} y={0} value="62"></DraggableFuel>
                 </TouchableOpacity>
         }
-
         let Button3 = null;
+        if (this.checkElement("Map") == false) {
+            Button2 =
+                <TouchableOpacity style={{ marginTop: heightPercentage('1%') }} onPress={() => { this.addElement("Map") }}>
+                    <DraggableMap role="Button" x={0} y={0}></DraggableMap>
+                </TouchableOpacity>
+        }
+
+        let Button4 = null;
         if (this.checkElement("Information") == false)
         {
-            Button3 = 
+            Button4 = 
                 <TouchableOpacity style={{marginTop: heightPercentage('1%')}} onPress={() => {this.addElement("Information")}}>
                     <DraggableInformation role="Button" x={0} y={0}></DraggableInformation>
                 </TouchableOpacity>
@@ -225,6 +237,7 @@ export default class SettingsHomePage extends React.Component {
                             {Button1}
                             {Button2}
                             {Button3}
+                            {Button4}
                         </ScrollView>
                     </View>
                     <View style={{flexDirection: "row", height: heightPercentage('7%')}}>

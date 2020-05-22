@@ -7,6 +7,8 @@ import SignUpScreen from './SignUp'
 import HomeScreen from './Home'
 import SettingsScreen from './Settings'
 
+import MapScreen from './Map'
+
 import SettingsAccountScreen from './Settings/SettingsAccount'
 import SettingsHomePageScreen from './Settings/SettingsHomePage/SettingsHomePage'
 
@@ -135,6 +137,7 @@ const AppStack = createDrawerNavigator(
   {
     Home: HomeScreen,
     Settings: SettingsStack,
+    Map: MapScreen,
   }, 
   {
       hideStatusBar: false,
@@ -158,7 +161,7 @@ const AppStack = createDrawerNavigator(
 
 const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
-  SignUp: SignUpScreen
+  SignUp: SignUpScreen,
 });
 
 export default createAppContainer(createSwitchNavigator(
