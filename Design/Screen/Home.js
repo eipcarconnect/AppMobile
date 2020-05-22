@@ -4,10 +4,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from 'react-native-elements'
 import {NavigationEvents} from 'react-navigation';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
-
-// import { Button } from 'react-native-elements'
-
-// import global from '../Tools/Global';
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 import DraggableBattery from './Settings/SettingsHomePage/Component/DraggableBattery'
@@ -144,11 +140,6 @@ export default class Home extends React.Component {
                         </View>
                     </View> */}
                 {/* </ScrollView> */}
-                <Button
-                    onPress={() => this.toggleSignIn()/*this.handleSubmit()*//*this.props.navigation.navigate('Home')*/}
-                    title="Map"
-                    buttonStyle={styles.Button}>
-                </Button>
             </View>
         )
     }
