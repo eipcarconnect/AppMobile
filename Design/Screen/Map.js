@@ -4,7 +4,9 @@ import { Button } from 'react-native-elements'
 import global from "../Tools/Global"
 import messaging, { firebase } from '@react-native-firebase/messaging';
 import Axios from 'axios'
+import MapView, {Marker} from 'react-native-maps'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
+
 
 export default class Map extends React.Component {
 
@@ -35,8 +37,8 @@ export default class Map extends React.Component {
                     global.lat = resjson.latitude;
                     global.long = resjson.longitude;
                     this.setState({ email: '', password: '' });
-                    // this.sendNotifToken();
-                    this.props.navigation.navigate('Home');
+                    console.log(global.lat);
+                    console.log(global.long);
                 }
                 else {
                     alert(resjson.error);
@@ -47,8 +49,30 @@ export default class Map extends React.Component {
 
     render() {
         return (
-            <View style={styles.View}>
-                
+            <View>
+            <View style={{
+                ...StyleSheet.absoluteFillObject,
+                height: heightPercentage('100%'),
+                width: widthPercentage('100%'),
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+            }}>
+                <MapView
+                    style={{ ...StyleSheet.absoluteFillObject }}
+                    initialRegion={{
+                        latitude: global.lat,
+                        longitude: global.long,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                        showsUserLocation={true}
+                >
+                    <Marker coordinate={{ latitude: global.lat, longitude: global.long }}
+                            pinColor={"#2c84cc"} // any color
+                        title={"You"}
+                        description={"Your car position"} />
+                    </MapView>
+            </View>
             </View>
         )
     }
