@@ -7,6 +7,8 @@ import SignUpScreen from './SignUp'
 import AppletScreen from './Home'
 import SettingsScreen from './Settings'
 
+import MapScreen from './Map'
+
 import SettingsAccountScreen from './Settings/SettingsAccount'
 import SettingsHomePageScreen from './Settings/SettingsHomePage/SettingsHomePage'
 
@@ -153,6 +155,10 @@ const AppStack = createBottomTabNavigator(
           return (<Image source={image} style={{width:22, height:22}}/>)
         }
       }
+    },
+    Map:
+    {
+      screen: MapScreen
     }
   }, 
   {
@@ -170,7 +176,7 @@ const AppStack = createBottomTabNavigator(
 
 const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
-  SignUp: SignUpScreen
+  SignUp: SignUpScreen,
 });
 
 export default createAppContainer(createSwitchNavigator(

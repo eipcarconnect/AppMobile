@@ -5,6 +5,7 @@ import { Button } from 'react-native-elements'
 import { heightPercentage, widthPercentage } from '../../../Tools/ResponsiveTool'
 import DraggableBattery from './Component/DraggableBattery'
 import DraggableFuel from './Component/DraggableFuel'
+import DraggableMap from './Component/DraggableMap'
 
 export default class SettingsHomePage extends React.Component {
 
@@ -166,6 +167,10 @@ export default class SettingsHomePage extends React.Component {
                     return <DraggableFuel role="Draggable"id={this.state.elements[i].split(" ")[0]} value="62"
                     x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2])} 
                     OnChange={(str) => {this.updateElement(str)}} OnDelete={(ind) => {this.deleteElement(ind)}}></DraggableFuel>
+                case "Map":
+                    return <DraggableMap role="Draggable" id={this.state.elements[i].split(" ")[0]}
+                        x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2])}
+                        OnChange={(str) => { this.updateElement(str) }} OnDelete={(ind) => { this.deleteElement(ind) }}></DraggableMap>
                 default:
                     break;
             }
@@ -184,6 +189,13 @@ export default class SettingsHomePage extends React.Component {
             Button2 = 
                 <TouchableOpacity style={{marginTop: heightPercentage('1%')}} onPress={() => {this.addElement("Fuel")}}>
                     <DraggableFuel role="Button" x={0} y={0} value="62"></DraggableFuel>
+                </TouchableOpacity>
+        }
+        let Button3 = null;
+        if (this.checkElement("Map") == false) {
+            Button2 =
+                <TouchableOpacity style={{ marginTop: heightPercentage('1%') }} onPress={() => { this.addElement("Map") }}>
+                    <DraggableMap role="Button" x={0} y={0}></DraggableMap>
                 </TouchableOpacity>
         }
 
@@ -209,6 +221,7 @@ export default class SettingsHomePage extends React.Component {
                         <ScrollView contentContainerStyle={{alignItems: "center"}}>
                             {Button1}
                             {Button2}
+                            {Button3}
                         </ScrollView>
                     </View>
                     <View style={{flexDirection: "row", height: heightPercentage('7%')}}>

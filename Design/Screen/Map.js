@@ -6,7 +6,7 @@ import messaging, { firebase } from '@react-native-firebase/messaging';
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
-export default class SignIn extends React.Component {
+export default class Map extends React.Component {
 
     constructor(props) {
         super(props)
