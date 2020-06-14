@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import { AnimatedGaugeProgress, GaugeProgress } from 'react-native-simple-gauge';
 import Draggable from 'react-native-draggable';
@@ -21,7 +21,10 @@ export default class DraggableMap extends React.Component {
         console.log(this.state.value);
         let ComponentView =
             <View style={styles.View}>
-                <Text>MAP</Text>
+                <ImageBackground source={require("../../../../assets/Google_Maps_icon.png")} style={styles.logo} imageStyle={styles.ImageTitle}>
+                  
+                        
+                </ImageBackground>
             </View>
 
         if (this.state.role == "Draggable") {
@@ -49,7 +52,7 @@ export default class DraggableMap extends React.Component {
         else if (this.state.role == "Display") {
             return (
                 <Draggable
-                    renderSize={50}
+                    renderSize={20}
                     x={this.state.x}
                     y={this.state.y}
                     disabled={true}
@@ -76,8 +79,9 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 0,
         backgroundColor: "#353535",
-        width: widthPercentage('45%'),
-        height: heightPercentage('12%')
+        width: widthPercentage('20%'),
+        height: heightPercentage('12%'),
+        alignContent: "center"
     },
 
     AnimatedGaugeProgress: {
@@ -100,7 +104,8 @@ const styles = StyleSheet.create({
         resizeMode: "center",
         height: heightPercentage('9%'),
         marginTop: heightPercentage('1.3%'),
-        marginRight: widthPercentage('34%')
+        marginRight: widthPercentage('34%'),
+        marginLeft: widthPercentage('3.5%'),
     },
 
     ViewValue: {
@@ -128,4 +133,10 @@ const styles = StyleSheet.create({
         borderRadius: 0,
         backgroundColor: "red"
     },
+
+    logo: {
+        height: 40,
+        width: 40,
+        alignContent: "center",
+    }
 });
