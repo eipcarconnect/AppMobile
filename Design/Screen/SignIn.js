@@ -132,8 +132,7 @@ export default class SignIn extends React.Component {
               global.lat = resjson.latitude;
               global.long = resjson.longitude;
               this.setState({ email: '', password: '' });
-              // this.sendNotifToken();
-              this.props.navigation.navigate('Home');
+              this.sendNotifToken();
             }
             else {
               alert(resjson.error);
@@ -143,33 +142,33 @@ export default class SignIn extends React.Component {
       }
 
       sendNotifToken() {
-        global.registToken = messaging().getToken()
-        console.log(global.token);
-              console.log("pop");
-              var data = {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  token: global.token,
-                  registrationToken: global.registToken,
-                }),
+        messaging().getToken().then((currentToken) => {
+          var data = {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              token: global.token,
+              registrationToken: currentToken,
+            }),
+          }
+          fetch('http://40.85.113.74:3000/auth/addregistrationtoken', data).then((res) => res.json())
+            .then((resjson) => {
+              ;
+              if (resjson.success === true) {
+                alert(resjson.msg);
+                this.setState({ email: '', password: '' });
+                this.props.navigation.navigate('Home');
               }
-        console.log("pip");
-              fetch('http://40.85.113.74:3000/data/addregistrationtoken', data).then((res) => res.json())
-                .then((resjson) => {
-                  console.log(resjson.text);
-                  // if (resjson.success === true) {
-                  //   this.setState({ email: '', password: '' });
-                    // this.props.navigation.navigate('Home');
-                  // }
-                  // else {
-                  //   alert(resjson.error);
-                  //   return;
-                  // }
-                });
+              else {
+                alert(resjson.error);
+                return;
+              }
+            });
+        });
+              
     }
 
     // handleSubmit() {
