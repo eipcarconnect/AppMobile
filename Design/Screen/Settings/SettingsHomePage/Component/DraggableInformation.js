@@ -1,12 +1,12 @@
 import React from 'react'
-import { Text, View, StyleSheet, ImageBackground} from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native'
 import { Button } from 'react-native-elements'
 import { AnimatedGaugeProgress, GaugeProgress } from 'react-native-simple-gauge';
 import Draggable from 'react-native-draggable';
 import { heightPercentage, widthPercentage } from '../../../../Tools/ResponsiveTool'
 
 
-export default class DraggableBattery extends React.Component {
+export default class DraggableInformation extends React.Component {
     
     constructor(props) {
         super(props);
@@ -14,37 +14,27 @@ export default class DraggableBattery extends React.Component {
             x: this.props.x,
             y: this.props.y,
             role: this.props.role, //"Draggable", "Button" or "Dislay"
-            value: this.props.value
+            carBrand: "Volkswagen",
+            carModel: "Golf 7",
+            fuel: "50",
+            battery: "50"
         };
     }
 
-    
-
-    render() {
-
+    render() 
+    {
         let ComponentView = 
         <View style={styles.View}>
+
             {/* <ImageBackground source={require("../../../../assets/fuel.png")} style={{flex: 1}} imageStyle={styles.ImageBackground}> */}
-            <ImageBackground source={require("../../../../assets/BatteryText.png")} style={{flex: 1}} imageStyle={styles.ImageTitle}>
-                <View  style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: widthPercentage('45%'),
-                height: heightPercentage('12%')}}>
-                    <GaugeProgress style={styles.AnimatedGaugeProgress}
-                    size={heightPercentage('11%')}
-                    width={7}
-                    fill={this.state.value}
-                    rotation={90}
-                    cropDegree={90}
-                    tintColor="#2c84cc"
-                    delay={0}
-                    backgroundColor="#C2d5ef"
-                    stroke={[2, 2]}
-                    strokeCap="circle">
-                        <View style={styles.ViewValue}>
-                            <Text style={styles.Value}>{this.state.value}%</Text>
-                        </View>
-                    </GaugeProgress>
-            </View>
-            </ImageBackground>
+            {/* <ImageBackground source={require("../../../../assets/FuelText.png")} style={{flex: 1}} imageStyle={styles.ImageTitle}> */}
+                    <Text style={styles.Brand}>{this.state.carBrand}</Text>  
+                    <Text style={styles.Model}>{this.state.carModel}</Text>
+                    <View style={{flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
+                        <Image style={styles.Image} source={require("../../../../assets/key.png")}></Image>
+                        <Image style={styles.Image} source={require("../../../../assets/parking.png")}></Image>
+                    </View>
+            {/* </ImageBackground> */}
             {/* </ImageBackground> */}
         </View>
 
@@ -80,7 +70,9 @@ export default class DraggableBattery extends React.Component {
                 y={this.state.y}
                 disabled={true}
                 onPressIn={() => {}}>
-                    {ComponentView}
+                    <TouchableOpacity onPress={()=>{console.log("quoi")}}>
+                        {ComponentView}
+                    </TouchableOpacity>
                 </Draggable>
             );
         }
@@ -101,13 +93,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 0,
         backgroundColor:"#353535",
-        width: widthPercentage('45%'),
-        height: heightPercentage('12%')
-    },
-
-    AnimatedGaugeProgress: {
-        marginTop: heightPercentage('1%'),
-        marginLeft: widthPercentage('15%')
+        width: widthPercentage('95%'),
+        height: heightPercentage('14%')
     },
 
     ImageBackground: {
@@ -120,30 +107,30 @@ const styles = StyleSheet.create({
         marginLeft: widthPercentage('18%')
     },
 
-    ImageTitle: {
-        //opacity: 0.3,
+    Image: {
+        opacity: 1,
+        tintColor: "#2c84cc",
         resizeMode: "center",
-        height: heightPercentage('9%'),
-        marginTop: heightPercentage('1.3%'),
-        marginRight: widthPercentage('34%')
+        height: heightPercentage('4%'),
+        width: widthPercentage('8%'),
+        marginTop: heightPercentage('1%'),
+        marginHorizontal: widthPercentage('15%')
     },
 
-    ViewValue: {
-        position: 'absolute',
-        top: heightPercentage('2%'),
-        left: widthPercentage('5%'),
-        width: widthPercentage('15%'),
-        height: heightPercentage('7%'),
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    Value: {
+    Brand: {
         //opacity: 0.9,
-        fontWeight: "bold",
+        //fontWeight: "bold",
         color: "#FFFFFF",
-        //textAlign:"center",
-        fontSize: 18,
+        textAlign:"center",
+        fontSize: 25,
+    },
+
+    Model: {
+        //opacity: 0.9,
+        //fontWeight: "bold",
+        color: "#FFFFFF",
+        textAlign:"center",
+        fontSize: 20,
     },
 
     Button: {

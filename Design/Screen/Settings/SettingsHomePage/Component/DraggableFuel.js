@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, ImageBackground} from 'react-native'
+import { Text, View, StyleSheet, ImageBackground, TouchableOpacity} from 'react-native'
 import { Button } from 'react-native-elements'
 import { AnimatedGaugeProgress, GaugeProgress } from 'react-native-simple-gauge';
 import Draggable from 'react-native-draggable';
@@ -77,8 +77,7 @@ export default class DraggableFuel extends React.Component {
                 renderSize={50} 
                 x={this.state.x}
                 y={this.state.y}
-                disabled={true}
-                onPressIn={() => {}}>
+                disabled={true}>
                     {ComponentView}
                 </Draggable>
             );

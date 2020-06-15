@@ -8,6 +8,7 @@ import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 import DraggableBattery from './Settings/SettingsHomePage/Component/DraggableBattery'
 import DraggableFuel from './Settings/SettingsHomePage/Component/DraggableFuel'
+import DraggableInformation from './Settings/SettingsHomePage/Component/DraggableInformation'
 
 export default class Home extends React.Component {
 
@@ -16,9 +17,10 @@ export default class Home extends React.Component {
         this.state = {
             data: {},
             elements: [],
-            fuel: 50,
+            fuel: 0,
             battery: 50
         }
+        this.Refresh();
     }
 
     componentDidMount() {
@@ -33,8 +35,9 @@ export default class Home extends React.Component {
             let res = await AsyncStorage.getItem("HomePageConfiguration");
             if (res == null)
             {
-                res = "Battery " + widthPercentage("2.5%") + " " + heightPercentage("1%") + "\n" +
-                                            "Fuel " + widthPercentage("52.5%") + " " + heightPercentage("1%")
+                res = "Information " + widthPercentage("2.5%") + " " + heightPercentage("1%") + "\n" +
+                        "Battery " + widthPercentage("2.5%") + " " + heightPercentage("16%") + "\n" +
+                        "Fuel " + widthPercentage("52.5%") + " " + heightPercentage("16%")
                 await AsyncStorage.setItem("HomePageConfiguration", res);
             }
             this.setState({
@@ -87,9 +90,12 @@ export default class Home extends React.Component {
                 case "Battery":
                     return <DraggableBattery role="Display" x={parseInt(this.state.elements[i].split(" ")[1])}
                     y={parseInt(this.state.elements[i].split(" ")[2])} value={this.state.battery}></DraggableBattery>                  
-               case "Fuel":
+                case "Fuel":
                     return <DraggableFuel role="Display" x={parseInt(this.state.elements[i].split(" ")[1])}
                     y={parseInt(this.state.elements[i].split(" ")[2])} value={this.state.fuel}> </DraggableFuel>
+                case "Information":
+                    return <DraggableInformation role="Display" x={parseInt(this.state.elements[i].split(" ")[1])}
+                    y={parseInt(this.state.elements[i].split(" ")[2])}> </DraggableInformation>
                 default:
                     break;
             }
