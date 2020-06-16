@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements'
 import {NavigationEvents} from 'react-navigation';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 
-import { Button } from 'react-native-elements'
+// import { Button } from 'react-native-elements'
 
 import global from '../Tools/Global';
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
