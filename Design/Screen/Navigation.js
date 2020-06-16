@@ -121,7 +121,6 @@ const AppStack = createDrawerNavigator(
     Home: HomeScreen,
     Fuel: FuelScreen,
     Settings: SettingsStack,
-    Map: MapScreen,
   }, 
   {
     transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,
