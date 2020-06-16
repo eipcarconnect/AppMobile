@@ -16,9 +16,14 @@ export default class Settings extends React.Component {
     render () {
         return (
             <View style={styles.View}>
-                <Text style={{color: "white", fontSize: 23}}>
+                <View style={{height: heightPercentage('7%'), width: widthPercentage('100%'), backgroundColor:"#1E1E1E", borderBottomWidth: 1, borderBottomColor: "white"}}>
+                    <TouchableOpacity style={{height: heightPercentage('5%'), marginVertical: heightPercentage('1.5%'), marginLeft: widthPercentage('3%') }}activeOpacity={0.7} onPress={() => this.props.navigation.openDrawer()}>
+                        <Image source={require("../assets/Menu2.png")} style={{height: heightPercentage('4%'), width: heightPercentage('4%'), resizeMode: "cover"}} ></Image>
+                    </TouchableOpacity>
+                </View>
+                {/* <Text style={{color: "white", fontSize: 23}}>
                     Settings
-                </Text>
+                </Text> */}
                 <View>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('SettingsAccount')}>
                         <Text style={{color: "white", fontSize: 17}}>Settings account</Text>
@@ -37,8 +42,8 @@ export default class Settings extends React.Component {
 const styles = StyleSheet.create({
     View: {
         flex:1, 
-        paddingTop: 20, 
-        backgroundColor: "#353535", 
+        //paddingTop: 20, 
+        backgroundColor: "#1E1E1E", 
         alignItems:"center"
     },
     Logo: {

@@ -1,0 +1,50 @@
+
+const AppStack = createDrawerNavigator(
+  {
+    Home: 
+    {
+      screen: AppletScreen,
+      navigationOptions: 
+      {
+        title: "Home",
+        // tabBarIcon: ({ focused }) => {
+        //   const image = focused 
+        //   ? require('../assets/home-white.png') 
+        //   : require('../assets/home-grey.png')
+        //   return (<Image source={image} style={{width:22, height:22}}/>)
+        // }
+      }
+    },
+    Settings: 
+    {
+      screen: SettingsStack,
+      navigationOptions: 
+      {
+        // tabBarIcon: ({ focused }) => {
+        //   const image = focused 
+        //   ? require('../assets/settings-white.png') 
+        //   : require('../assets/settings-grey.png')
+        //   return (<Image source={image} style={{width:22, height:22}}/>)
+        // }
+      }
+    }
+  }, 
+  {
+      hideStatusBar: true,
+      drawerBackgroundColor: 'rgba(255,255,255,.9)',
+      overlayColor: '#6b52ae',
+      contentOptions: {
+        activeTintColor: '#fff',
+        activeBackgroundColor: '#6b52ae',
+      },
+    // tabBarOptions: 
+    // {
+    //   showLabel: false,
+    //   showIcon: true,
+    //   style: {
+    //     backgroundColor: '#101010',
+    //     borderTopWidth: 0
+    //   }
+    // }
+  }
+);

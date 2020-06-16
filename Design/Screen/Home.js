@@ -1,7 +1,9 @@
 import React from 'react'
-import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
+import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity, Button, AppRegistry } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
+import { Icon } from 'react-native-elements'
 import {NavigationEvents} from 'react-navigation';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 
 import global from '../Tools/Global';
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
@@ -9,6 +11,7 @@ import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import DraggableBattery from './Settings/SettingsHomePage/Component/DraggableBattery'
 import DraggableFuel from './Settings/SettingsHomePage/Component/DraggableFuel'
 import DraggableInformation from './Settings/SettingsHomePage/Component/DraggableInformation'
+
 
 export default class Home extends React.Component {
 
@@ -20,7 +23,6 @@ export default class Home extends React.Component {
             fuel: 0,
             battery: 50
         }
-        this.Refresh();
     }
 
     componentDidMount() {
@@ -104,10 +106,15 @@ export default class Home extends React.Component {
         return (
             <View style={styles.View}>
             <NavigationEvents onDidFocus={() => this.componentDidMount()}/>
+                <View style={{height: heightPercentage('7%'), width: widthPercentage('100%'), backgroundColor:"#1E1E1E", borderBottomWidth: 1, borderBottomColor: "white"}}>
+                    <TouchableOpacity style={{height: heightPercentage('5%'), marginVertical: heightPercentage('1.5%'), marginLeft: widthPercentage('3%') }}activeOpacity={0.7} onPress={() => this.props.navigation.openDrawer()}>
+                        <Image source={require("../assets/Menu2.png")} style={{height: heightPercentage('4%'), width: heightPercentage('4%'), resizeMode: "cover"}} ></Image>
+                    </TouchableOpacity>
+                </View>
                 {/* <ScrollView> */}
                     {Arr}
                     {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{color:"white", fontSize:36, marginTop: heightPercentage('2%')}}>
+                        <Text style={{color:"white", fontSize:36, marginTop: heightPercentage('2%')}}
                             Volkswagen
                         </Text>
                         <Text style={{color:"white", fontSize:24, marginTop: heightPercentage('2%')}}>
@@ -142,8 +149,8 @@ export default class Home extends React.Component {
 const styles = StyleSheet.create({
     View: {
         flex:1, 
-        paddingTop: 20, 
-        backgroundColor: "#353535", 
+        //paddingTop: 20, 
+        backgroundColor: "#1E1E1E",
         alignItems:"center"
     },
     Logo: {

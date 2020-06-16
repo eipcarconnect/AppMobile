@@ -4,7 +4,7 @@ import { Image, Icon } from 'react-native'
 import SignInScreen from './SignIn'
 import SignUpScreen from './SignUp'
 
-import AppletScreen from './Home'
+import HomeScreen from './Home'
 import SettingsScreen from './Settings'
 
 import SettingsAccountScreen from './Settings/SettingsAccount'
@@ -18,12 +18,17 @@ import PasswordSettingsScreen from './Settings/PasswordSettings'
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation'
 
+
 const SettingsAccountStack = createStackNavigator({
   SettingsAccount: 
   {
     screen: SettingsAccountScreen,
     navigationOptions:{
-      header: null
+      title: 'Settings account',
+      headerStyle: {
+        backgroundColor: '#353535'
+      },
+      headerTintColor: 'white'
     }
   },
   BirthdaySettings:
@@ -76,9 +81,9 @@ const SettingsAccountStack = createStackNavigator({
 SettingsAccountStack.navigationOptions = ({ navigation }) => {
 
   let tabBarVisible = true;
-  if (navigation.state.index > 0) {
-    tabBarVisible = false;
-  }
+  // if (navigation.state.index > 0) {
+  //   tabBarVisible = false;
+  // }
 
   return {
     tabBarVisible,
@@ -98,7 +103,7 @@ const SettingsStack = createStackNavigator({
   {
     screen: SettingsAccountStack,
     navigationOptions:{
-      header: null
+      header: null,
     }
   },
   SettingsHomePage:
@@ -126,45 +131,28 @@ SettingsStack.navigationOptions = ({ navigation }) => {
 };
 
 
-const AppStack = createBottomTabNavigator(
+const AppStack = createDrawerNavigator(
   {
-    Home: 
-    {
-      screen: AppletScreen,
-      navigationOptions: 
-      {
-        tabBarIcon: ({ focused }) => {
-          const image = focused 
-          ? require('../assets/home-white.png') 
-          : require('../assets/home-grey.png')
-          return (<Image source={image} style={{width:22, height:22}}/>)
-        }
-      }
-    },
-    Settings: 
-    {
-      screen: SettingsStack,
-      navigationOptions: 
-      {
-        tabBarIcon: ({ focused }) => {
-          const image = focused 
-          ? require('../assets/settings-white.png') 
-          : require('../assets/settings-grey.png')
-          return (<Image source={image} style={{width:22, height:22}}/>)
-        }
-      }
-    }
+    Home: HomeScreen,
+    Settings: SettingsStack,
   }, 
   {
-    tabBarOptions: 
-    {
-      showLabel: false,
-      showIcon: true,
-      style: {
-        backgroundColor: '#101010',
-        borderTopWidth: 0
-      }
-    }
+      hideStatusBar: false,
+      drawerBackgroundColor: 'rgba(255,255,255,.9)',
+      overlayColor: '#6b52ae',
+      contentOptions: {
+        activeTintColor: '#fff',
+        activeBackgroundColor: '#6b52ae',
+      },
+    // tabBarOptions: 
+    // {
+    //   showLabel: false,
+    //   showIcon: true,
+    //   style: {
+    //     backgroundColor: '#101010',
+    //     borderTopWidth: 0
+    //   }
+    // }
   }
 );
 

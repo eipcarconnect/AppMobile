@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     View: {
         flex:1, 
         paddingTop: 20, 
-        backgroundColor: "#353535", 
+        backgroundColor: "#1E1E1E", 
         alignItems:"center"
     },
     TextInput: {

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
 
     View: {
         borderColor:"#707070",
-        borderWidth: 2,
+        borderWidth: 1,
         borderRadius: 0,
         backgroundColor:"#353535",
         width: widthPercentage('45%'),

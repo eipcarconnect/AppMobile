@@ -208,7 +208,7 @@ export default class SettingsHomePage extends React.Component {
                     onScroll={event => {this.state.scrollOffset = event.nativeEvent.contentOffset.y}}
                     ref={ref => {this.scrollview = ref;}}
                     scrollEnabled={false}>
-                    <View style={{height: heightPercentage('94%'), backgroundColor:"#353535", borderBottomColor:"#2c84cc", borderBottomWidth:1}}>
+                    <View style={{height: heightPercentage('94%'), backgroundColor:"#1E1E1E", borderBottomColor:"#2c84cc", borderBottomWidth:1}}>
                         <View style={{height: heightPercentage('91%')}}>
                             {Arr}
                         </View>
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     DropZone: {
         height: heightPercentage('78%'),
         width: widthPercentage('78%'),
-        backgroundColor: "#353535"
+        backgroundColor: "#1E1E1E"
     },
     ButtonPanel: {
         height: heightPercentage('3%'),

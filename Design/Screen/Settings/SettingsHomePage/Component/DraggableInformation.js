@@ -70,7 +70,7 @@ export default class DraggableInformation extends React.Component {
                 y={this.state.y}
                 disabled={true}
                 onPressIn={() => {}}>
-                    <TouchableOpacity onPress={()=>{console.log("quoi")}}>
+                    <TouchableOpacity /*onPress={()=>{console.log("quoi")}}*/>
                         {ComponentView}
                     </TouchableOpacity>
                 </Draggable>
@@ -89,10 +89,10 @@ export default class DraggableInformation extends React.Component {
 const styles = StyleSheet.create({
 
     View: {
-        borderColor:"#707070",
-        borderWidth: 2,
+        borderColor: "#707070",
+        borderWidth: 1,
         borderRadius: 0,
-        backgroundColor:"#353535",
+        backgroundColor: "#353535",
         width: widthPercentage('95%'),
         height: heightPercentage('14%')
     },
