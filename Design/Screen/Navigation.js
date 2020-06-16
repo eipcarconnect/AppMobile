@@ -137,7 +137,6 @@ const AppStack = createDrawerNavigator(
   {
     Home: HomeScreen,
     Settings: SettingsStack,
-    Map: MapScreen,
   }, 
   {
       hideStatusBar: false,
