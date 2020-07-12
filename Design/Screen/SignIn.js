@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-elements'
-import global from "../Tools/Global"
+// import global from "../Tools/Global"
 import messaging, { firebase } from '@react-native-firebase/messaging';
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
@@ -26,7 +26,16 @@ export default class SignIn extends React.Component {
         this.state = {
             email: '',
             password: '',
-        }
+          }
+        global.name = '';
+        global.date = '';
+        global.email = '';
+        global.token = '';
+        global.speed = '';
+        global.fuel = '';
+        global.lat = '';
+        global.long = '';
+        global.registToken = '';
     }
 
     setEmail(text)

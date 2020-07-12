@@ -3,7 +3,7 @@ import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Im
 import {NavigationEvents} from 'react-navigation';
 import { Button } from 'react-native-elements'
 import Axios from 'axios'
-import global from '../../Tools/Global';
+// import global from '../../Tools/Global';
 import { heightPercentage, widthPercentage } from '../../Tools/ResponsiveTool'
 
 

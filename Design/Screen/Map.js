@@ -1,7 +1,6 @@
 import React from 'react'
 import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-elements'
-import global from "../Tools/Global"
 import messaging, { firebase } from '@react-native-firebase/messaging';
 import Axios from 'axios'
 import MapView, {Marker} from 'react-native-maps'
