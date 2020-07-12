@@ -12,6 +12,7 @@ import DraggableBattery from './Settings/SettingsHomePage/Component/DraggableBat
 import DraggableFuel from './Settings/SettingsHomePage/Component/DraggableFuel'
 import DraggableInformation from './Settings/SettingsHomePage/Component/DraggableInformation'
 
+import NavBar from '../Tools/NavBar';
 
 export default class Home extends React.Component {
 
@@ -37,9 +38,9 @@ export default class Home extends React.Component {
             let res = await AsyncStorage.getItem("HomePageConfiguration");
             if (res == null)
             {
-                res = "Information " + widthPercentage("2.5%") + " " + heightPercentage("1%") + "\n" +
-                        "Battery " + widthPercentage("2.5%") + " " + heightPercentage("16%") + "\n" +
-                        "Fuel " + widthPercentage("52.5%") + " " + heightPercentage("16%")
+                res = "Information " + widthPercentage("2.5%") + " " + heightPercentage("10%") + "\n" +
+                        "Battery " + widthPercentage("2.5%") + " " + heightPercentage("26%") + "\n" +
+                        "Fuel " + widthPercentage("52.5%") + " " + heightPercentage("26%")
                 await AsyncStorage.setItem("HomePageConfiguration", res);
             }
             this.setState({
@@ -106,11 +107,7 @@ export default class Home extends React.Component {
         return (
             <View style={styles.View}>
             <NavigationEvents onDidFocus={() => this.componentDidMount()}/>
-                <View style={{height: heightPercentage('7%'), width: widthPercentage('100%'), backgroundColor:"#1E1E1E", borderBottomWidth: 1, borderBottomColor: "white"}}>
-                    <TouchableOpacity style={{height: heightPercentage('5%'), marginVertical: heightPercentage('1.5%'), marginLeft: widthPercentage('3%') }}activeOpacity={0.7} onPress={() => this.props.navigation.openDrawer()}>
-                        <Image source={require("../assets/Menu2.png")} style={{height: heightPercentage('4%'), width: heightPercentage('4%'), resizeMode: "cover"}} ></Image>
-                    </TouchableOpacity>
-                </View>
+                <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
                 {/* <ScrollView> */}
                     {Arr}
                     {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>

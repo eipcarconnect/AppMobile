@@ -3,6 +3,8 @@ import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Im
 import { Button } from 'react-native-elements'
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
+import NavBar from '../Tools/NavBar'
+import StackBar from '../Tools/StackBar'
 
 export default class Settings extends React.Component {
 
@@ -16,11 +18,7 @@ export default class Settings extends React.Component {
     render () {
         return (
             <View style={styles.View}>
-                <View style={{height: heightPercentage('7%'), width: widthPercentage('100%'), backgroundColor:"#1E1E1E", borderBottomWidth: 1, borderBottomColor: "white"}}>
-                    <TouchableOpacity style={{height: heightPercentage('5%'), marginVertical: heightPercentage('1.5%'), marginLeft: widthPercentage('3%') }}activeOpacity={0.7} onPress={() => this.props.navigation.openDrawer()}>
-                        <Image source={require("../assets/Menu2.png")} style={{height: heightPercentage('4%'), width: heightPercentage('4%'), resizeMode: "cover"}} ></Image>
-                    </TouchableOpacity>
-                </View>
+                <NavBar onPushButton={() => this.props.navigation.openDrawer()} />
                 {/* <Text style={{color: "white", fontSize: 23}}>
                     Settings
                 </Text> */}

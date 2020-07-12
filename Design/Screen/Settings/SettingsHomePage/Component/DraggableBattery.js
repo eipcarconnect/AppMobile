@@ -38,6 +38,7 @@ export default class DraggableBattery extends React.Component {
                     delay={0}
                     backgroundColor="#C2d5ef"
                     stroke={[2, 2]}
+                    minX= {heightPercentage('7%')}
                     strokeCap="circle">
                         <View style={styles.ViewValue}>
                             <Text style={styles.Value}>{this.state.value}%</Text>
@@ -57,7 +58,7 @@ export default class DraggableBattery extends React.Component {
                 y={this.state.y}
                 onPressIn={() => {}}
                 onDragRelease={(event, gestureState, bounds) => {        
-                    this.props.OnChange(this.props.id + " " + Math.round(bounds.left) + " " + Math.round(bounds.top));
+                    this.props.OnChange(this.props.id + " " + Math.round(bounds.left) + " " + (heightPercentage("7%") + Math.round(bounds.top)));
                 }}
                 >
                     {ComponentView}

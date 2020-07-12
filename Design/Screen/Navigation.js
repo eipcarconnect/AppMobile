@@ -1,10 +1,10 @@
 import React from 'react';
-import { Image, Icon } from 'react-native'
 
 import SignInScreen from './SignIn'
 import SignUpScreen from './SignUp'
 
 import HomeScreen from './Home'
+import FuelScreen from './Fuel'
 import SettingsScreen from './Settings'
 
 import SettingsAccountScreen from './Settings/SettingsAccount'
@@ -15,18 +15,37 @@ import EmailSettingsScreen from './Settings/EmailSettings'
 import NameSettingsScreen from './Settings/NameSettings'
 import PasswordSettingsScreen from './Settings/PasswordSettings'
 
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation'
+import { StyleSheet, Text, View, ActivityIndicator, Image, Icon, ScrollView } from 'react-native';
+import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator, createAppContainer, createDrawerNavigator, DrawerItems, SafeAreaView, StackViewTransitionConfigs  } from 'react-navigation'
 
+import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
-const SettingsAccountStack = createStackNavigator({
+const SettingsStack = createStackNavigator({
+  Settings: 
+  {
+    screen: SettingsScreen,
+    navigationOptions:{
+      header: null,
+    }
+  },
+  SettingsHomePage:
+  {
+    screen: SettingsHomePageScreen,
+    navigationOptions:{
+      title: 'Settings homepage',
+      headerStyle: {
+        backgroundColor:"#1E1E1E", borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
+      },
+      headerTintColor: 'white'
+    }
+  },
   SettingsAccount: 
   {
     screen: SettingsAccountScreen,
     navigationOptions:{
       title: 'Settings account',
       headerStyle: {
-        backgroundColor: '#353535'
+        backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
       },
       headerTintColor: 'white'
     }
@@ -37,7 +56,7 @@ const SettingsAccountStack = createStackNavigator({
     navigationOptions:{
       title: 'Change date of birth',
       headerStyle: {
-        backgroundColor: '#353535'
+        backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
       },
       headerTintColor: 'white'
     }
@@ -48,7 +67,7 @@ const SettingsAccountStack = createStackNavigator({
     navigationOptions:{
       title: 'Change e-mail address',
       headerStyle: {
-        backgroundColor: '#353535'
+        backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
       },
       headerTintColor: 'white'
     }
@@ -58,7 +77,7 @@ const SettingsAccountStack = createStackNavigator({
     navigationOptions:{
       title: 'Change name',
       headerStyle: {
-        backgroundColor: '#353535'
+        backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
       },
       headerTintColor: 'white'
     }
@@ -68,61 +87,22 @@ const SettingsAccountStack = createStackNavigator({
     navigationOptions:{
       title: 'Change password',
       headerStyle: {
-        backgroundColor: '#353535'
+        backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
       },
       headerTintColor: 'white'
     }
   }
 },
 {
-  initialRouteName: 'SettingsAccount'
-})
-
-SettingsAccountStack.navigationOptions = ({ navigation }) => {
-
-  let tabBarVisible = true;
-  // if (navigation.state.index > 0) {
-  //   tabBarVisible = false;
-  // }
-
-  return {
-    tabBarVisible,
-  };
-};
-
-
-const SettingsStack = createStackNavigator({
-  Settings: 
-  {
-    screen: SettingsScreen,
-    navigationOptions:{
-      header: null
-    }
-  },
-  SettingsAccount:
-  {
-    screen: SettingsAccountStack,
-    navigationOptions:{
-      header: null,
-    }
-  },
-  SettingsHomePage:
-  {
-    screen: SettingsHomePageScreen,
-    navigationOptions:{
-      header: null
-    }
-  }
-},
-{
+  transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,
   initialRouteName: 'Settings'
 })
 
 SettingsStack.navigationOptions = ({ navigation }) => {
 
-  let tabBarVisible = true;
-  if (navigation.state.index > 0) {
-    tabBarVisible = false;
+  let tabBarVisible = false;
+  if (navigation.state.index >= 0) {
+    tabBarVisible = true;
   }
 
   return {
@@ -130,29 +110,35 @@ SettingsStack.navigationOptions = ({ navigation }) => {
   };
 };
 
-
 const AppStack = createDrawerNavigator(
   {
     Home: HomeScreen,
+    Fuel: FuelScreen,
     Settings: SettingsStack,
   }, 
   {
-      hideStatusBar: false,
-      drawerBackgroundColor: 'rgba(255,255,255,.9)',
-      overlayColor: '#6b52ae',
-      contentOptions: {
-        activeTintColor: '#fff',
-        activeBackgroundColor: '#6b52ae',
-      },
-    // tabBarOptions: 
-    // {
-    //   showLabel: false,
-    //   showIcon: true,
-    //   style: {
-    //     backgroundColor: '#101010',
-    //     borderTopWidth: 0
-    //   }
-    // }
+    transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,
+    hideStatusBar: false,
+    drawerBackgroundColor: '#1E1E1E',
+    overlayColor: 'rgba(0,0,0, 0.7)',
+    contentOptions: {
+        labelStyle: {
+          color: 'white',
+        },
+      activeTintColor: '#fff',
+      activeBackgroundColor: '#2c84cc',
+    },
+    contentComponent: (props) => (
+      <SafeAreaView>
+          <View style={{height: heightPercentage('20%'),alignItems: 'center', justifyContent: 'center'}}>
+            <Image source={require("../assets/Logo.png")} style={{width: heightPercentage('10%'), height: heightPercentage('10%')}}></Image>
+            <Text style={{fontSize: 26, color:"white", marginTop: heightPercentage('1%')}}>CarConnect</Text>
+          </View>
+        <ScrollView>
+          <DrawerItems {...props} />
+        </ScrollView>
+      </SafeAreaView>
+    )
   }
 );
 
@@ -164,7 +150,7 @@ const AuthStack = createSwitchNavigator({
 export default createAppContainer(createSwitchNavigator(
   {
     //AuthLoading: LoadingScreen,
-    Auth: AuthStack,
+    //Auth: AuthStack,
     App: AppStack
   }
   // ,
