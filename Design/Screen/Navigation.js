@@ -116,6 +116,7 @@ const AppStack = createDrawerNavigator(
   {
     Home: HomeScreen,
     Fuel: FuelScreen,
+    Map: MapScreen,
     Settings: SettingsStack,
   }, 
   {
@@ -147,13 +148,12 @@ const AppStack = createDrawerNavigator(
 const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
   SignUp: SignUpScreen,
-  Map: MapScreen,
 });
 
 export default createAppContainer(createSwitchNavigator(
   {
     //AuthLoading: LoadingScreen,
-    //Auth: AuthStack,
+    Auth: AuthStack,
     App: AppStack
   }
   // ,

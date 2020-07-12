@@ -35,7 +35,7 @@ export default class DraggableMap extends React.Component {
                     y={this.state.y}
                     onPressIn={() => { }}
                     onDragRelease={(event, gestureState, bounds) => {
-                        this.props.OnChange(this.props.id + " " + Math.round(bounds.left) + " " + Math.round(bounds.top));
+                        this.props.OnChange(this.props.id + " " + Math.round(bounds.left) + " " + (heightPercentage("7%") + Math.round(bounds.top)));
                     }}
                 >
                     {ComponentView}
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
 
     View: {
         borderColor: "#707070",
-        borderWidth: 2,
+        borderWidth: 1,
         borderRadius: 0,
         backgroundColor: "#353535",
         width: widthPercentage('20%'),

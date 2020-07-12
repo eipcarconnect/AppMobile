@@ -82,7 +82,7 @@ export default class SettingsHomePage extends React.Component {
 
     addElement(name_component)
     {
-        let str = name_component + " " + 0 + " " + 0;
+        let str = name_component + " " + 0 + " " + heightPercentage("7%");
         this.state.elements.push(str)
         this.setState({
             elements: this.state.elements
@@ -175,7 +175,7 @@ export default class SettingsHomePage extends React.Component {
                     OnChange={(str) => {this.updateElement(str)}} OnDelete={(ind) => {this.deleteElement(ind)}}></DraggableInformation>
                 case "Map":
                     return <DraggableMap role="Draggable" id={this.state.elements[i].split(" ")[0]}
-                        x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2])}
+                        x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2] - heightPercentage("7%"))}
                         OnChange={(str) => { this.updateElement(str) }} OnDelete={(ind) => { this.deleteElement(ind) }}></DraggableMap>
                 default:
                     break;
