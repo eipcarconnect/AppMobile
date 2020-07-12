@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
-import global from '../../Tools/Global';
+// import global from '../../Tools/Global';
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../../Tools/ResponsiveTool'
 
