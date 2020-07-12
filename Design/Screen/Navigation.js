@@ -161,6 +161,7 @@ const AppStack = createDrawerNavigator(
 const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
   SignUp: SignUpScreen,
+  Map: MapScreen,
 });
 
 export default createAppContainer(createSwitchNavigator(

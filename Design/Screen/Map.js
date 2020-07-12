@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, AsyncStorage } from 'react-native'
+import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, AsyncStorage, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import messaging, { firebase } from '@react-native-firebase/messaging';
 import Axios from 'axios'
@@ -45,8 +45,7 @@ export default class Map extends React.Component {
                     global.lat = resjson.latitude;
                     global.long = resjson.longitude;
                     this.setState({ email: '', password: '' });
-                    console.log(global.lat);
-                    console.log(global.long);
+                    
                 }
                 else {
                     alert(resjson.error);
@@ -66,6 +65,7 @@ export default class Map extends React.Component {
                 alignItems: 'center',
             }}>
                 <MapView
+                
                     style={{ ...StyleSheet.absoluteFillObject }}
                         region={this.state.region}
                         onRegionChange={this.onRegionChange}
@@ -99,11 +99,11 @@ export default class Map extends React.Component {
     tick() {
         this.getCarInfos();
         this.setState(prevState => ({
-            seconds: prevState.seconds + 1, region: {
-                latitude: prevState.lat + 1,
+            seconds: prevState.seconds, region: {
+                latitude: global.lat,
                 longitude: global.long,
                 latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,}, lat: prevState.lat + 1, long: global.long
+                longitudeDelta: 0.0421,}, lat: global.lat, long: global.long
         }));
     }
     
