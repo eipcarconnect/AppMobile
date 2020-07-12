@@ -17,6 +17,21 @@ export default class Map extends React.Component {
             seconds: 0,
             lat: global.lat,
             long: global.long,
+            markers: [
+                {
+                    coordinate: { latitude: global.lat, longitude: global.long },
+                    pinColor:  "#2c84cc", // any color
+                    title: "Votre voiture",
+                    description: "La position de votre voiture",
+
+                },
+                {
+                    coordinate: { latitude: global.lat + 1, longitude: global.long  + 1},
+                    pinColor: "#640D74", // any color
+                    title: "Vous",
+                    description: "Votre position",
+                }
+            ],
             region: {
             latitude: global.lat,
             longitude: global.long,
@@ -71,10 +86,14 @@ export default class Map extends React.Component {
                         onRegionChange={this.onRegionChange}
                         showsUserLocation={true}
                 >
-                    <Marker coordinate={{ latitude: this.state.lat, longitude: this.state.long }}
-                        pinColor={"#2c84cc"} // any color
-                        title={"You"}
-                        description={"Your car position"} />
+                        {this.state.markers.map(marker => (
+                            <MapView.Marker
+                                coordinate={marker.coordinate}
+                                title={marker.title}
+                                pinColor={marker.pinColor}
+                                description={marker.description}
+                            />
+                        ))}
                     </MapView>
             </View>
             </View>
@@ -96,24 +115,24 @@ export default class Map extends React.Component {
         };
     }
 
-    tick() {
-        this.getCarInfos();
-        this.setState(prevState => ({
-            seconds: prevState.seconds, region: {
-                latitude: global.lat,
-                longitude: global.long,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,}, lat: global.lat, long: global.long
-        }));
-    }
+    // tick() {
+    //     this.getCarInfos();
+    //     this.setState(prevState => ({
+    //         seconds: prevState.seconds, region: {
+    //             latitude: global.lat,
+    //             longitude: global.long,
+    //             latitudeDelta: 0.0922,
+    //             longitudeDelta: 0.0421,}, lat: global.lat, long: global.long
+    //     }));
+    // }
     
-    componentDidMount() {
-        this.interval = setInterval(() => this.tick(), 5000);
-    }
+    // componentDidMount() {
+    //     this.interval = setInterval(() => this.tick(), 5000);
+    // }
     
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
+    // componentWillUnmount() {
+    //     clearInterval(this.interval);
+    // }
 }
 
 

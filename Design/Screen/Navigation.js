@@ -9,6 +9,10 @@ import SettingsScreen from './Settings'
 
 import MapScreen from './Map'
 
+import TestScreen from './Test'
+
+import Test2Screen from './Test2'
+
 import SettingsAccountScreen from './Settings/SettingsAccount'
 import SettingsHomePageScreen from './Settings/SettingsHomePage/SettingsHomePage'
 
@@ -162,6 +166,8 @@ const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
   SignUp: SignUpScreen,
   Map: MapScreen,
+  Test: TestScreen,
+  Test2: Test2Screen,
 });
 
 export default createAppContainer(createSwitchNavigator(

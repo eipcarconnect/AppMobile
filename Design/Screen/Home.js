@@ -7,6 +7,7 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 
 // import { Button } from 'react-native-elements'
 
+// import global from '../Tools/Global';
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 import DraggableBattery from './Settings/SettingsHomePage/Component/DraggableBattery'

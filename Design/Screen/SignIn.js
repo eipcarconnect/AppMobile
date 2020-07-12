@@ -1,8 +1,10 @@
 import React from 'react'
-import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, AsyncStorage } from 'react-native'
+import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight } from 'react-native'
 import { Button } from 'react-native-elements'
-// import global from "../Tools/Global"
+import AsyncStorage from '@react-native-community/async-storage';
 import messaging, { firebase } from '@react-native-firebase/messaging';
+import { save } from '../Tools/Storage'
+import Storage from '../Tools/Storage'
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
@@ -24,7 +26,7 @@ export default class SignIn extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            email: '',
+          email: '',
             password: '',
           }
         global.name = '';
@@ -36,6 +38,7 @@ export default class SignIn extends React.Component {
         global.lat = '';
         global.long = '';
         global.registToken = '';
+      global.test = '';
     }
 
     setEmail(text)
@@ -112,6 +115,7 @@ export default class SignIn extends React.Component {
               global.name = resjson.name;
               global.email = resjson.email
               global.date = resjson.birthdate.split('T')[0];
+              save("email", global.email)
               this.setState({ email: '', password: '' });
               this.getCarInfos();
             }
@@ -203,24 +207,18 @@ export default class SignIn extends React.Component {
     //             console.log(error);
     //         })
     //     }
-        
-    _storeData = async (key, value) => {
-        try {
-            await AsyncStorage.setItem(key, value)
-        } catch {
-            console.error(error)
-        }
+
+    getEmail() {
+      this._retrieveData("email").then((value) => {
+        if (value != 'none') {
+           this.setEmail(value).then(() => {
+             console.log(this.sate.email);
+             return this.state.email;
+           });
+          }
+      });
     }
 
-    _retrieveData = async (key) => {
-        try {
-            const value = await AsyncStorage.getItem(key)
-            if (value !== null)
-                console.error(value);
-        } catch {
-            console.error(error)
-        }
-    }
 
     render () {
         return (
@@ -249,6 +247,11 @@ export default class SignIn extends React.Component {
                             onPress={() => this.toggleSignIn()/*this.handleSubmit()*//*this.props.navigation.navigate('Home')*/}
                             title="Sign In"
                             buttonStyle={styles.Button}>
+                        </Button>
+                        <Button
+                          onPress={() => this.props.navigation.navigate('Test')}
+                          title="test"
+                          buttonStyle={styles.Button}>
                         </Button>
                         <Text style={styles.TextButton}
                         onPress={() => this.props.navigation.navigate('SignUp')}>
