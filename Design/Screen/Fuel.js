@@ -3,7 +3,6 @@ import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Im
 import AsyncStorage from '@react-native-community/async-storage';
 import {NavigationEvents} from 'react-navigation';
 
-import global from '../Tools/Global';
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import { AnimatedGaugeProgress, GaugeProgress } from 'react-native-simple-gauge';
 import * as Progress from 'react-native-progress';

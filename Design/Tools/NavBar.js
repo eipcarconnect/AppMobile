@@ -3,7 +3,6 @@ import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Im
 
 import {NavigationEvents} from 'react-navigation';
 
-import global from './Global';
 import { heightPercentage, widthPercentage } from './ResponsiveTool'
 
 export default class NavBar extends React.Component {
