@@ -1,6 +1,7 @@
 import React from 'react'
-import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, AsyncStorage, TouchableOpacity } from 'react-native'
+import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
+import geolocalisation from '@react-native-community/geolocation';
 import messaging, { firebase } from '@react-native-firebase/messaging';
 import Axios from 'axios'
 import MapView, {Marker} from 'react-native-maps'
@@ -126,9 +127,12 @@ export default class Map extends React.Component {
     //     }));
     // }
     
-    // componentDidMount() {
-    //     this.interval = setInterval(() => this.tick(), 5000);
-    // }
+    componentDidMount() {
+        // this.interval = setInterval(() => this.tick(), 5000);
+        // geolocalisation.getCurrentPosition().then((position) => {
+        //     console.log(position);
+        // })
+    }
     
     // componentWillUnmount() {
     //     clearInterval(this.interval);

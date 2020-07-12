@@ -3,7 +3,7 @@ import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, Touchab
 import { Button } from 'react-native-elements'
 import AsyncStorage from '@react-native-community/async-storage';
 import messaging, { firebase } from '@react-native-firebase/messaging';
-import { save } from '../Tools/Storage'
+import { save, getSaved } from '../Tools/Storage'
 import Storage from '../Tools/Storage'
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
@@ -184,6 +184,13 @@ export default class SignIn extends React.Component {
               
     }
 
+  componentDidMount() {
+    getSaved("email").then((value) => {
+      if (value != 'none')
+        this.setEmail(value);
+    });
+  }
+
     // handleSubmit() {
     //     let data = JSON.stringify({
     //         "user": {
@@ -207,17 +214,6 @@ export default class SignIn extends React.Component {
     //             console.log(error);
     //         })
     //     }
-
-    getEmail() {
-      this._retrieveData("email").then((value) => {
-        if (value != 'none') {
-           this.setEmail(value).then(() => {
-             console.log(this.sate.email);
-             return this.state.email;
-           });
-          }
-      });
-    }
 
 
     render () {
