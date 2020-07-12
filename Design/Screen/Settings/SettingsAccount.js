@@ -65,9 +65,6 @@ export default class SettingsAccounts extends React.Component {
         return (
             <View style={styles.View}>
                 <NavigationEvents onDidFocus={() => this.Reload()}/>
-                <Text style={{color: "white", fontSize: 23}}>
-                    Settings Account
-                </Text>
                 <View>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('EmailSettings')}>
                         <Text style={{color: "white", fontSize: 17}}>E-mail address</Text>
@@ -94,7 +91,6 @@ export default class SettingsAccounts extends React.Component {
 const styles = StyleSheet.create({
     View: {
         flex:1, 
-        paddingTop: 20, 
         backgroundColor: "#1E1E1E", 
         alignItems:"center"
     },

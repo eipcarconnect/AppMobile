@@ -49,7 +49,7 @@ export default class SettingsHomePage extends React.Component {
     Panel()
     {
         if (this.state.scrollOffset == 0)
-            this.scrollview.scrollTo({x:0, y:heightPercentage('91%'), animated: true});
+            this.scrollview.scrollTo({x:0, y:heightPercentage('84%'), animated: true});
         else
             this.scrollview.scrollTo({x:0, y:0, animated: true});
     }
@@ -163,15 +163,15 @@ export default class SettingsHomePage extends React.Component {
             switch (this.state.elements[i].split(" ")[0]) {
                 case "Battery":
                     return <DraggableBattery role="Draggable" id={this.state.elements[i].split(" ")[0]} value="43" 
-                    x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2])} 
+                    x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2]) - heightPercentage("7%")} 
                     OnChange={(str) => {this.updateElement(str)}} OnDelete={(id) => {this.deleteElement(id)}}></DraggableBattery>                  
                case "Fuel":
                     return <DraggableFuel role="Draggable"id={this.state.elements[i].split(" ")[0]} value="62"
-                    x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2])} 
+                    x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2]) - heightPercentage("7%")} 
                     OnChange={(str) => {this.updateElement(str)}} OnDelete={(ind) => {this.deleteElement(ind)}}></DraggableFuel>
                 case "Information":
                     return <DraggableInformation role="Draggable"id={this.state.elements[i].split(" ")[0]}
-                    x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2])} 
+                    x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2]) - heightPercentage("7%")} 
                     OnChange={(str) => {this.updateElement(str)}} OnDelete={(ind) => {this.deleteElement(ind)}}></DraggableInformation>
                 case "Map":
                     return <DraggableMap role="Draggable" id={this.state.elements[i].split(" ")[0]}
@@ -220,8 +220,8 @@ export default class SettingsHomePage extends React.Component {
                     onScroll={event => {this.state.scrollOffset = event.nativeEvent.contentOffset.y}}
                     ref={ref => {this.scrollview = ref;}}
                     scrollEnabled={false}>
-                    <View style={{height: heightPercentage('94%'), backgroundColor:"#1E1E1E", borderBottomColor:"#2c84cc", borderBottomWidth:1}}>
-                        <View style={{height: heightPercentage('91%')}}>
+                    <View style={{height: heightPercentage('87%'), backgroundColor:"#1E1E1E", borderBottomColor:"#2c84cc", borderBottomWidth:1}}>
+                        <View style={{height: heightPercentage('84%')}}>
                             {Arr}
                         </View>
                         <View style={{alignItems:"center"}}>
@@ -232,7 +232,7 @@ export default class SettingsHomePage extends React.Component {
                             </Button>
                         </View>
                     </View>
-                    <View style={{flexDirection: "row", height: heightPercentage('84%')}}>
+                    <View style={{flexDirection: "row", height: heightPercentage('77%')}}>
                         <ScrollView contentContainerStyle={{alignItems: "center"}}>
                             {Button1}
                             {Button2}
