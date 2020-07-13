@@ -6,3 +6,4 @@ let speed = '';
 let fuel = '';
 let lat = '';
 let long = '';
+let registToken = '';

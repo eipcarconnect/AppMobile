@@ -1,8 +1,10 @@
 import React from 'react'
-import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, AsyncStorage, TouchableOpacity } from 'react-native'
+import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
+import geolocalisation from '@react-native-community/geolocation';
 import messaging, { firebase } from '@react-native-firebase/messaging';
 import Axios from 'axios'
+import NavBar from '../Tools/NavBar'
 import MapView, {Marker} from 'react-native-maps'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
@@ -17,6 +19,21 @@ export default class Map extends React.Component {
             seconds: 0,
             lat: global.lat,
             long: global.long,
+            markers: [
+                {
+                    coordinate: { latitude: global.lat, longitude: global.long },
+                    pinColor:  "#2c84cc", // any color
+                    title: "Votre voiture",
+                    description: "La position de votre voiture",
+
+                },
+                {
+                    coordinate: { latitude: global.lat + 1, longitude: global.long  + 1},
+                    pinColor: "#640D74", // any color
+                    title: "Vous",
+                    description: "Votre position",
+                }
+            ],
             region: {
             latitude: global.lat,
             longitude: global.long,
@@ -57,26 +74,29 @@ export default class Map extends React.Component {
     render() {
         return (
             <View>
-            <View style={{
-                ...StyleSheet.absoluteFillObject,
-                height: heightPercentage('100%'),
-                width: widthPercentage('100%'),
-                justifyContent: 'flex-end',
-                alignItems: 'center',
-            }}>
-                <MapView
-                
-                    style={{ ...StyleSheet.absoluteFillObject }}
+
+                <View style={{
+                    ...StyleSheet.absoluteFillObject,
+                    height: heightPercentage('100%'),
+                    width: widthPercentage('100%'),
+                    justifyContent: 'flex-end',
+                    alignItems: 'center',
+                }}>
+                    <MapView
+                        style={{ ...StyleSheet.absoluteFillObject }}
                         region={this.state.region}
                         onRegionChange={this.onRegionChange}
-                        showsUserLocation={true}
-                >
-                    <Marker coordinate={{ latitude: this.state.lat, longitude: this.state.long }}
-                        pinColor={"#2c84cc"} // any color
-                        title={"You"}
-                        description={"Your car position"} />
+                        showsUserLocation={true}>
+                        {this.state.markers.map(marker => (
+                            <MapView.Marker
+                            coordinate={marker.coordinate}
+                            title={marker.title}
+                            pinColor={marker.pinColor}
+                            description={marker.description}
+                            />
+                            ))}
                     </MapView>
-            </View>
+                </View>
             </View>
         )
     }
@@ -96,24 +116,27 @@ export default class Map extends React.Component {
         };
     }
 
-    tick() {
-        this.getCarInfos();
-        this.setState(prevState => ({
-            seconds: prevState.seconds, region: {
-                latitude: global.lat,
-                longitude: global.long,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,}, lat: global.lat, long: global.long
-        }));
-    }
+    // tick() {
+    //     this.getCarInfos();
+    //     this.setState(prevState => ({
+    //         seconds: prevState.seconds, region: {
+    //             latitude: global.lat,
+    //             longitude: global.long,
+    //             latitudeDelta: 0.0922,
+    //             longitudeDelta: 0.0421,}, lat: global.lat, long: global.long
+    //     }));
+    // }
     
     componentDidMount() {
-        this.interval = setInterval(() => this.tick(), 5000);
+        // this.interval = setInterval(() => this.tick(), 5000);
+        // geolocalisation.getCurrentPosition().then((position) => {
+        //     console.log(position);
+        // })
     }
     
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
+    // componentWillUnmount() {
+    //     clearInterval(this.interval);
+    // }
 }
 
 

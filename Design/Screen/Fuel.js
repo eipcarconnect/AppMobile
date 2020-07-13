@@ -74,7 +74,7 @@ export default class Fuel extends React.Component {
                     </GaugeProgress>
                 </View>
                 <View style={{width: widthPercentage("50%"), marginLeft: heightPercentage("2.5%")}}>
-                        <Text style={styles.Text}>{"Last fill of fuel:\n" + this.formatDate(this.state.last_fill_fuel)}</Text>
+                        <Text style={styles.Text}>{"Last refueling:\n" + this.formatDate(this.state.last_fill_fuel)}</Text>
                         <Text style={styles.Text}>{"Remaining distance:\n" + this.state.distance_left + "km"}</Text>
                 </View>
             </View>
