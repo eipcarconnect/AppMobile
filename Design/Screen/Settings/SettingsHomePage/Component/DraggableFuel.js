@@ -62,7 +62,7 @@ export default class DraggableFuel extends React.Component {
                     {ComponentView}
                     <View  style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'flex-end'}}>
                         <Button
-                            onPress={() => this.props.OnDelete(this.props.id)}
+                            onPress={() => this.props.OnDelete("Fuel")}
                             title=""
                             buttonStyle={styles.Button}>
                         </Button>

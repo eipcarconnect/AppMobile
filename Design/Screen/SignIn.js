@@ -38,7 +38,7 @@ export default class SignIn extends React.Component {
         global.lat = '';
         global.long = '';
         global.registToken = '';
-      global.test = '';
+        global.test = '';
     }
 
     setEmail(text)
@@ -243,11 +243,11 @@ export default class SignIn extends React.Component {
                             title="Sign In"
                             buttonStyle={styles.Button}>
                         </Button>
-                        <Button
+                        {/* <Button
                           onPress={() => this.props.navigation.navigate('Test')}
                           title="test"
                           buttonStyle={styles.Button}>
-                        </Button>
+                        </Button> */}
                         <Text style={styles.TextButton}
                         onPress={() => this.props.navigation.navigate('SignUp')}>
                             Create account

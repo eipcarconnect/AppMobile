@@ -166,17 +166,17 @@ export default class SettingsHomePage extends React.Component {
                     x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2]) - heightPercentage("7%")} 
                     OnChange={(str) => {this.updateElement(str)}} OnDelete={(id) => {this.deleteElement(id)}}></DraggableBattery>                  
                case "Fuel":
-                    return <DraggableFuel role="Draggable"id={this.state.elements[i].split(" ")[0]} value="62"
+                    return <DraggableFuel role="Draggable" id={this.state.elements[i].split(" ")[0]} value="62"
                     x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2]) - heightPercentage("7%")} 
-                    OnChange={(str) => {this.updateElement(str)}} OnDelete={(ind) => {this.deleteElement(ind)}}></DraggableFuel>
+                    OnChange={(str) => {this.updateElement(str)}} OnDelete={(id) => {this.deleteElement(id)}}></DraggableFuel>
                 case "Information":
                     return <DraggableInformation role="Draggable"id={this.state.elements[i].split(" ")[0]}
                     x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2]) - heightPercentage("7%")} 
-                    OnChange={(str) => {this.updateElement(str)}} OnDelete={(ind) => {this.deleteElement(ind)}}></DraggableInformation>
+                    OnChange={(str) => {this.updateElement(str)}} OnDelete={(id) => {this.deleteElement(id)}}></DraggableInformation>
                 case "Map":
                     return <DraggableMap role="Draggable" id={this.state.elements[i].split(" ")[0]}
                         x={parseInt(this.state.elements[i].split(" ")[1])} y={parseInt(this.state.elements[i].split(" ")[2] - heightPercentage("7%"))}
-                        OnChange={(str) => { this.updateElement(str) }} OnDelete={(ind) => { this.deleteElement(ind) }}></DraggableMap>
+                        OnChange={(str) => { this.updateElement(str) }} OnDelete={(id) => { this.deleteElement(id) }}></DraggableMap>
                 default:
                     break;
             }
@@ -199,7 +199,7 @@ export default class SettingsHomePage extends React.Component {
         }
         let Button3 = null;
         if (this.checkElement("Map") == false) {
-            Button2 =
+            Button3 =
                 <TouchableOpacity style={{ marginTop: heightPercentage('1%') }} onPress={() => { this.addElement("Map") }}>
                     <DraggableMap role="Button" x={0} y={0}></DraggableMap>
                 </TouchableOpacity>
