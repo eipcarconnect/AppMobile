@@ -5,6 +5,7 @@ import SignUpScreen from './SignUp'
 
 import HomeScreen from './Home'
 import FuelScreen from './Fuel'
+import BatteryScreen from './Battery'
 import SettingsScreen from './Settings'
 
 import MapScreen from './Map'
@@ -121,6 +122,7 @@ const AppStack = createDrawerNavigator(
     Home: HomeScreen,
     Fuel: FuelScreen,
     Map: MapScreen,
+    Battery: BatteryScreen,
     Settings: SettingsStack,
   }, 
   {
