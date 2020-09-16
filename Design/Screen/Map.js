@@ -7,6 +7,7 @@ import Axios from 'axios'
 import NavBar from '../Tools/NavBar'
 import MapView, {Marker} from 'react-native-maps'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
+import MapViewDirections from 'react-native-maps-directions';
 
 
 export default class Map extends React.Component {
@@ -87,6 +88,11 @@ export default class Map extends React.Component {
                         region={this.state.region}
                         onRegionChange={this.onRegionChange}
                         showsUserLocation={true}>
+                        <MapViewDirections
+                            origin={this.state.markers[0].coordinate}
+                            destination={this.state.markers[1].coordinate}
+                            apikey={"AIzaSyB6HjTtnJSu0A0SJX - K3ctytbHeAldbkEY"}
+                        />
                         {this.state.markers.map(marker => (
                             <MapView.Marker
                             coordinate={marker.coordinate}
