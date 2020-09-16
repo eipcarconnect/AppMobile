@@ -10,6 +10,8 @@ import RatingScreen from './Rating'
 import BatteryScreen from './Battery'
 import SettingsScreen from './Settings'
 
+import { deletSaved } from '../Tools/Storage'
+
 import MapScreen from './Map'
 
 import TestScreen from './Test'
@@ -119,6 +121,20 @@ SettingsStack.navigationOptions = ({ navigation }) => {
   };
 };
 
+function disconnect() {
+  global.name = '';
+  global.date = '';
+  global.email = '';
+  global.token = '';
+  global.speed = '';
+  global.fuel = '';
+  global.lat = '';
+  global.long = '';
+  global.registToken = '';
+  deletSaved("email");
+  
+}
+
 const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
   SignUp: SignUpScreen,
@@ -178,7 +194,7 @@ const AppStack = createDrawerNavigator(
               }}>
             </Button>
             <Button
-              onPress={() => props.navigation.navigate('AuthStack')}
+              onPress={() => {disconnect(); props.navigation.navigate('AuthStack'); }}
               title="Deconnection"
               buttonStyle={{
                 height: heightPercentage('6%'),

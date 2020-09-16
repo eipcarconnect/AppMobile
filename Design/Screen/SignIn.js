@@ -115,7 +115,7 @@ export default class SignIn extends React.Component {
               global.name = resjson.name;
               global.email = resjson.email
               global.date = resjson.birthdate.split('T')[0];
-              save("email", global.email)
+              save("email", global.email);
               this.setState({ email: '', password: '' });
               this.getCarInfos();
             }
@@ -171,7 +171,6 @@ export default class SignIn extends React.Component {
             .then((resjson) => {
               ;
               if (resjson.success === true) {
-                alert(resjson.msg);
                 this.setState({ email: '', password: '' });
                 this.props.navigation.navigate('Home');
               }
