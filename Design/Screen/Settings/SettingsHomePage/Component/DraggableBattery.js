@@ -24,7 +24,7 @@ export default class DraggableBattery extends React.Component {
 
         let ComponentView = 
         <View style={styles.View}>
-            {/* <ImageBackground source={require("../../../../assets/fuel.png")} style={{flex: 1}} imageStyle={styles.ImageBackground}> */}
+            <ImageBackground source={require("../../../../assets/car-battery.png")} style={{flex: 1}} imageStyle={styles.ImageBackground}>
             <ImageBackground source={require("../../../../assets/BatteryText.png")} style={{flex: 1}} imageStyle={styles.ImageTitle}>
                 <View  style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: widthPercentage('45%'),
                 height: heightPercentage('12%')}}>
@@ -46,7 +46,7 @@ export default class DraggableBattery extends React.Component {
                     </GaugeProgress>
             </View>
             </ImageBackground>
-            {/* </ImageBackground> */}
+            </ImageBackground>
         </View>
 
         if (this.state.role == "Draggable")
@@ -132,11 +132,13 @@ const styles = StyleSheet.create({
     ViewValue: {
         position: 'absolute',
         top: heightPercentage('2%'),
-        left: widthPercentage('5%'),
-        width: widthPercentage('15%'),
+        left: heightPercentage('3%'),
+        width: widthPercentage('12%'),
         height: heightPercentage('7%'),
         alignItems: 'center',
         justifyContent: 'center',
+        //backgroundColor: "red"
+
     },
 
     Value: {

@@ -2,7 +2,7 @@ import {Dimensions, PixelRatio, StatusBar} from 'react-native';
 import { bool } from 'prop-types';
 
 const widthPercentage = widthPercent => {
-    const screenWidth = Dimensions.get('window').width;
+    const screenWidth = Dimensions.get('screen').width;
     // Convert string input to decimal number
     const elemWidth = parseFloat(widthPercent);
     // console.log("\nWindows Width =" + Dimensions.get("window").width);
