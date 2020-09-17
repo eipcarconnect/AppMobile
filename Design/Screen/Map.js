@@ -5,6 +5,8 @@ import geolocalisation from '@react-native-community/geolocation';
 import messaging, { firebase } from '@react-native-firebase/messaging';
 import Axios from 'axios'
 import NavBar from '../Tools/NavBar'
+// import PermissionsAndroid from 'react-native-permissions';
+import { PERMISSIONS, request } from 'react-native-permissions';
 import MapView, {Marker} from 'react-native-maps'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import MapViewDirections from 'react-native-maps-directions';
@@ -84,6 +86,13 @@ export default class Map extends React.Component {
                     alignItems: 'center',
                 }}>
                     <MapView
+                        onMapReady={() => {
+                            request(
+                                PERMISSIONS.ACCESS_FINE_LOCATION
+                            ).then(granted => {
+                                console.log(granted) // just to ensure that permissions were granted
+                            });
+                        }}
                         style={{ ...StyleSheet.absoluteFillObject }}
                         region={this.state.region}
                         onRegionChange={this.onRegionChange}
