@@ -1,15 +1,13 @@
-import React from 'react'
-import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity, Button, AppRegistry } from 'react-native'
+import React, { useState } from "react";
+import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity, AppRegistry } from 'react-native'
+import { Button } from 'react-native-elements'
 import AsyncStorage from '@react-native-community/async-storage';
-import { Icon } from 'react-native-elements'
 import {NavigationEvents} from 'react-navigation';
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
-import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
+//import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 
-import DraggableBattery from './Settings/SettingsHomePage/Component/DraggableBattery'
-import DraggableFuel from './Settings/SettingsHomePage/Component/DraggableFuel'
-import DraggableInformation from './Settings/SettingsHomePage/Component/DraggableInformation'
-import DraggableMap from './Settings/SettingsHomePage/Component/DraggableMap'
+import * as Progress from 'react-native-progress';
+
+import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 import NavBar from '../Tools/NavBar';
 
@@ -20,9 +18,17 @@ export default class Home extends React.Component {
         this.state = {
             data: {},
             elements: [],
-            fuel: 0,
-            battery: 50
+            
+            brand: "Volkswagen",
+            model: "Golf",
+            numberplate: "XX-666-XX",
+            kilometer: "23 871",
+            fuel: 10,
+            maxfuel: 100
         }
+        global.name="Loick MURY"
+        global.email="loick.mury@gmail.com"
+
     }
 
     componentDidMount() {
@@ -86,60 +92,237 @@ export default class Home extends React.Component {
             });
     }
 
+    textScales(maxsize, width, charnumber) 
+    {
+        console.log(charnumber);
+        console.log(width);
+        let s = (width / charnumber);
+        console.log(s);
+        if (s > maxsize)
+            return {fontSize: maxsize}
+        return {fontSize: s}
+    }
+
+
+    // RouteModal(modalVisible, setModalVisible)
+    // {
+    //     return (
+    //         <Modal
+    //           animationType="slide"
+    //           transparent={true}
+    //           visible={modalVisible}
+    //           onRequestClose={() => {
+    //             Alert.alert("Modal has been closed.");
+    //           }}
+    //         >
+    //           <View style={styles.centeredView}>
+    //             <View style={styles.modalView}>
+    //               <Text style={styles.modalText}>Hello World!</Text>
+      
+    //               <TouchableHighlight
+    //                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+    //                 onPress={() => {
+    //                   setModalVisible(!modalVisible);
+    //                 }}
+    //               >
+    //                 <Text style={styles.textStyle}>Hide Modal</Text>
+    //               </TouchableHighlight>
+    //             </View>
+    //           </View>
+    //         </Modal>
+    //     )
+    // }
+ 
+
     render () {
-        let Arr = this.state.elements.map((a, i) => {
-            switch (this.state.elements[i].split(" ")[0]) {
-                case "Battery":
-                    return <DraggableBattery role="Display" x={parseInt(this.state.elements[i].split(" ")[1])}
-                    y={parseInt(this.state.elements[i].split(" ")[2])} value={this.state.battery}></DraggableBattery>                  
-                case "Fuel":
-                    return <DraggableFuel role="Display" x={parseInt(this.state.elements[i].split(" ")[1])}
-                    y={parseInt(this.state.elements[i].split(" ")[2])} value={this.state.fuel}> </DraggableFuel>
-                case "Information":
-                    return <DraggableInformation role="Display" x={parseInt(this.state.elements[i].split(" ")[1])}
-                    y={parseInt(this.state.elements[i].split(" ")[2])}> </DraggableInformation>
-                case "Map":
-                    return <DraggableMap role="Display" x={parseInt(this.state.elements[i].split(" ")[1])}
-                        y={parseInt(this.state.elements[i].split(" ")[2])} onClick={() => { this.props.navigation.navigate('Map') }}> </DraggableMap>
-                default:
-                    break;
-            }
-        })
+        //const [modalVisible, setModalVisible] = useState(false);
+        // const mod = 
+        //     <Modal
+        //       animationType="slide"
+        //       transparent={true}
+        //       visible={modalVisible}
+        //       onRequestClose={() => {
+        //         Alert.alert("Modal has been closed.");
+        //       }}
+        //     >
+        //       <View style={styles.centeredView}>
+        //         <View style={styles.modalView}>
+        //           <Text style={styles.modalText}>Hello World!</Text>
+      
+        //           <TouchableHighlight
+        //             style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+        //             onPress={() => {
+        //               setModalVisible(!modalVisible);
+        //             }}
+        //           >
+        //             <Text style={styles.textStyle}>Hide Modal</Text>
+        //           </TouchableHighlight>
+        //         </View>
+        //       </View>
+        //     </Modal>
 
         return (
             <View style={styles.View}>
-            <NavigationEvents onDidFocus={() => this.componentDidMount()}/>
+                <NavigationEvents onDidFocus={() => this.componentDidMount()}/>
                 <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
-                {/* <ScrollView> */}
-                    {Arr}
-                    {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{color:"white", fontSize:36, marginTop: heightPercentage('2%')}}
-                            Volkswagen
+                    <View style={{width: widthPercentage("88%"),
+                                height: heightPercentage("10%"),
+                                backgroundColor: "#2F2F2F",
+                                marginTop: heightPercentage("3.5%"),
+                                elevation: 10,
+                                alignItems:"center"}}>
+                        <Text
+                            numberOfLines={1}
+                            style={[this.textScales(30, widthPercentage("130%"), global.name.length),
+                                {
+                                    width: widthPercentage("80%"),
+                                    height: heightPercentage("6%"),
+                                    marginTop: heightPercentage("2%"),
+                                    color: "white"
+                                }
+                            ]}>
+                            Bonjour {global.name.split(" ")[0]}
                         </Text>
-                        <Text style={{color:"white", fontSize:24, marginTop: heightPercentage('2%')}}>
-                            Polo
-                        </Text>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: heightPercentage('2%')}}> 
-                            <Text style={{color:"white", fontSize:20, marginTop: heightPercentage('2%')}}>
-                                100000 km
+                        {/* <Text 
+                            numberOfLines={1}
+                            style={[this.textScales(18, widthPercentage("130%"), global.email.length),
+                                {
+                                    width: widthPercentage("80%"),
+                                    height: heightPercentage("4%"),
+                                    marginTop: heightPercentage("1%"),
+                                    //backgroundColor: "red",
+                                    color: "white"
+                                }
+                            ]}>
+                            {global.email}
+                        </Text> */}
+                    </View>
+                    <View style={{width: widthPercentage("88%"),
+                                height: heightPercentage("21%"),
+                                backgroundColor: "#2F2F2F",
+                                marginTop: heightPercentage("3.5%"),
+                                elevation: 10
+                                }}>
+                        <View style={{flexDirection: "row", marginLeft: widthPercentage("3%")}}>
+                            <View style={{marginTop: heightPercentage("1%")}}>
+                                <Text
+                                    numberOfLines={1}
+                                    style={[this.textScales(25, widthPercentage("130%"), this.state.brand.length),
+                                    {
+                                        //width: widthPercentage("80%"),
+                                            //height: heightPercentage("4%"),
+                                            marginTop: heightPercentage("1%"),
+                                            //backgroundColor: "red",
+                                            color: "white"
+                                        }
+                                    ]}>
+                                    {this.state.brand}
+                                </Text>
+                                <Text 
+                                    numberOfLines={1}
+                                    style={[this.textScales(20, widthPercentage("130%"), this.state.model.length),
+                                        {
+                                            //width: widthPercentage("80%"),
+                                            //height: heightPercentage("4%"),
+                                            marginTop: heightPercentage("1%"),
+                                            //backgroundColor: "red",
+                                            color: "white"
+                                        }
+                                    ]}>
+                                    {this.state.model}
+                                </Text>
+                                <Text 
+                                    numberOfLines={1}
+                                    style={[this.textScales(16, widthPercentage("130%"), this.state.numberplate.length),
+                                    {
+                                        //width: widthPercentage("80%"),
+                                        //height: heightPercentage("4%"),
+                                            marginTop: heightPercentage("1%"),
+                                            //backgroundColor: "red",
+                                            color: "white"
+                                        }
+                                    ]}>
+                                    {this.state.numberplate}
+                                </Text>
+                            </View>
+                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', marginTop: heightPercentage("2%"), marginRight: widthPercentage("6%")}}>
+                                <Progress.Circle 
+                                            progress={fuel/100}
+                                            size={heightPercentage("12%")}
+                                            showsText={true}
+                                            formatText={(progress) => 
+                                            {
+                                                if ((progress*100)%1 > 0)
+                                                    return("Fuel\n " + ((progress*100) - ((progress*100)%1)) + "%")
+                                                return("Fuel\n " + progress*100 + "%")
+                                            }}
+                                            thickness={5} 
+                                            borderWidth={1}
+                                            strokeCap={"round"} 
+                                            borderRadius={0}
+                                            borderColor={'rgba(44,132,204,1)'}
+                                            color={'rgba(44,132,204,1)'}>
+                                </Progress.Circle>
+                            </View>
+                        </View>
+                        <View style={{marginBottom:heightPercentage("2%")}}>  
+                            <Text 
+                                numberOfLines={1}
+                                style={[this.textScales(20, widthPercentage("130%"), this.state.numberplate.length),
+                                {
+                                    width: widthPercentage("88%"),
+                                    //height: heightPercentage("4%"),
+                                    marginTop: heightPercentage("1%"),
+                                    textAlign:"center",
+                                    //backgroundColor: "red",
+                                    color: "white"
+                                }
+                            ]}>
+                                {this.state.kilometer} Km
                             </Text>
                         </View>
-                        <View style={{flexDirection:"row", marginTop: heightPercentage('6%')}}>
-                            <View style={{ justifyContent: 'center', alignItems: 'center', marginHorizontal: widthPercentage('15%')}}>
-                                <Image source={require("../assets/fuel.png")} style={styles.Logo} />
-                                <Text style={{color:"white", fontSize:20, marginTop: heightPercentage('2%')}}>
-                                    40L / 45L
-                                </Text>
-                            </View>
-                            <View style={{ justifyContent: 'center', alignItems: 'center', marginHorizontal: widthPercentage('15%')}}>
-                                <Image source={require("../assets/car-battery.png")} style={styles.Logo} />
-                                <Text style={{color:"white", fontSize:20, marginTop: heightPercentage('2%')}}>
-                                    95%
-                                </Text>
-                            </View>
-                        </View>
-                    </View> */}
-                {/* </ScrollView> */}
+                    </View>
+                    <View style={{width: widthPercentage("88%"),
+                                height: heightPercentage("12%"),
+                                backgroundColor: "#2F2F2F",
+                                marginTop: heightPercentage("3.5%"),
+                                elevation: 10
+                                }}>
+                        <Button
+                            onPress={() => {
+                                if(this.state.routemodal == false)
+                                    this.setState({routemodal: true})
+                            }}
+                            title="CREATE A ROUTE"
+                            buttonStyle={{
+                                height: heightPercentage('6%'),
+                                width: widthPercentage('80%'),
+                                marginVertical: heightPercentage('3%'),
+                                marginHorizontal: widthPercentage('4%'),
+                                backgroundColor: "#2c84cc",
+                            }}
+                            titleStyle={{fontSize: 18}}>
+                        </Button>
+                    </View>
+                    <View style={{width: widthPercentage("88%"),
+                                height: heightPercentage("12%"),
+                                backgroundColor: "#2F2F2F",
+                                marginTop: heightPercentage("3.5%"),
+                                elevation: 10
+                                }}>
+                        <Button
+                            onPress={() => {}}
+                            title="CREATE A INVOICE"
+                            buttonStyle={{
+                                height: heightPercentage('6%'),
+                                width: widthPercentage('80%'),
+                                marginVertical: heightPercentage('3%'),
+                                marginHorizontal: widthPercentage('4%'),
+                                backgroundColor: "#2c84cc",
+                            }}
+                            titleStyle={{fontSize: 18}}>
+                        </Button>
+                    </View>
             </View>
         )
     }

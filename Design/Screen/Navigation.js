@@ -34,31 +34,9 @@ import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 const SettingsStack = createStackNavigator({
   Settings: 
   {
-    screen: SettingsScreen,
-    navigationOptions:{
-      header: null,
-    }
-  },
-  SettingsHomePage:
-  {
-    screen: SettingsHomePageScreen,
-    navigationOptions:{
-      title: 'Settings homepage',
-      headerStyle: {
-        backgroundColor:"#1E1E1E", borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
-      },
-      headerTintColor: 'white'
-    }
-  },
-  SettingsAccount: 
-  {
     screen: SettingsAccountScreen,
     navigationOptions:{
-      title: 'Settings account',
-      headerStyle: {
-        backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
-      },
-      headerTintColor: 'white'
+      header: null,
     }
   },
   BirthdaySettings:
@@ -132,7 +110,6 @@ function disconnect() {
   global.long = '';
   global.registToken = '';
   deletSaved("email");
-  
 }
 
 const AuthStack = createSwitchNavigator({
@@ -146,14 +123,7 @@ const AuthStack = createSwitchNavigator({
 const AppStack = createDrawerNavigator(
   {
     Home: HomeScreen,
-    Information: InformationScreen,
-    Fuel: FuelScreen,
-    Map: MapScreen,
-    Battery: BatteryScreen,
     Settings: SettingsStack,
-
-
-    Rating: RatingScreen,
     AuthStack: AuthStack
   }, 
   {
@@ -183,16 +153,6 @@ const AppStack = createDrawerNavigator(
               } />
           </ScrollView>
           <View style={{position: 'absolute', bottom: 0, width: '100%'}}>
-            <Button
-              onPress={() => props.navigation.navigate('Rating')}
-              title="Rate the app"
-              buttonStyle={{
-                height: heightPercentage('6%'),
-                marginVertical: heightPercentage('1%'),
-                marginHorizontal: widthPercentage('2%'),
-                backgroundColor:"#2c84cc"
-              }}>
-            </Button>
             <Button
               onPress={() => {disconnect(); props.navigation.navigate('AuthStack'); }}
               title="Deconnection"

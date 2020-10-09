@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements'
 import Axios from 'axios'
 // import global from '../../Tools/Global';
 import { heightPercentage, widthPercentage } from '../../Tools/ResponsiveTool'
-
+import NavBar from '../../Tools/NavBar';
 
 export default class SettingsAccounts extends React.Component {
 
@@ -64,6 +64,7 @@ export default class SettingsAccounts extends React.Component {
     render () {
         return (
             <View style={styles.View}>
+                <NavBar onPushButton={() => this.props.navigation.openDrawer()} />
                 <NavigationEvents onDidFocus={() => this.Reload()}/>
                 <View>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('EmailSettings')}>
@@ -72,15 +73,15 @@ export default class SettingsAccounts extends React.Component {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('PasswordSettings')}>
                         <Text style={{color: "white", fontSize: 17}}>Password</Text>
-                        <Text style={{color: "#8C8C8C", fontSize: 14 }}>*********</Text>
+                        <Text style={styles.UnderText}>*********</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('NameSettings')}>
                         <Text style={{color: "white", fontSize: 17}}>Name</Text>
-                        <Text style={{color: "#8C8C8C", fontSize: 14 }}>{global.name}</Text>
+                        <Text style={styles.UnderText}>{global.name}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('BirthdaySettings')}>
                         <Text style={{color: "white", fontSize: 17}}>Date of birth</Text>
-                        <Text style={{color: "#8C8C8C", fontSize: 14 }}>{this.formatDate(this.state.date)}</Text>
+                        <Text style={styles.UnderText}>{this.formatDate(this.state.date)}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -126,7 +127,8 @@ const styles = StyleSheet.create({
     },
     UnderText:
     {
-        color: '#8C8C8C'
+        color: '#8E8E8E',
+        fontSize: 14
     },
     Button: {
         marginTop: heightPercentage('5%'),

@@ -30,6 +30,7 @@
     "react-native-permissions": "^2.2.0",
     "react-native-progress": "^3.6.0",
     "react-native-ratings": "^7.3.0",
+    "react-native-responsive-fontsize": "^0.4.3",
     "react-native-simple-gauge": "^0.2.3",
     "react-native-svg": "^12.1.0",
     "react-navigation": "^3.3.0"
