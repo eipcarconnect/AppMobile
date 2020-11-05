@@ -31,6 +31,19 @@ import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator, 
 import { Button } from 'react-native-elements'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
+function disconnect() {
+  global.name = '';
+  global.date = '';
+  global.email = '';
+  global.token = '';
+  global.speed = '';
+  global.fuel = '';
+  global.lat = '';
+  global.long = '';
+  global.registToken = '';
+  deletSaved("email");
+}
+
 const SettingsStack = createStackNavigator({
   Settings: 
   {
@@ -99,18 +112,6 @@ SettingsStack.navigationOptions = ({ navigation }) => {
   };
 };
 
-function disconnect() {
-  global.name = '';
-  global.date = '';
-  global.email = '';
-  global.token = '';
-  global.speed = '';
-  global.fuel = '';
-  global.lat = '';
-  global.long = '';
-  global.registToken = '';
-  deletSaved("email");
-}
 
 const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
