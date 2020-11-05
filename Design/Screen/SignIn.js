@@ -147,7 +147,7 @@ export default class SignIn extends React.Component {
               global.lat = resjson.latitude;
               global.long = resjson.longitude;
               this.setState({ email: '', password: '' });
-              // this.sendNotifToken();
+              this.sendNotifToken();
               this.props.navigation.navigate('Home');
 
             }
@@ -195,7 +195,7 @@ export default class SignIn extends React.Component {
         this.setEmail(value);
     });
   }
-  
+
     render () {
         return (
             <View style={styles.View}>
