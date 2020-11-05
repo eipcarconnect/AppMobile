@@ -114,8 +114,10 @@ export default class SignUp extends React.Component {
                 password: this.state.password,
                 email: this.state.email,
                 birthdate: this.state.date,
+                company: "Plipicorp&CO"
             }),
         }
+        console.log(data.body);
 
         fetch('http://40.85.113.74:3000/auth/signup', data).then((res) => res.json())
         .then((resjson) => {

@@ -311,7 +311,7 @@ export default class Home extends React.Component {
                                 elevation: 10
                                 }}>
                         <Button
-                            onPress={() => {}}
+                        onPress={() => this.props.navigation.navigate('AddFacture')}
                             title="CREATE A INVOICE"
                             buttonStyle={{
                                 height: heightPercentage('6%'),

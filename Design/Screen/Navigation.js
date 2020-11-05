@@ -14,7 +14,7 @@ import { deletSaved } from '../Tools/Storage'
 
 import MapScreen from './Map'
 
-import TestScreen from './Test'
+import AddFactureScreen from './AddFacture'
 
 import Test2Screen from './Test2'
 
@@ -116,7 +116,7 @@ const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
   SignUp: SignUpScreen,
   Map: MapScreen,
-  Test: TestScreen,
+  AddFacture: AddFactureScreen,
   Test2: Test2Screen,
 });
 
