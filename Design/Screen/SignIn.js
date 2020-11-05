@@ -83,12 +83,13 @@ export default class SignIn extends React.Component {
         fetch('http://40.85.113.74:3000/auth/signin', data).then((res) => res.json())
           .then((resjson) => {
             if (resjson.success === true) {
-              var str = resjson.token;
-              global.token = str.slice(4, str.length);
+              global.token = resjson.token;
+              console.log(global.token);
               this.getUserInfos();
             }
             else {
               alert(resjson.error);
+              console.log("signin", resjson.error);
               return;
             }
           })
@@ -121,6 +122,7 @@ export default class SignIn extends React.Component {
             }
             else {
               alert(resjson.error);
+              console.log("getuserinfos", resjson.error);
               return;
             }
           });
@@ -145,10 +147,13 @@ export default class SignIn extends React.Component {
               global.lat = resjson.latitude;
               global.long = resjson.longitude;
               this.setState({ email: '', password: '' });
-              this.sendNotifToken();
+              // this.sendNotifToken();
+              this.props.navigation.navigate('Home');
+
             }
             else {
               alert(resjson.error);
+              console.log("getvehiculeinfo", resjson.error);
               return;
             }
           });
@@ -176,6 +181,7 @@ export default class SignIn extends React.Component {
               }
               else {
                 alert(resjson.error);
+                console.log("addregistrationtoken", resjson.error);
                 return;
               }
             });
@@ -189,31 +195,7 @@ export default class SignIn extends React.Component {
         this.setEmail(value);
     });
   }
-    // handleSubmit() {
-    //     let data = JSON.stringify({
-    //         "user": {
-    //             "email": this.state.email,
-    //             "password": this.state.password,
-    //         }
-    //     });
-    //         Axios.post("http://40.85.113.74:3000/auth/signin",
-    //         data,
-    //         { headers: { Accept: 'application/json', "Content-Type": "application/json" } })
-    //         .then((response) => {
-    //             if (response.status == 200 || response.status == 201) {
-    //                 //this._storeData("userRef", response.data);
-    //                 this.props.navigation.navigate('Home');
-    //             }
-    //             else {
-    //                 console.log(response.error);
-    //                 return;
-    //             }
-    //         }).catch(function (error) {
-    //             console.log(error);
-    //         })
-    //     }
-
-
+  
     render () {
         return (
             <View style={styles.View}>
@@ -266,8 +248,8 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     Logo: {
-        width: heightPercentage('25%'),
-        height: heightPercentage('25%'),
+        width: heightPercentage('17%'),
+        height: heightPercentage('17%'),
         marginTop: heightPercentage('8%')
     },
     TextInput: {

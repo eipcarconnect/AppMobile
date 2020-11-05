@@ -77,26 +77,6 @@ export default class SignUp extends React.Component {
         return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
-    // handleSubmit() {
-    //     let data = JSON.stringify({
-    //         "user": {
-    //             "email": this.state.email,
-    //             "password": this.state.password,
-    //         }
-    //     });
-    //         Axios.post(Global.IPServer + "/signup",
-    //             data,
-    //             { headers: { "Content-Type": "application/json" } })
-    //             .then((response) => {
-    //                 //console.error(response);
-    //                 this._storeData("userRef", response2.data);
-    //                 this.props.navigation.navigate('Home');
-    //             }).catch(function (error) {
-    //                 console.error(error);
-    //             })
-    // }
-
-
     handleSignUp() {
         if (this.state.date.length < 1) {
             alert('Select a Birth Date.');
@@ -123,7 +103,6 @@ export default class SignUp extends React.Component {
             return;
         }
         
-        // Sign in with email, pass, birthdate, name.
         var data = {
             method: 'POST',
             headers: {
