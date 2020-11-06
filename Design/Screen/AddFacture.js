@@ -1,11 +1,10 @@
 import React from 'react'
 import { TextInput, View, StyleSheet, Picker } from 'react-native'
 import { Button } from 'react-native-elements'
-import { save, getSaved, deletSaved} from '../Tools/Storage'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 
-export default class Map extends React.Component {
+export default class AddFacture extends React.Component {
 
     
     constructor(props) {
@@ -13,9 +12,10 @@ export default class Map extends React.Component {
         this.state = {
             name: '',
             plaque: '',
-            prixHT: 0.0,
-            prixTTC: 0.0,
-            categorie: '',
+            prixHT: '',
+            prixTTC: '',
+            categorie: 'none',
+            tmp: '',
         }
     }
 
@@ -30,37 +30,86 @@ export default class Map extends React.Component {
                     onChangeText={(text) => this.setState({ name: text })}>
                 </TextInput>
                 <TextInput
-                    placeholder="Plaque d'immatriculation"
+                    placeholder="Immatriculation ex AA-234-BB"
                     autoCapitalize="none"
                     placeholderTextColor='black'
                     value={this.state.plaque}
                     onChangeText={(text) => this.setState({plaque: text})}>
                 </TextInput>
                 <Picker
-                    selectedValue={"restauration"}
-                    style={{ height: 50, width: 150 }}
+                    selectedValue={this.state.categorie}
+                    // style={{ height: 50, width: 150 }}
                     onValueChange={(text) => this.setState({ categorie: text })}
                 >
+                    <Picker.Item label="Selectionner une cathégorie" value="none" />
                     <Picker.Item label="Restauration" value="restauration" />
                     <Picker.Item label="Logement" value="logement" />
                     <Picker.Item label="Essence" value="essence" />
                     <Picker.Item label="Autoroute" value="autoroute" />
                     <Picker.Item label="Autre" value="autre" />
                 </Picker>
-                {/* <Button title="Suprimmer la phrase sauvegardée"
-                    onPress={() => this.deleteDatat()}
-                />                */}
+                <TextInput
+                    placeholder="Prix hors taxe"
+                    autoCapitalize="none"
+                    placeholderTextColor='black'
+                    value={this.state.prixHT}
+                    onChangeText={(text) => this.setState({ prixHT: text })}>
+                </TextInput>
+                <TextInput
+                    placeholder="Prix TTC"
+                    autoCapitalize="none"
+                    placeholderTextColor='black'
+                    value={this.state.prixTTC}
+                    onChangeText={(text) => this.setState({ prixTTC: text })}>
+                </TextInput>
+                <Button title="Valider"
+                    onPress={() => this.sendFacture()}
+                />               
             </View>
         )
     }
 
-    deleteDatat() {
-        deletSaved('save').then((value) => {
-            if (value == true)
-                alert("Phrase supprimée avec succés")
-            else
-                alert("Aucune phrase à supprimer");
-        })
+
+    sendFacture() {
+        let regPrix1 = new RegExp("^([0-9]+[\,]?[0-9]?[0-9]?|[0-9]+)$");
+        let regPrix2 = new RegExp("^([0-9]+[\.]?[0-9]?[0-9]?|[0-9]+)$");
+        let regPlaque = new RegExp("^([A-Z]{2}-[0-9]{3}-[A-Z]{2})$");
+        if (this.state.name.length < 1) {
+            alert('Veuillez entrer un nom de facture');
+            return (84);
+        }
+        if (this.state.plaque.length < 1) {
+            alert('Veuillez entrer une immatriculation');
+            return (84);
+        }
+        else if(!regPlaque.test(this.state.plaque)) {
+            alert('Le format de l\'immatriculation est incorrect ex AA-234-BB');
+            return (84);
+        }
+        if (this.state.categorie === 'none') {
+            alert('Veuillez selecetionner une categorie de factute');
+            return (84);
+        }
+        if (this.state.prixHT.length < 1) {
+            alert('Veuillez entrer un prix Hors Taxes');
+            return (84);
+        }
+        else if (!regPrix1.test(this.state.prixHT) && !regPrix2.test(this.state.prixHT)) {
+            alert('Format du Prix HT invalide');
+            return (84);
+        }
+        if (this.state.prixTTC.length < 1) {
+            alert('Veuillez entrer un prix TTC');
+            return (84);
+        }
+        else if (!regPrix1.test(this.state.prixTTC) && !regPrix2.test(this.state.prixTTC)) {
+            alert('Format du Prix TTC invalide');
+            return (84);
+        }
+        let prixHT = parseFloat(this.state.prixHT.replace(",", "."));
+        let prixTTC = parseFloat(this.state.prixTTC.replace(",", "."));
+        console.log("name:", this.state.name, "plaque:", this.state.plaque, "categorie:", this.state.categorie,
+            "prixHT:", prixHT, "prixTTC:", prixTTC);
     }
 }
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import { TextInput, Text, View, StyleSheet, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
-import Axios from 'axios'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
