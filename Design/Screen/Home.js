@@ -18,17 +18,10 @@ export default class Home extends React.Component {
         this.state = {
             data: {},
             elements: [],
-            
-            brand: "Volkswagen",
-            model: "Golf",
-            numberplate: "XX-666-XX",
             kilometer: "23 871",
             fuel: 10,
             maxfuel: 100
         }
-        global.name="Loick MURY"
-        global.email="loick.mury@gmail.com"
-
     }
 
     componentDidMount() {
@@ -207,7 +200,7 @@ export default class Home extends React.Component {
                             <View style={{marginTop: heightPercentage("1%")}}>
                                 <Text
                                     numberOfLines={1}
-                                    style={[this.textScales(25, widthPercentage("130%"), this.state.brand.length),
+                                    style={[this.textScales(25, widthPercentage("130%"), global.brand.length),
                                     {
                                         //width: widthPercentage("80%"),
                                             //height: heightPercentage("4%"),
@@ -216,11 +209,11 @@ export default class Home extends React.Component {
                                             color: "white"
                                         }
                                     ]}>
-                                    {this.state.brand}
+                                    {global.brand}
                                 </Text>
                                 <Text 
                                     numberOfLines={1}
-                                    style={[this.textScales(20, widthPercentage("130%"), this.state.model.length),
+                                    style={[this.textScales(20, widthPercentage("130%"), global.model.length),
                                         {
                                             //width: widthPercentage("80%"),
                                             //height: heightPercentage("4%"),
@@ -229,11 +222,11 @@ export default class Home extends React.Component {
                                             color: "white"
                                         }
                                     ]}>
-                                    {this.state.model}
+                                    {global.model}
                                 </Text>
                                 <Text 
                                     numberOfLines={1}
-                                    style={[this.textScales(16, widthPercentage("130%"), this.state.numberplate.length),
+                                    style={[this.textScales(16, widthPercentage("130%"), global.numberplate.length),
                                     {
                                         //width: widthPercentage("80%"),
                                         //height: heightPercentage("4%"),
@@ -242,7 +235,7 @@ export default class Home extends React.Component {
                                             color: "white"
                                         }
                                     ]}>
-                                    {this.state.numberplate}
+                                    {global.numberplate}
                                 </Text>
                             </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', marginTop: heightPercentage("2%"), marginRight: widthPercentage("6%")}}>
@@ -268,7 +261,7 @@ export default class Home extends React.Component {
                         <View style={{marginBottom:heightPercentage("2%")}}>  
                             <Text 
                                 numberOfLines={1}
-                                style={[this.textScales(20, widthPercentage("130%"), this.state.numberplate.length),
+                                style={[this.textScales(20, widthPercentage("130%"), this.state.kilometer.length),
                                 {
                                     width: widthPercentage("88%"),
                                     //height: heightPercentage("4%"),

@@ -4,11 +4,7 @@ import SignInScreen from './SignIn'
 import SignUpScreen from './SignUp'
 
 import HomeScreen from './Home'
-import FuelScreen from './Fuel'
-import InformationScreen from './Information'
-import RatingScreen from './Rating'
-import BatteryScreen from './Battery'
-import SettingsScreen from './Settings'
+import CarSelection from './CarSelection'
 
 import { deletSaved } from '../Tools/Storage'
 
@@ -125,7 +121,8 @@ const AppStack = createDrawerNavigator(
   {
     Home: HomeScreen,
     Settings: SettingsStack,
-    AuthStack: AuthStack
+    AuthStack: AuthStack,
+    CarSelect: CarSelection
   }, 
   {
     transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,
