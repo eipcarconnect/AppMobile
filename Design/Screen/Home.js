@@ -290,8 +290,7 @@ export default class Home extends React.Component {
                                 }}>
                         <Button
                             onPress={() => {
-                                if(this.state.routemodal == false)
-                                    this.setState({routemodal: true})
+                            this.props.navigation.navigate('AddTrajet')
                             }}
                             title="CREATE A ROUTE"
                             buttonStyle={{

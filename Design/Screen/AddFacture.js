@@ -1,11 +1,10 @@
 import React from 'react'
 import { TextInput, View, StyleSheet, Picker } from 'react-native'
 import { Button } from 'react-native-elements'
-import { save, getSaved, deletSaved} from '../Tools/Storage'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 
-export default class Map extends React.Component {
+export default class AddFacture extends React.Component {
 
     
     constructor(props) {

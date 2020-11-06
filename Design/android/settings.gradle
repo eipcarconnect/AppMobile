@@ -1,3 +1,5 @@
 rootProject.name = 'AppDesign'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':react-native-easy-address-picker'
+project(':react-native-easy-address-picker').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-easy-address-picker/android')
 include ':app'

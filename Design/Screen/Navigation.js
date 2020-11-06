@@ -15,8 +15,8 @@ import { deletSaved } from '../Tools/Storage'
 import MapScreen from './Map'
 
 import AddFactureScreen from './AddFacture'
+import AddTrajetScreen from './AddTrajet'
 
-import Test2Screen from './Test2'
 
 import SettingsAccountScreen from './Settings/SettingsAccount'
 import SettingsHomePageScreen from './Settings/SettingsHomePage/SettingsHomePage'
@@ -116,15 +116,15 @@ const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
   SignUp: SignUpScreen,
   Map: MapScreen,
-  AddFacture: AddFactureScreen,
-  Test2: Test2Screen,
 });
 
 const AppStack = createDrawerNavigator(
   {
     Home: HomeScreen,
+    AuthStack: AuthStack,
     Settings: SettingsStack,
-    AuthStack: AuthStack
+    AddTrajet: AddTrajetScreen,
+    AddFacture: AddFactureScreen
   }, 
   {
     transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,

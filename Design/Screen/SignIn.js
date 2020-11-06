@@ -84,7 +84,6 @@ export default class SignIn extends React.Component {
           .then((resjson) => {
             if (resjson.success === true) {
               global.token = resjson.token;
-              console.log(global.token);
               this.getUserInfos();
             }
             else {
