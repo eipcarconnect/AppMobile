@@ -29,7 +29,6 @@ export default class SignIn extends React.Component {
           email: '',
             password: '',
           }
-<<<<<<< HEAD
         global.name = '';
         global.date = '';
         global.email = '';
@@ -43,18 +42,6 @@ export default class SignIn extends React.Component {
         global.model = '';
         global.brand = '';
         global.numberplate = '';
-=======
-          global.lat = '';
-          global.name = '';
-          global.date = '';
-          global.fuel = '';
-          global.long = '';
-          global.test = '';
-          global.email = '';
-          global.token = '';
-          global.speed = '';
-          global.registToken = '';
->>>>>>> psuh
     }
 
     setEmail(text)
@@ -135,7 +122,7 @@ export default class SignIn extends React.Component {
               save("email", global.email);
               this.setState({ email: '', password: '' });
               console.log('geuUserInfos OK');
-              this.props.navigation.navigate('Home');
+              this.props.navigation.navigate('CarSelect');
             }
             else {
               alert(resjson.error);
