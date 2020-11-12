@@ -108,6 +108,8 @@ export default class AddFacture extends React.Component {
         }
         let prixHT = parseFloat(this.state.prixHT.replace(",", "."));
         let prixTTC = parseFloat(this.state.prixTTC.replace(",", "."));
+        alert("name:" + ' ' + this.state.name + ' ' + "plaque:" + ' ' + this.state.plaque + ' ' + "categorie:" + ' ' + this.state.categorie,
+            "prixHT:" + ' ' + prixHT + ' ' + "prixTTC:" + ' ' + prixTTC);
         console.log("name:", this.state.name, "plaque:", this.state.plaque, "categorie:", this.state.categorie,
             "prixHT:", prixHT, "prixTTC:", prixTTC);
     }

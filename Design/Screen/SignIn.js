@@ -29,6 +29,7 @@ export default class SignIn extends React.Component {
           email: '',
             password: '',
           }
+<<<<<<< HEAD
         global.name = '';
         global.date = '';
         global.email = '';
@@ -42,6 +43,18 @@ export default class SignIn extends React.Component {
         global.model = '';
         global.brand = '';
         global.numberplate = '';
+=======
+          global.lat = '';
+          global.name = '';
+          global.date = '';
+          global.fuel = '';
+          global.long = '';
+          global.test = '';
+          global.email = '';
+          global.token = '';
+          global.speed = '';
+          global.registToken = '';
+>>>>>>> psuh
     }
 
     setEmail(text)
@@ -87,6 +100,7 @@ export default class SignIn extends React.Component {
           .then((resjson) => {
             if (resjson.success === true) {
               global.token = resjson.token;
+              console.log('signin OK');
               this.getUserInfos();
             }
             else {
@@ -120,7 +134,8 @@ export default class SignIn extends React.Component {
               global.date = resjson.birthdate.split('T')[0];
               save("email", global.email);
               this.setState({ email: '', password: '' });
-              this.getCarInfos();
+              console.log('geuUserInfos OK');
+              this.props.navigation.navigate('Home');
             }
             else {
               alert(resjson.error);
@@ -129,66 +144,29 @@ export default class SignIn extends React.Component {
             }
           });
       }
-    
-      getCarInfos() {
-        var data = {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            token: global.token,
-          }),
-        }
-        fetch('http://40.85.113.74:3000/data/getvehiculeinfo', data).then((res) => res.json())
-          .then((resjson) => {
-            if (resjson.success === true) {
-              global.speed = resjson.speed;
-              global.fuel = resjson.fuel;
-              global.lat = resjson.latitude;
-              global.long = resjson.longitude;
-              this.setState({ email: '', password: '' });
-              this.sendNotifToken();
 
-            }
-            else {
-              alert(resjson.error);
-              console.log("getvehiculeinfo", resjson.error);
-              return;
-            }
-          });
+  getCompanyList() {
+    var data = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       }
 
-      sendNotifToken() {
-        messaging().getToken().then((currentToken) => {
-          var data = {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              token: global.token,
-              registrationToken: currentToken,
-            }),
-          }
-          fetch('http://40.85.113.74:3000/auth/addregistrationtoken', data).then((res) => res.json())
-            .then((resjson) => {
-              ;
-              if (resjson.success === true) {
-                this.setState({ email: '', password: '' });
-                this.props.navigation.navigate('CarSelect');
-              }
-              else {
-                alert(resjson.error);
-                console.log("addregistrationtoken", resjson.error);
-                return;
-              }
-            });
-        });
-              
     }
+    fetch('http://40.85.113.74:3000/data/company', data).then((res) => res.json())
+      .then((resjson) => {
+        if (resjson.success === true) {
+          console.log(resjson);
+          this.props.navigation.navigate('SignUp');
+        }
+        else {
+          alert(resjson.error);
+          console.log(resjson);
+          return;
+        }
+      });
+  }
 
   componentDidMount() {
     getSaved("email").then((value) => {
@@ -231,7 +209,7 @@ export default class SignIn extends React.Component {
                           buttonStyle={styles.Button}>
                         </Button> */}
                         <Text style={styles.TextButton}
-                        onPress={() => this.props.navigation.navigate('SignUp')}>
+                        onPress={() => this.getCompanyList()}>
                             Create account
                         </Text>
                     </View>

@@ -108,6 +108,10 @@ export default class AddTrajet extends React.Component {
             alert('Veuillez une estimation du temps de trajet');
             return (84);
         }
+        alert("name:" + ' ' + this.state.name + ' ' +
+            "adresse de départ:" + ' ' + this.state.adresse1 + ' ' + ' ' + ' ' + this.state.cp1 + ' ' + ' ' + ' ' + this.state.ville1 + ' ' +
+            "adresse d\'arrivée:" + ' ' + this.state.adresse2 + ' ' + ' ' + ' ' + this.state.cp2 + ' ' + ' ' + ' ' + this.state.ville2 + ' ' +
+            "date de départ:" + ' ' + this.formatDate(this.state.date) + ' ' + "temps de trajet estimé:" + ' ' + this.formatTime(this.state.date))
         console.log("name:", this.state.name, 
         "adresse de départ:", this.state.adresse1 + ' ' + this.state.cp1 + ' ' + this.state.ville1, 
         "adresse d\'arrivée:", this.state.adresse2 + ' ' + this.state.cp2 + ' ' + this.state.ville2,

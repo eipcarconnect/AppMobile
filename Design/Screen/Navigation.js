@@ -12,6 +12,7 @@ import MapScreen from './Map'
 
 import AddFactureScreen from './AddFacture'
 import AddTrajetScreen from './AddTrajet'
+import HistoriqueFactureScreen from './HistoriqueFacture'
 
 
 import SettingsAccountScreen from './Settings/SettingsAccount'
@@ -122,7 +123,8 @@ const AppStack = createDrawerNavigator(
     Settings: SettingsStack,
     CarSelect: CarSelection,
     AddTrajet: AddTrajetScreen,
-    AddFacture: AddFactureScreen
+    AddFacture: AddFactureScreen,
+    HistoriqueFacture: HistoriqueFactureScreen
   }, 
   {
     transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,

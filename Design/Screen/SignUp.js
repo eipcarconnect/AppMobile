@@ -121,7 +121,7 @@ export default class SignUp extends React.Component {
         fetch('http://40.85.113.74:3000/auth/signup', data).then((res) => res.json())
         .then((resjson) => {
             if (resjson.success === true) {
-                alert("User succesfully registered");
+                alert("Nouvel utilisateur crée avec succés");
                 this.props.navigation.navigate('SignIn');
             }
             else {

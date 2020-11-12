@@ -26,7 +26,6 @@ export default class Home extends React.Component {
 
     componentDidMount() {
         this.getUser()
-        this.Refresh()
     }
 
     async getUser() {
@@ -56,33 +55,6 @@ export default class Home extends React.Component {
             }
         }
         catch(error) {console.log(error)}
-    }
-
-    Refresh() {
-        var data = {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                token: global.token,
-            }),
-        }
-        fetch('http://40.85.113.74:3000/data/getvehiculeinfo', data).then((res) => res.json())
-            .then((resjson) => {
-                if (resjson.success === true) {
-                    global.speed = resjson.speed;
-                    global.fuel = resjson.fuel;
-                    global.lat = resjson.latitude;
-                    global.long = resjson.longitude;
-                    this.setState({fuel: global.fuel});
-                }
-                else {
-                    alert(resjson.error);
-                    return;
-                }
-            });
     }
 
     textScales(maxsize, width, charnumber) 
@@ -315,6 +287,26 @@ export default class Home extends React.Component {
                             titleStyle={{fontSize: 18}}>
                         </Button>
                     </View>
+                <View style={{
+                    width: widthPercentage("88%"),
+                    height: heightPercentage("12%"),
+                    backgroundColor: "#2F2F2F",
+                    marginTop: heightPercentage("3.5%"),
+                    elevation: 10
+                }}>
+                    <Button
+                        onPress={() => this.props.navigation.navigate('HistoriqueFacture')}
+                        title="INVOICE HISTORY"
+                        buttonStyle={{
+                            height: heightPercentage('6%'),
+                            width: widthPercentage('80%'),
+                            marginVertical: heightPercentage('3%'),
+                            marginHorizontal: widthPercentage('4%'),
+                            backgroundColor: "#2c84cc",
+                        }}
+                        titleStyle={{ fontSize: 18 }}>
+                    </Button>
+                </View>
             </View>
         )
     }
