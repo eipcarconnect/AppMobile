@@ -18,14 +18,22 @@ export default class Home extends React.Component {
         this.state = {
             data: {},
             elements: [],
+            
+            brand: "Volkswagen",
+            model: "Golf",
+            numberplate: "XX-666-XX",
             kilometer: "23 871",
             fuel: 10,
             maxfuel: 100
         }
+        global.name="Loick MURY"
+        global.email="loick.mury@gmail.com"
+
     }
 
     componentDidMount() {
         this.getUser()
+        this.Refresh()
     }
 
     async getUser() {
@@ -55,6 +63,33 @@ export default class Home extends React.Component {
             }
         }
         catch(error) {console.log(error)}
+    }
+
+    Refresh() {
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: global.token,
+            }),
+        }
+        fetch('http://40.85.113.74:3000/data/getvehiculeinfo', data).then((res) => res.json())
+            .then((resjson) => {
+                if (resjson.success === true) {
+                    global.speed = resjson.speed;
+                    global.fuel = resjson.fuel;
+                    global.lat = resjson.latitude;
+                    global.long = resjson.longitude;
+                    this.setState({fuel: global.fuel});
+                }
+                else {
+                    alert(resjson.error);
+                    return;
+                }
+            });
     }
 
     textScales(maxsize, width, charnumber) 
@@ -172,7 +207,7 @@ export default class Home extends React.Component {
                             <View style={{marginTop: heightPercentage("1%")}}>
                                 <Text
                                     numberOfLines={1}
-                                    style={[this.textScales(25, widthPercentage("130%"), global.brand.length),
+                                    style={[this.textScales(25, widthPercentage("130%"), this.state.brand.length),
                                     {
                                         //width: widthPercentage("80%"),
                                             //height: heightPercentage("4%"),
@@ -181,11 +216,11 @@ export default class Home extends React.Component {
                                             color: "white"
                                         }
                                     ]}>
-                                    {global.brand}
+                                    {this.state.brand}
                                 </Text>
                                 <Text 
                                     numberOfLines={1}
-                                    style={[this.textScales(20, widthPercentage("130%"), global.model.length),
+                                    style={[this.textScales(20, widthPercentage("130%"), this.state.model.length),
                                         {
                                             //width: widthPercentage("80%"),
                                             //height: heightPercentage("4%"),
@@ -194,11 +229,11 @@ export default class Home extends React.Component {
                                             color: "white"
                                         }
                                     ]}>
-                                    {global.model}
+                                    {this.state.model}
                                 </Text>
                                 <Text 
                                     numberOfLines={1}
-                                    style={[this.textScales(16, widthPercentage("130%"), global.numberplate.length),
+                                    style={[this.textScales(16, widthPercentage("130%"), this.state.numberplate.length),
                                     {
                                         //width: widthPercentage("80%"),
                                         //height: heightPercentage("4%"),
@@ -207,7 +242,7 @@ export default class Home extends React.Component {
                                             color: "white"
                                         }
                                     ]}>
-                                    {global.numberplate}
+                                    {this.state.numberplate}
                                 </Text>
                             </View>
                             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', marginTop: heightPercentage("2%"), marginRight: widthPercentage("6%")}}>
@@ -233,7 +268,7 @@ export default class Home extends React.Component {
                         <View style={{marginBottom:heightPercentage("2%")}}>  
                             <Text 
                                 numberOfLines={1}
-                                style={[this.textScales(20, widthPercentage("130%"), this.state.kilometer.length),
+                                style={[this.textScales(20, widthPercentage("130%"), this.state.numberplate.length),
                                 {
                                     width: widthPercentage("88%"),
                                     //height: heightPercentage("4%"),
