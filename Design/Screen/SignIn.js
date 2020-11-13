@@ -4,22 +4,8 @@ import { Button } from 'react-native-elements'
 import messaging, { firebase } from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-community/async-storage';
 import { save, getSaved } from '../Tools/Storage'
-import Storage from '../Tools/Storage'
 import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
-
-const androidConfig = {
-  clientId: '272259501698-uehfn1fah6m8lmln8c3mtrdqev95gq8m.apps.googleusercontent.com',
-  appId: '1:272259501698:android:765aba57f14a38ac346e9b',
-  apiKey: 'AIzaSyC3-FdB64y8QG8A7BupPE72v36TH57nJ48',
-  databaseURL: '',
-  storageBucket: 'carconnect-e09c5.appspot.com',
-  messagingSenderId: '',
-  projectId: 'carconnect-e09c5',
-
-  // enable persistence by adding the below flag
-  persistence: true,
-};
 
 export default class SignIn extends React.Component {
 
@@ -33,15 +19,9 @@ export default class SignIn extends React.Component {
         global.date = '';
         global.email = '';
         global.token = '';
-        global.speed = '';
-        global.fuel = '';
-        global.lat = '';
-        global.long = '';
-        global.registToken = '';
         global.test = '';
-        global.model = '';
-        global.brand = '';
-        global.numberplate = '';
+        global.car = {};
+        global.company = [];
     }
 
     setEmail(text)
@@ -59,9 +39,6 @@ export default class SignIn extends React.Component {
     }
 
     toggleSignIn() {
-      if (firebase.apps.length === 0) {
-        firebase.initializeApp(androidConfig);
-      }
         if (this.state.email.length < 1) {
           alert('Please enter an email address.');
           return(84);
@@ -122,7 +99,15 @@ export default class SignIn extends React.Component {
               save("email", global.email);
               this.setState({ email: '', password: '' });
               console.log('geuUserInfos OK');
-              this.props.navigation.navigate('CarSelect');
+              getSaved('car').then((value) => {
+                if (value) {
+                  global.car = JSON.parse(value);
+                  this.props.navigation.navigate('Home');
+                }
+                else {
+                  this.props.navigation.navigate('CarSelect');
+                }
+              });
             }
             else {
               alert(resjson.error);
@@ -139,12 +124,12 @@ export default class SignIn extends React.Component {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       }
-
     }
     fetch('http://40.85.113.74:3000/data/company', data).then((res) => res.json())
       .then((resjson) => {
         if (resjson.success === true) {
           console.log(resjson);
+          global.company = resjson.company.sort();
           this.props.navigation.navigate('SignUp');
         }
         else {
@@ -157,7 +142,7 @@ export default class SignIn extends React.Component {
 
   componentDidMount() {
     getSaved("email").then((value) => {
-      if (value != 'none')
+      if (value)
         this.setEmail(value);
     });
   }
@@ -190,11 +175,6 @@ export default class SignIn extends React.Component {
                             title="Sign In"
                             buttonStyle={styles.Button}>
                         </Button>
-                        {/* <Button
-                          onPress={() => this.props.navigation.navigate('Test')}
-                          title="test"
-                          buttonStyle={styles.Button}>
-                        </Button> */}
                         <Text style={styles.TextButton}
                         onPress={() => this.getCompanyList()}>
                             Create account

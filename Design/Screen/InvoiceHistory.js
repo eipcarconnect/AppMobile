@@ -6,7 +6,7 @@ import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 const initialArr = [
     {
         name: "pause repas",
-        plaque: "AA-389-BB",
+        plate: "AA-389-BB",
         type: "Restauration",
         date: "11 novembre 2020",
         HT: "10,34",
@@ -14,7 +14,7 @@ const initialArr = [
     },
     {
         name: "Hotel",
-        plaque: "AA-389-BB",
+        plate: "AA-389-BB",
         type: "Logement",
         date: "10 novembre 2020",
         HT: "23,34",
@@ -22,7 +22,7 @@ const initialArr = [
     },
     {
         name: "péage",
-        plaque: "AA-389-BB",
+        plate: "AA-389-BB",
         type: "Autoroute",
         date: "9 novembre 2020",
         HT: "9,34",
@@ -30,14 +30,14 @@ const initialArr = [
     },
 ];
 
-export default class HistoriqueFacture extends React.Component {
+export default class InvoiceHistory extends React.Component {
 
 
     constructor(props) {
         super(props)
         this.state = {
             name: '',
-            plaque: '',
+            plate: '',
             prixHT: '',
             prixTTC: '',
             categorie: 'none',
@@ -64,11 +64,11 @@ export default class HistoriqueFacture extends React.Component {
                 textAlign: "center"
             }}>
                 Nom: {Infos.name}{"\n"}
-                     plaque: {Infos.plaque}{"\n"}
+                     plate: {Infos.plate}{"\n"}
                      Type: {Infos.type}{"\n"}
                      Date: {Infos.date}{"\n"}
-                     Prix Hors Taxes: {Infos.HT}{"\n"}
-                     Prix TTC: {Infos.TTC}{"\n"}</Text>
+                     Prix Hors Taxes: {Infos.HT} €{"\n"}
+                     Prix TTC: {Infos.TTC} €{"\n"}</Text>
         ));
         return FactList;
     }

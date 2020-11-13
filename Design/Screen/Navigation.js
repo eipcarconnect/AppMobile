@@ -10,9 +10,10 @@ import { deletSaved } from '../Tools/Storage'
 
 import MapScreen from './Map'
 
-import AddFactureScreen from './AddFacture'
-import AddTrajetScreen from './AddTrajet'
-import HistoriqueFactureScreen from './HistoriqueFacture'
+import AddInvoiceScreen from './AddInvoice'
+import AddRouteScreen from './AddRoute'
+import InvoiceHistoryScreen from './InvoiceHistory'
+import RouteHistoryScreen from './RouteHistory'
 
 
 import SettingsAccountScreen from './Settings/SettingsAccount'
@@ -33,12 +34,9 @@ function disconnect() {
   global.date = '';
   global.email = '';
   global.token = '';
-  global.speed = '';
-  global.fuel = '';
-  global.lat = '';
-  global.long = '';
   global.registToken = '';
   deletSaved("email");
+  deletSaved("car");
 }
 
 const SettingsStack = createStackNavigator({
@@ -122,9 +120,10 @@ const AppStack = createDrawerNavigator(
     AuthStack: AuthStack,
     Settings: SettingsStack,
     CarSelect: CarSelection,
-    AddTrajet: AddTrajetScreen,
-    AddFacture: AddFactureScreen,
-    HistoriqueFacture: HistoriqueFactureScreen
+    AddRoute: AddRouteScreen,
+    AddInvoice: AddInvoiceScreen,
+    InvoiceHistory: InvoiceHistoryScreen,
+    RouteHistory: RouteHistoryScreen
   }, 
   {
     transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,
@@ -161,6 +160,16 @@ const AppStack = createDrawerNavigator(
                 marginVertical: heightPercentage('1%'),
                 marginHorizontal: widthPercentage('2%'),
                 backgroundColor:"#A00000"
+              }}>
+            </Button>
+            <Button
+              onPress={() => { deletSaved("car"); props.navigation.navigate('CarSelect'); }}
+              title="Changer de voiture"
+              buttonStyle={{
+                height: heightPercentage('6%'),
+                marginVertical: heightPercentage('1%'),
+                marginHorizontal: widthPercentage('2%'),
+                backgroundColor: "#2c84cc"
               }}>
             </Button>
           </View>

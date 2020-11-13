@@ -19,15 +19,15 @@ export default class Home extends React.Component {
             data: {},
             elements: [],
             
-            brand: "Volkswagen",
-            model: "Golf",
-            numberplate: "XX-666-XX",
+            brand: global.car.brand,
+            model: global.car.model,
+            numberplate: global.car.numberplate,
             kilometer: "23 871",
             fuel: 10,
             maxfuel: 100
         }
-        global.name="Loick MURY"
-        global.email="loick.mury@gmail.com"
+        // global.name="Loick MURY"
+        // global.email="loick.mury@gmail.com"
 
     }
 
@@ -66,38 +66,15 @@ export default class Home extends React.Component {
     }
 
     Refresh() {
-        var data = {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                token: global.token,
-            }),
-        }
-        fetch('http://40.85.113.74:3000/data/getvehiculeinfo', data).then((res) => res.json())
-            .then((resjson) => {
-                if (resjson.success === true) {
-                    global.speed = resjson.speed;
-                    global.fuel = resjson.fuel;
-                    global.lat = resjson.latitude;
-                    global.long = resjson.longitude;
-                    this.setState({fuel: global.fuel});
-                }
-                else {
-                    alert(resjson.error);
-                    return;
-                }
-            });
+       this.setState({brand: global.car.brand, model: global.car.model, numberplate: global.car.numberplate});
     }
 
     textScales(maxsize, width, charnumber) 
     {
-        console.log(charnumber);
-        console.log(width);
+        // console.log(charnumber);
+        // console.log(width);
         let s = (width / charnumber);
-        console.log(s);
+        // console.log(s);
         if (s > maxsize)
             return {fontSize: maxsize}
         return {fontSize: s}
@@ -245,7 +222,7 @@ export default class Home extends React.Component {
                                     {this.state.numberplate}
                                 </Text>
                             </View>
-                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', marginTop: heightPercentage("2%"), marginRight: widthPercentage("6%")}}>
+                            {/* <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', marginTop: heightPercentage("2%"), marginRight: widthPercentage("6%")}}>
                                 <Progress.Circle 
                                             progress={fuel/100}
                                             size={heightPercentage("12%")}
@@ -263,7 +240,7 @@ export default class Home extends React.Component {
                                             borderColor={'rgba(44,132,204,1)'}
                                             color={'rgba(44,132,204,1)'}>
                                 </Progress.Circle>
-                            </View>
+                            </View> */}
                         </View>
                         <View style={{marginBottom:heightPercentage("2%")}}>  
                             <Text 
@@ -290,9 +267,9 @@ export default class Home extends React.Component {
                                 }}>
                         <Button
                             onPress={() => {
-                            this.props.navigation.navigate('AddTrajet')
+                            this.props.navigation.navigate('AddRoute')
                             }}
-                            title="CREATE A ROUTE"
+                            title="CREER UN VOYAGE"
                             buttonStyle={{
                                 height: heightPercentage('6%'),
                                 width: widthPercentage('80%'),
@@ -310,8 +287,8 @@ export default class Home extends React.Component {
                                 elevation: 10
                                 }}>
                         <Button
-                        onPress={() => this.props.navigation.navigate('AddFacture')}
-                            title="CREATE A INVOICE"
+                        onPress={() => this.props.navigation.navigate('AddInvoice')}
+                            title="CREER UNE FACTURE"
                             buttonStyle={{
                                 height: heightPercentage('6%'),
                                 width: widthPercentage('80%'),
@@ -330,8 +307,28 @@ export default class Home extends React.Component {
                     elevation: 10
                 }}>
                     <Button
-                        onPress={() => this.props.navigation.navigate('HistoriqueFacture')}
-                        title="INVOICE HISTORY"
+                        onPress={() => this.props.navigation.navigate('InvoiceHistory')}
+                        title="HISTORIQUE DES FACTURES"
+                        buttonStyle={{
+                            height: heightPercentage('6%'),
+                            width: widthPercentage('80%'),
+                            marginVertical: heightPercentage('3%'),
+                            marginHorizontal: widthPercentage('4%'),
+                            backgroundColor: "#2c84cc",
+                        }}
+                        titleStyle={{ fontSize: 18 }}>
+                    </Button>
+                </View>
+                <View style={{
+                    width: widthPercentage("88%"),
+                    height: heightPercentage("12%"),
+                    backgroundColor: "#2F2F2F",
+                    marginTop: heightPercentage("3.5%"),
+                    elevation: 10
+                }}>
+                    <Button
+                        onPress={() => this.props.navigation.navigate('RouteHistory')}
+                        title="HISTORIQUE DES FACTURES"
                         buttonStyle={{
                             height: heightPercentage('6%'),
                             width: widthPercentage('80%'),

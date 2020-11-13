@@ -1,17 +1,17 @@
 import React from 'react'
-import { TextInput, View, StyleSheet, Picker } from 'react-native'
+import { TextInput, View, StyleSheet, Picker, Text } from 'react-native'
 import { Button } from 'react-native-elements'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 
-export default class AddFacture extends React.Component {
+export default class AddInvoice extends React.Component {
 
     
     constructor(props) {
         super(props)
         this.state = {
             name: '',
-            plaque: '',
+            numberplate: global.car.numberplate,
             prixHT: '',
             prixTTC: '',
             categorie: 'none',
@@ -29,13 +29,11 @@ export default class AddFacture extends React.Component {
                     value={this.state.name}
                     onChangeText={(text) => this.setState({ name: text })}>
                 </TextInput>
-                <TextInput
-                    placeholder="Immatriculation ex AA-234-BB"
-                    autoCapitalize="none"
-                    placeholderTextColor='black'
-                    value={this.state.plaque}
-                    onChangeText={(text) => this.setState({plaque: text})}>
-                </TextInput>
+                <Text style={{
+                    color: "black",
+                }}>
+                    {this.state.numberplate}
+                </Text>
                 <Picker
                     selectedValue={this.state.categorie}
                     // style={{ height: 50, width: 150 }}
@@ -73,17 +71,8 @@ export default class AddFacture extends React.Component {
     sendFacture() {
         let regPrix1 = new RegExp("^([0-9]+[\,]?[0-9]?[0-9]?|[0-9]+)$");
         let regPrix2 = new RegExp("^([0-9]+[\.]?[0-9]?[0-9]?|[0-9]+)$");
-        let regPlaque = new RegExp("^([A-Z]{2}-[0-9]{3}-[A-Z]{2})$");
         if (this.state.name.length < 1) {
             alert('Veuillez entrer un nom de facture');
-            return (84);
-        }
-        if (this.state.plaque.length < 1) {
-            alert('Veuillez entrer une immatriculation');
-            return (84);
-        }
-        else if(!regPlaque.test(this.state.plaque)) {
-            alert('Le format de l\'immatriculation est incorrect ex AA-234-BB');
             return (84);
         }
         if (this.state.categorie === 'none') {
@@ -108,9 +97,9 @@ export default class AddFacture extends React.Component {
         }
         let prixHT = parseFloat(this.state.prixHT.replace(",", "."));
         let prixTTC = parseFloat(this.state.prixTTC.replace(",", "."));
-        alert("name:" + ' ' + this.state.name + ' ' + "plaque:" + ' ' + this.state.plaque + ' ' + "categorie:" + ' ' + this.state.categorie,
+        alert("name:" + ' ' + this.state.name + ' ' + "numberplate:" + ' ' + this.state.numberplate + ' ' + "categorie:" + ' ' + this.state.categorie,
             "prixHT:" + ' ' + prixHT + ' ' + "prixTTC:" + ' ' + prixTTC);
-        console.log("name:", this.state.name, "plaque:", this.state.plaque, "categorie:", this.state.categorie,
+        console.log("name:", this.state.name, "numberplate:", this.state.numberplate, "categorie:", this.state.categorie,
             "prixHT:", prixHT, "prixTTC:", prixTTC);
     }
 }

@@ -4,8 +4,7 @@ import { Button } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
-
-export default class AddTrajet extends React.Component {
+export default class AddRoute extends React.Component {
 
 
     constructor(props) {

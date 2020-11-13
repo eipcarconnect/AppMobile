@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextInput, Text, View, StyleSheet, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
+import { TextInput, Text, View, StyleSheet, KeyboardAvoidingView, Image, TouchableOpacity, Picker } from 'react-native'
 import { Button } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
@@ -14,6 +14,7 @@ export default class SignUp extends React.Component {
             firstname: '',
             password: '',
             password2: '',
+            company: '',
 
             date: new Date('2000-01-01'),
             maxDate: new Date('2004-12-31'),
@@ -76,6 +77,14 @@ export default class SignUp extends React.Component {
         return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
+    getCompagnyPickerItem() {
+        console.log(global.company);
+        let companyList = global.company.map(Infos => (
+            <Picker.Item label={Infos} value={Infos} />
+        ));
+        return companyList;
+    }
+
     handleSignUp() {
         if (this.state.date.length < 1) {
             alert('Select a Birth Date.');
@@ -87,6 +96,10 @@ export default class SignUp extends React.Component {
         }
         if (this.state.lastname.length < 1) {
             alert('Please enter a Last Name.');
+            return;
+        }
+        if (this.state.company == 'none') {
+            alert('Veuillez selectionner une entreprise');
             return;
         }
         if (this.state.email.length < 1) {
@@ -113,7 +126,7 @@ export default class SignUp extends React.Component {
                 password: this.state.password,
                 email: this.state.email,
                 birthdate: this.state.date,
-                company: "Plipicorp&CO"
+                company: this.state.company
             }),
         }
         console.log(data.body);
@@ -158,7 +171,7 @@ export default class SignUp extends React.Component {
 
 
                         <View>
-                            <TouchableOpacity style={styles.TouchableOpacity} activeOpacity= {1} onPress={() => this.show()}>
+                            {/* <TouchableOpacity style={styles.TouchableOpacity} activeOpacity= {1} onPress={() => this.show()}>
                                 <Text style={{color: "white"}}>Birthday</Text>
                                 <Text style={{color: "white"}}>{this.formatDate(this.state.date)}</Text>
                             </TouchableOpacity>
@@ -169,7 +182,16 @@ export default class SignUp extends React.Component {
                                 minimumDate= {this.state.minDate}
                                 onChange={this.setDate}
                                  />
-                            }
+                            } */}
+
+                            <Picker
+                                selectedValue={this.state.company}
+                                style={styles.TextInput}
+                                onValueChange={(text) => this.setState({ company: text })}
+                            >
+                                <Picker.Item label="Selectionner une entreprise" value="none" />
+                               {this.getCompagnyPickerItem()}
+                            </Picker>
                         </View>
 
 

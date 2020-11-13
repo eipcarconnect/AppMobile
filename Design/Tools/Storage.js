@@ -12,13 +12,11 @@ export const getSaved = async (key) => {
     try {
         const value = await AsyncStorage.getItem(key)
         if (value !== null) {
-            // We have data!!
             return value;
         }
         else
-            return 'none';
+            return false;
     } catch (error) {
-        // Error retrieving data
         console.error(error);
     }
 }

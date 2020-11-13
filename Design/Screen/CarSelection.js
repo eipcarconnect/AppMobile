@@ -1,10 +1,10 @@
 import React from 'react'
 import { TextInput, Text, View, StyleSheet, FlatList, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
-import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import NavBar from '../Tools/NavBar'
 import StackBar from '../Tools/StackBar'
+import { save, getSaved } from '../Tools/Storage'
 
 const data = [
 { model:"208", brand:"Peugeot", numberplate: "XX-666-XX" },
@@ -25,9 +25,12 @@ export class CarItem extends React.Component {
     render () {
         return(
         <TouchableOpacity style={{marginTop: heightPercentage("2%")}} activeOpacity={0.7} onPress={() => {
-            global.model = this.props.model;
-            global.brand = this.props.brand;
-            global.numberplate = this.props.numberplate;
+            global.car = {
+                model: this.props.model,
+                brand: this.props.brand,
+                numberplate: this.props.numberplate
+            }
+            save("car", JSON.stringify(global.car));
             this.props.onTap();
         }}>
             <View style={{backgroundColor: "#2F2F2F", width: widthPercentage("90%"),
