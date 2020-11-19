@@ -1,5 +1,6 @@
 import React from 'react'
-import { TextInput, Text, View, StyleSheet, KeyboardAvoidingView, Image, TouchableOpacity, Picker } from 'react-native'
+import { TextInput, Text, View, StyleSheet, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
+import { Picker } from '@react-native-picker/picker';
 import { Button } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
@@ -187,7 +188,7 @@ export default class SignUp extends React.Component {
                             <Picker
                                 selectedValue={this.state.company}
                                 style={styles.TextInput}
-                                onValueChange={(text) => this.setState({ company: text })}
+                                onValueChange={(itemValue, itemIndex) => this.setState({ company: itemValue })}
                             >
                                 <Picker.Item label="Selectionner une entreprise" value="none" />
                                {this.getCompagnyPickerItem()}
@@ -247,8 +248,8 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     Logo: {
-        width: heightPercentage('25%'),
-        height: heightPercentage('25%'),
+        width: heightPercentage('17%'),
+        height: heightPercentage('17%'),
         marginTop: heightPercentage('2%')
     },
     TextInput: {

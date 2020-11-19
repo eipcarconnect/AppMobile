@@ -1,10 +1,8 @@
 import React from 'react'
 import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight } from 'react-native'
 import { Button } from 'react-native-elements'
-import messaging, { firebase } from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-community/async-storage';
 import { save, getSaved } from '../Tools/Storage'
-import Axios from 'axios'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 export default class SignIn extends React.Component {
@@ -128,7 +126,6 @@ export default class SignIn extends React.Component {
     fetch('http://40.85.113.74:3000/data/company', data).then((res) => res.json())
       .then((resjson) => {
         if (resjson.success === true) {
-          console.log(resjson);
           global.company = resjson.company.sort();
           this.props.navigation.navigate('SignUp');
         }

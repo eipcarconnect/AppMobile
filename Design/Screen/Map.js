@@ -2,7 +2,6 @@ import React from 'react'
 import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import geolocalisation from '@react-native-community/geolocation';
-import messaging, { firebase } from '@react-native-firebase/messaging';
 import Axios from 'axios'
 import NavBar from '../Tools/NavBar'
 // import PermissionsAndroid from 'react-native-permissions';
