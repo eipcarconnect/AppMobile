@@ -118,12 +118,12 @@ const AppStack = createDrawerNavigator(
   {
     Home: HomeScreen,
     AuthStack: AuthStack,
-    Settings: SettingsStack,
     CarSelect: CarSelection,
     AddRoute: AddRouteScreen,
     AddInvoice: AddInvoiceScreen,
-    InvoiceHistory: InvoiceHistoryScreen,
-    RouteHistory: RouteHistoryScreen
+    "Invoice History": InvoiceHistoryScreen,
+    "Route History": RouteHistoryScreen,
+    Settings: SettingsStack
   }, 
   {
     transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,
@@ -139,7 +139,8 @@ const AppStack = createDrawerNavigator(
     },
     contentComponent: (props) => {
       var copyprops = Object.assign({}, props);
-      copyprops.items = copyprops.items.filter(function(item) {if (item.key !== 'Rating' && item.key !== 'AuthStack') return true})
+      copyprops.items = copyprops.items.filter(function(item) {
+        if (item.key !== 'AddInvoice' && item.key !== 'AddRoute' && item.key !== 'CarSelect' && item.key !== 'AuthStack') return true})
       return (
         <SafeAreaView style={{height: '100%'}}>
             <View style={{height: heightPercentage('20%'),alignItems: 'center', justifyContent: 'center'}}>
@@ -153,16 +154,6 @@ const AppStack = createDrawerNavigator(
           </ScrollView>
           <View style={{position: 'absolute', bottom: 0, width: '100%'}}>
             <Button
-              onPress={() => {disconnect(); props.navigation.navigate('AuthStack'); }}
-              title="Deconnection"
-              buttonStyle={{
-                height: heightPercentage('6%'),
-                marginVertical: heightPercentage('1%'),
-                marginHorizontal: widthPercentage('2%'),
-                backgroundColor:"#A00000"
-              }}>
-            </Button>
-            <Button
               onPress={() => { deletSaved("car"); props.navigation.navigate('CarSelect'); }}
               title="Changer de voiture"
               buttonStyle={{
@@ -170,6 +161,16 @@ const AppStack = createDrawerNavigator(
                 marginVertical: heightPercentage('1%'),
                 marginHorizontal: widthPercentage('2%'),
                 backgroundColor: "#2c84cc"
+              }}>
+            </Button>
+            <Button
+              onPress={() => {disconnect(); props.navigation.navigate('AuthStack'); }}
+              title="Deconnection"
+              buttonStyle={{
+                height: heightPercentage('6%'),
+                marginVertical: heightPercentage('1%'),
+                marginHorizontal: widthPercentage('2%'),
+                backgroundColor:"#A00000"
               }}>
             </Button>
           </View>

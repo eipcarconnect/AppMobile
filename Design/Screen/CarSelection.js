@@ -34,7 +34,7 @@ export class CarItem extends React.Component {
             this.props.onTap();
         }}>
             <View style={{backgroundColor: "#2F2F2F", width: widthPercentage("90%"),
-            height: heightPercentage("9%"), flexDirection: "row", alignItems: 'center'}}>
+            height: heightPercentage("9%"), flexDirection: "row", alignItems: 'center', elevation: 10}}>
                 <View style={{marginLeft: widthPercentage("5%") }}>
                     <Text style={{color: "white", fontSize: 20}}>{this.props.brand}</Text>
                     <Text style={{color: "white", fontSize: 18}}>{this.props.model}</Text>

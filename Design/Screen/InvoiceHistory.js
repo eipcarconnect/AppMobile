@@ -1,12 +1,13 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, FlatList } from 'react-native'
 import { Button } from 'react-native-elements'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
+import NavBar from '../Tools/NavBar'
 
-const initialArr = [
+const data = [
     {
         name: "pause repas",
-        plate: "AA-389-BB",
+        numberplate: "AA-389-BB",
         type: "Restauration",
         date: "11 novembre 2020",
         HT: "10,34",
@@ -14,7 +15,7 @@ const initialArr = [
     },
     {
         name: "Hotel",
-        plate: "AA-389-BB",
+        numberplate: "AA-389-BB",
         type: "Logement",
         date: "10 novembre 2020",
         HT: "23,34",
@@ -22,7 +23,7 @@ const initialArr = [
     },
     {
         name: "péage",
-        plate: "AA-389-BB",
+        numberplate: "AA-389-BB",
         type: "Autoroute",
         date: "9 novembre 2020",
         HT: "9,34",
@@ -30,60 +31,83 @@ const initialArr = [
     },
 ];
 
+export class InvoiceItem extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            data: {},
+            elements: []
+        }
+    }
+
+    render () {
+        return(
+            <View style={{backgroundColor: "#2F2F2F", alignItems: "center", marginTop: heightPercentage('3%'), width: widthPercentage('85%'), elevation: 10}}>
+                <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20}}>
+                    {this.props.name.toUpperCase()}
+                </Text>
+                <View style={{width: widthPercentage("85%"), flexDirection: "row", alignItems: 'center',
+                marginTop: heightPercentage('2%')}}>
+                    <View style={{marginLeft: widthPercentage("8%") }}>
+                        <Text style={{color: "white"}}>{this.props.date}</Text>
+                    </View>
+                    <View style={{marginRight: widthPercentage("8%"), flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                        <Text style={{color: "#2c84cc"}}>{this.props.type}</Text>
+                    </View>
+                </View>
+                <View style={{width: widthPercentage("85%"), flexDirection: "row", alignItems: 'center',
+                marginTop: heightPercentage('2%'), marginBottom: heightPercentage('3%')}}>
+                    <View style={{marginLeft: widthPercentage("8%") }}>
+                        <Text style={{color: "white"}}>{this.props.TTC} € TTC</Text>
+                    </View>
+                    <View style={{marginRight: widthPercentage("8%"), flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                        <Text style={{color: "white"}}>{this.props.HT} € HT</Text>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+}
+
 export default class InvoiceHistory extends React.Component {
-
-
     constructor(props) {
         super(props)
         this.state = {
             name: '',
-            plate: '',
+            numberplate: '',
             prixHT: '',
             prixTTC: '',
             categorie: 'none',
-            tmp: '',
-             
+            tmp: ''
         }
     }
 
+    renderItem = ({ item }) => (
+        <InvoiceItem name={item.name} numberplate={item.numberplate} HT={item.HT}
+        TTC={item.TTC} type={item.type} date={item.date}/>
+    );
+
     render() {
         return (
-            <View>
-                {this.displayHistory()}
+            <View style={styles.View}>
+                <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
+                <FlatList
+                    data={data}
+                    renderItem={this.renderItem}
+                    keyExtractor={item => item.numberplate}
+                />
             </View>
         )
     }
-
-    displayHistory() {
-        let FactList = initialArr.map(Infos => (
-            <Text style={{
-                marginVertical: heightPercentage('3%'),
-                marginHorizontal: widthPercentage('4%'),
-                backgroundColor: "#2F2F2F",
-                color: "white",
-                textAlign: "center"
-            }}>
-                Nom: {Infos.name}{"\n"}
-                     plate: {Infos.plate}{"\n"}
-                     Type: {Infos.type}{"\n"}
-                     Date: {Infos.date}{"\n"}
-                     Prix Hors Taxes: {Infos.HT} €{"\n"}
-                     Prix TTC: {Infos.TTC} €{"\n"}</Text>
-        ));
-        return FactList;
-    }
-
-
-   
 }
 
 
 const styles = StyleSheet.create({
     View: {
-        flex: 1,
-        paddingTop: 20,
-        backgroundColor: "#353535",
-        alignItems: "center"
+        flex:1, 
+        //paddingTop: 20, 
+        backgroundColor: "#1E1E1E",
+        alignItems:"center"
     },
     Logo: {
         width: heightPercentage('25%'),
