@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, TextInput } from 'react-native'
 import { Button } from 'react-native-elements'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
@@ -12,14 +12,14 @@ const initialArr = [
         timeEstimation: "3h34"
     },
     {
-        name: "Réunion",
+        name: "Pitch pour le peojet 'Pomme D'amour'",
         date: "11 novembre 2020",
         startAdress: "1 rue françois périer 34070 Montpellier",
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
         timeEstimation: "3h34"
     },
     {
-        name: "Réunion",
+        name: "Meeting avec des investisseur",
         date: "11 novembre 2020",
         startAdress: "1 rue françois périer 34070 Montpellier",
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
@@ -33,26 +33,43 @@ export default class RouteHistory extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            plaque: '',
-            prixHT: '',
-            prixTTC: '',
-            categorie: 'none',
-            tmp: '',
-             
+            search: '',
+            searchList: initialArr,
         }
     }
 
     render() {
         return (
             <View>
+                <View>
+                    <TextInput 
+                        placeholder="Rechercher"
+                        value={this.state.password}
+                        onChangeText={(text) => this.setState({search: text})}>
+                    </TextInput>
+                </View>
                 {this.displayHistory()}
             </View>
         )
     }
 
+    getSearchArray() {
+        let tmp = [];
+        if (this.state.search !== '') {
+            this.state.searchList.forEach((elem) => {
+                if (elem.name.toLowerCase().startsWith(this.state.search.toLowerCase()))
+                    tmp.push(elem);
+            });
+            console.log(tmp);
+            return tmp;
+        } 
+        else 
+            return initialArr;
+    }
+
     displayHistory() {
-        let routeList = initialArr.map(Infos => (
+        let toDisplay = this.getSearchArray();
+        let routeList = toDisplay.map(Infos => (
             <Text style={{
                 marginVertical: heightPercentage('3%'),
                 marginHorizontal: widthPercentage('4%'),
