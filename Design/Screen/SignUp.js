@@ -184,15 +184,18 @@ export default class SignUp extends React.Component {
                                 onChange={this.setDate}
                                  />
                             } */}
-
-                            <Picker
-                                selectedValue={this.state.company}
-                                style={styles.TextInput}
-                                onValueChange={(itemValue, itemIndex) => this.setState({ company: itemValue })}
-                            >
-                                <Picker.Item label="Selectionner une entreprise" value="none" />
-                               {this.getCompagnyPickerItem()}
-                            </Picker>
+                            <View style={{borderBottomWidth: 1, borderColor: "white",  marginTop: heightPercentage('5%')}}>
+                                <Picker
+                                    selectedValue={this.state.company}
+                                    dropdownIconColor="white"
+                                    itemStyle={{backgroundColor:"red", fontSize: 10}}
+                                    style={{color: "white", height: heightPercentage('6%'), width: widthPercentage('80%') }}
+                                    onValueChange={(itemValue, itemIndex) => this.setState({ company: itemValue })}
+                                    >
+                                    <Picker.Item label="Selectionner une entreprise" value="none" />
+                                {this.getCompagnyPickerItem()}
+                                </Picker>
+                            </View>
                         </View>
 
 
