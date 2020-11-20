@@ -18,7 +18,6 @@ export class CarItem extends React.Component {
         super(props)
         this.state = {
             data: {},
-            elements: []
         }
     }
 
@@ -54,7 +53,6 @@ export default class CarSelection extends React.Component {
         super(props)
         this.state = {
             data: {},
-            elements: []
         }
     }
 
@@ -70,7 +68,7 @@ export default class CarSelection extends React.Component {
             <View style={styles.View}>
                 <View style={{flexDirection: "row", height: heightPercentage('7%'), width: widthPercentage('100%'), backgroundColor:"#1E1E1E", borderBottomWidth: 1, borderBottomColor: "#DDDDDD"}}>
                     <View style={{height: heightPercentage('7%'), width: widthPercentage('100%'), marginLeft: widthPercentage('6%'), justifyContent: 'center'}}>
-                        <Text style={{color: "white", fontSize: 20}}>Select your vehicle</Text>
+                        <Text style={{color: "white", fontSize: 20}}>Selectionnez un véhicule</Text>
                     </View>
                 </View>
                 <FlatList

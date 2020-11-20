@@ -14,12 +14,12 @@ export default class SignIn extends React.Component {
             password: '',
           }
         global.name = '';
-        global.date = '';
         global.email = '';
         global.token = '';
         global.test = '';
         global.car = {};
         global.company = [];
+        global.carList = [];
     }
 
     setEmail(text)
@@ -93,7 +93,6 @@ export default class SignIn extends React.Component {
             if (resjson.success === true) {
               global.name = resjson.name;
               global.email = resjson.email
-              global.date = resjson.birthdate.split('T')[0];
               save("email", global.email);
               this.setState({ email: '', password: '' });
               console.log('geuUserInfos OK');
@@ -103,7 +102,7 @@ export default class SignIn extends React.Component {
                   this.props.navigation.navigate('Home');
                 }
                 else {
-                  this.props.navigation.navigate('CarSelect');
+                  this.getCarList();
                 }
               });
             }
@@ -114,6 +113,33 @@ export default class SignIn extends React.Component {
             }
           });
       }
+    
+  getCarList() {
+    var data = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: global.token,
+      }),
+    }
+    fetch('http://40.85.113.74:3000/data/user/getvehicles', data).then((res) => res.json())
+      .then((resjson) => {
+        if (resjson.success === true) {
+          global.carList = resjson.vehicles;
+          console.log('getCarList OK');
+          console.log(resjson);
+          this.props.navigation.navigate('CarSelect');
+        }
+        else {
+          alert(resjson.error);
+          console.log("getCarList", resjson.error);
+          return;
+        }
+      });
+  }
 
   getCompanyList() {
     var data = {
