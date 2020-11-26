@@ -17,7 +17,7 @@ export class CarItem extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            data: {},
+            data: global.carList,
         }
     }
 
@@ -25,9 +25,10 @@ export class CarItem extends React.Component {
         return(
         <TouchableOpacity style={{marginTop: heightPercentage("2%")}} activeOpacity={0.7} onPress={() => {
             global.car = {
-                model: this.props.model,
-                brand: this.props.brand,
-                numberplate: this.props.numberplate
+                model: this.props.data.model.split(' ')[0],
+                brand: this.props.data.model,
+                numberplate: "??-???-??",
+                id: this.props.data.model,
             }
             save("car", JSON.stringify(global.car));
             this.props.onTap();
@@ -35,11 +36,11 @@ export class CarItem extends React.Component {
             <View style={{backgroundColor: "#2F2F2F", width: widthPercentage("90%"),
             height: heightPercentage("9%"), flexDirection: "row", alignItems: 'center', elevation: 10}}>
                 <View style={{marginLeft: widthPercentage("5%") }}>
-                    <Text style={{color: "white", fontSize: 20}}>{this.props.brand}</Text>
-                    <Text style={{color: "white", fontSize: 18}}>{this.props.model}</Text>
+                    <Text style={{color: "white", fontSize: 20}}>{this.props.data.model.split(' ')[0]}</Text>
+                    <Text style={{color: "white", fontSize: 18}}>{this.props.data.model}</Text>
                 </View>
                 <View style={{marginRight: widthPercentage("5%"), flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                    <Text style={{color: "white", fontSize: 18}}>{this.props.numberplate}</Text>
+                    <Text style={{color: "white", fontSize: 18}}>{"??-???-??"}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -52,12 +53,12 @@ export default class CarSelection extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            data: {},
+            data: global.carList,
         }
     }
 
     renderItem = ({ item }) => (
-        <CarItem model={item.model} brand={item.brand} numberplate={item.numberplate} 
+        <CarItem data={item} 
         onTap={()=>{
             this.props.navigation.navigate('Home');
         }}/>
@@ -72,9 +73,9 @@ export default class CarSelection extends React.Component {
                     </View>
                 </View>
                 <FlatList
-                    data={data}
+                    data={this.state.data}
                     renderItem={this.renderItem}
-                    keyExtractor={item => item.numberplate}
+                    keyExtractor={item => item.model}
                 />
             </View>
         )

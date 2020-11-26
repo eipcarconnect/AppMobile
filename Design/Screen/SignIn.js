@@ -130,7 +130,6 @@ export default class SignIn extends React.Component {
         if (resjson.success === true) {
           global.carList = resjson.vehicles;
           console.log('getCarList OK');
-          console.log(resjson);
           this.props.navigation.navigate('CarSelect');
         }
         else {

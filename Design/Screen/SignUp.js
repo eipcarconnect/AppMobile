@@ -79,7 +79,6 @@ export default class SignUp extends React.Component {
     }
 
     getCompagnyPickerItem() {
-        console.log(global.company);
         let companyList = global.company.map(Infos => (
             <Picker.Item label={Infos} value={Infos} />
         ));
