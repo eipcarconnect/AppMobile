@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, StyleSheet, Text, FlatList } from 'react-native'
+import { View, StyleSheet, Text, FlatList, TextInput, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
+import DateTimePicker from '@react-native-community/datetimepicker'
 import NavBar from '../Tools/NavBar'
+import { Picker } from '@react-native-picker/picker'
 
-const data = [
+const initialArr = [
     {
         name: "pause repas",
         numberplate: "AA-389-BB",
@@ -35,8 +37,6 @@ export class InvoiceItem extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            data: {},
-            elements: []
         }
     }
 
@@ -73,12 +73,88 @@ export default class InvoiceHistory extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            numberplate: '',
-            prixHT: '',
-            prixTTC: '',
-            categorie: 'none',
-            tmp: ''
+            search: '',
+            date: new Date(),
+            searchList: initialArr,
+            searchType: 'name',
+            show: false,
+        }
+    }
+
+    setSearchArray(type) {
+        let tmp = [];
+        if (type === 'name') {
+            if (this.state.search !== '') {
+                this.state.searchList.forEach((elem) => {
+                    if (elem.name.toLowerCase().startsWith(this.state.search.toLowerCase()))
+                        tmp.push(elem);
+                });
+                return tmp;
+            }
+            else
+                return initialArr;
+        }
+        else if (type === 'date') {
+            this.state.searchList.forEach((elem) => {
+                if (elem.date.toLowerCase() === this.formatDate(this.state.date).toLowerCase())
+                    tmp.push(elem);
+            });
+            return tmp;
+        }
+    }
+
+    setDate = (event, date) => {
+        date = date || this.state.date;
+
+        this.setState({
+            show: Platform.OS === 'ios' ? true : false,
+            date,
+        });
+    }
+
+    show() {
+        this.setState({ show: true })
+    }
+
+    formatDate(date) {
+        var monthNames = [
+            "Janvier", "Février", "Mars",
+            "Avril", "Mai", "Juin", "juillet",
+            "Août", "Septembre", "Octobre",
+            "Novembre", "Décembre"
+        ];
+
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
+
+
+    displaySearch(type) {
+        if (type === 'name') {
+            return (<TextInput 
+                style={styles.TextInput}
+                placeholderTextColor='white'
+                placeholder="Rechercher"
+                value={this.state.search}
+                onChangeText={(text) => this.setState({ search: text })}>
+            </TextInput>);
+        }
+        else if (type === 'date') {
+            const { show, date } = this.state;
+            return (<View>
+                <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={1} onPress={() => this.show('date')}>
+                    <Text style={{ color: "white" }}>{this.formatDate(this.state.date)}</Text>
+                </TouchableOpacity>
+                {show && <DateTimePicker value={date}
+                    mode="date"
+                    display="spinner"
+                    onChange={this.setDate}
+                />
+                }
+            </View>);
         }
     }
 
@@ -91,8 +167,19 @@ export default class InvoiceHistory extends React.Component {
         return (
             <View style={styles.View}>
                 <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
+                <View style={{ borderBottomWidth: 1, borderColor: "white", marginTop: heightPercentage('5%') }}>
+                    <Picker
+                        selectedValue={this.state.searchType}
+                        dropdownIconColor="white"
+                        style={{ color: "white", height: heightPercentage('6%'), width: widthPercentage('80%') }}
+                        onValueChange={(text) => this.setState({ searchType: text })} >
+                        <Picker.Item label="Recherche par Nom" value="name" />
+                        <Picker.Item label="Recherche par Date" value="date" />
+                    </Picker>
+                </View>
+                {this.displaySearch(this.state.searchType)}
                 <FlatList
-                    data={data}
+                    data={this.setSearchArray(this.state.searchType)}
                     renderItem={this.renderItem}
                     keyExtractor={item => item.numberplate}
                 />
@@ -115,12 +202,25 @@ const styles = StyleSheet.create({
         marginTop: heightPercentage('8%')
     },
     TextInput: {
-        marginTop: heightPercentage('7%'),
+        marginTop: heightPercentage('5%'),
         height: heightPercentage('6%'),
         width: widthPercentage('80%'),
         borderColor: 'white',
         color: 'white',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        fontSize: 16
+    },
+    TouchableOpacity: {
+        marginTop: heightPercentage('5%'),
+        height: heightPercentage('6%'),
+        width: widthPercentage('80%'),
+        borderColor: 'white',
+        color: 'white',
+        borderBottomWidth: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: 'center',
+        padding: 4
     },
     Button: {
         marginBottom: 20,
