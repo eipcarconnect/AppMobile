@@ -1,29 +1,28 @@
 import React from 'react'
-import { View, StyleSheet, Text, TextInput } from 'react-native'
+import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
+import { Picker } from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
 const initialArr = [
     {
         name: "Réunion",
-        date: "11 novembre 2020",
+        date: "5/3/2020",
         startAdress: "1 rue françois périer 34070 Montpellier",
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
-        timeEstimation: "3h34"
     },
     {
         name: "Pitch pour le peojet 'Pomme D'amour'",
-        date: "11 novembre 2020",
+        date: "24/7/2020",
         startAdress: "1 rue françois périer 34070 Montpellier",
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
-        timeEstimation: "3h34"
     },
     {
         name: "Meeting avec des investisseur",
-        date: "11 novembre 2020",
+        date: "11/11/2020",
         startAdress: "1 rue françois périer 34070 Montpellier",
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
-        timeEstimation: "3h34"
     },
 ];
 
@@ -34,41 +33,86 @@ export default class RouteHistory extends React.Component {
         super(props)
         this.state = {
             search: '',
+            date: new Date(),
             searchList: initialArr,
+            searchType: 'name',
+            show: false,
         }
     }
 
-    render() {
-        return (
-            <View>
-                <View>
-                    <TextInput 
-                        placeholder="Rechercher"
-                        value={this.state.password}
-                        onChangeText={(text) => this.setState({search: text})}>
-                    </TextInput>
-                </View>
-                {this.displayHistory()}
-            </View>
-        )
-    }
-
-    getSearchArray() {
+    getSearchArray(type) {
         let tmp = [];
-        if (this.state.search !== '') {
+        if(type === 'name') {
+            if (this.state.search !== '') {
+                this.state.searchList.forEach((elem) => {
+                    if (elem.name.toLowerCase().startsWith(this.state.search.toLowerCase()))
+                        tmp.push(elem);
+                });
+                console.log(tmp);
+                return tmp;
+            }
+            else
+                return initialArr; 
+        }
+        else if (type === 'date') {
             this.state.searchList.forEach((elem) => {
-                if (elem.name.toLowerCase().startsWith(this.state.search.toLowerCase()))
+                if (elem.date.toLowerCase() === this.formatDate(this.state.date))
                     tmp.push(elem);
             });
             console.log(tmp);
             return tmp;
-        } 
-        else 
-            return initialArr;
+        }
     }
 
-    displayHistory() {
-        let toDisplay = this.getSearchArray();
+    setDate = (event, date) => {
+        date = date || this.state.date;
+
+        this.setState({
+            show: Platform.OS === 'ios' ? true : false,
+            date,
+        });
+    }
+
+    show() {
+        this.setState({ show: true })
+    }
+
+    formatDate(date) {
+
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + '/' + (monthIndex + 1) + '/' + year;
+    }
+
+
+    displaySearch(type) {
+        if (type === 'name') {
+            return (<TextInput
+                        placeholder="Rechercher"
+                        value={this.state.search}
+                        onChangeText={(text) => this.setState({ search: text })}>
+                    </TextInput>);
+        }
+        else if (type === 'date') {
+            const { show, date } = this.state;
+            return (<View>
+                <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={1} onPress={() => this.show('date')}>
+                    <Text style={{ color: "Black" }}>{this.formatDate(this.state.date)}</Text>
+                </TouchableOpacity>
+                {show && <DateTimePicker value={date}
+                    mode="date"
+                    display="spinner"
+                    onChange={this.setDate}
+                />
+                }
+            </View>);
+        }
+    }
+
+    displayHistory(type) {
+        let toDisplay = this.getSearchArray(type);
         let routeList = toDisplay.map(Infos => (
             <Text style={{
                 marginVertical: heightPercentage('3%'),
@@ -81,13 +125,26 @@ export default class RouteHistory extends React.Component {
                      Date: {Infos.date}{"\n"}
                      Adresse de départ: {Infos.startAdress}{"\n"}
                      Adresse d'arrivée: {Infos.destnationAdress}{"\n"}
-                    Temps estimé: {Infos.timeEstimation}{"\n"}</Text>
+                    </Text>
         ));
         return routeList;
     }
 
-
-   
+    render() {
+        return (
+            <View>
+                <Picker
+                    selectedValue={this.state.searchType}
+                    onValueChange={(text) => this.setState({ searchType: text })}
+                >
+                    <Picker.Item label="Recherche par Nom" value="name" />
+                    <Picker.Item label="Recherche par Date" value="date" />
+                </Picker>
+                {this.displaySearch(this.state.searchType)}
+                {this.displayHistory(this.state.searchType)}
+            </View>
+        )
+    }   
 }
 
 

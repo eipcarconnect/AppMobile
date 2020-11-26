@@ -35,8 +35,36 @@ function disconnect() {
   global.email = '';
   global.token = '';
   global.registToken = '';
+  global.car = '';
+  global.carList = '';
   deletSaved("email");
   deletSaved("car");
+}
+
+function getCarList() {
+  deletSaved("car");
+  var data = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      token: global.token,
+    }),
+  }
+  fetch('http://40.85.113.74:3000/data/user/getvehicles', data).then((res) => res.json())
+    .then((resjson) => {
+      if (resjson.success === true) {
+        global.carList = resjson.vehicles;
+        console.log('getCarList OK');
+      }
+      else {
+        alert(resjson.error);
+        console.log("getCarList", resjson.error);
+        return;
+      }
+    });
 }
 
 const SettingsStack = createStackNavigator({
@@ -121,9 +149,9 @@ const AppStack = createDrawerNavigator(
     CarSelect: CarSelection,
     AddRoute: AddRouteScreen,
     AddInvoice: AddInvoiceScreen,
-    "Invoice History": InvoiceHistoryScreen,
-    "Route History": RouteHistoryScreen,
-    Settings: SettingsStack
+    "Historique des factures": InvoiceHistoryScreen,
+    "Historique des trajets": RouteHistoryScreen,
+    Options: SettingsStack
   }, 
   {
     transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,
@@ -154,7 +182,7 @@ const AppStack = createDrawerNavigator(
           </ScrollView>
           <View style={{position: 'absolute', bottom: 0, width: '100%'}}>
             <Button
-              onPress={() => { deletSaved("car"); props.navigation.navigate('CarSelect'); }}
+              onPress={() => { getCarList(); props.navigation.navigate('CarSelect'); }}
               title="Changer de voiture"
               buttonStyle={{
                 height: heightPercentage('6%'),
@@ -164,7 +192,7 @@ const AppStack = createDrawerNavigator(
               }}>
             </Button>
             <Button
-              onPress={() => {disconnect(); props.navigation.navigate('AuthStack'); }}
+              onPress={() => { disconnect(); props.navigation.navigate('AuthStack'); }}
               title="Deconnection"
               buttonStyle={{
                 height: heightPercentage('6%'),

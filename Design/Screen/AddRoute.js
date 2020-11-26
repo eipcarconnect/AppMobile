@@ -17,12 +17,9 @@ export default class AddRoute extends React.Component {
             adresse2: '',
             cp2: '',
             ville2: '',
-            heures: '0',
-            minutes: '01',
             
             date: this.setFirstDate(),
             show: false,
-            showTime: false
         }
     }
 
@@ -41,20 +38,8 @@ export default class AddRoute extends React.Component {
         });
     }
 
-    setTime = (event, date) => {
-        date = date || this.state.date;
-
-        this.setState({
-            showTime: Platform.OS === 'ios' ? true : false,
-            date,
-        });
-    }
-
-    show(type) {
-        if (type === 'date')
-            this.setState({ show: true })
-        if (type === 'time')
-            this.setState({ showTime: true })
+    show() {
+        this.setState({ show: true })
     }
 
     formatDate(date) {
@@ -70,14 +55,6 @@ export default class AddRoute extends React.Component {
         var year = date.getFullYear();
 
         return day + ' ' + monthNames[monthIndex] + ' ' + year;
-    }
-
-    formatTime(date) {
-
-        var hour = date.getHours();
-        var min = date.getMinutes();
-
-        return hour + 'h' + min;
     }
 
     sendTrajet() {
@@ -103,22 +80,47 @@ export default class AddRoute extends React.Component {
             alert('Veuillez entrer un code postal d\'arrivée valide ex 34070');
             return (84);
         }
-        if (this.state.date.getHours() == '0' && (this.state.date.getMinutes() == '0')) {
-            alert('Veuillez une estimation du temps de trajet');
-            return (84);
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: global.token,
+                id: global.car.id,
+                start: this.state.adresse1 + ' ' + this.state.cp1 + ' ' + this.state.ville1,
+                end: this.state.adresse2 + ' ' + this.state.cp2 + ' ' + this.state.ville2,
+                name: this.state.name
+            }),
         }
-        alert("name:" + ' ' + this.state.name + ' ' +
-            "adresse de départ:" + ' ' + this.state.adresse1 + ' ' + ' ' + ' ' + this.state.cp1 + ' ' + ' ' + ' ' + this.state.ville1 + ' ' +
-            "adresse d\'arrivée:" + ' ' + this.state.adresse2 + ' ' + ' ' + ' ' + this.state.cp2 + ' ' + ' ' + ' ' + this.state.ville2 + ' ' +
-            "date de départ:" + ' ' + this.formatDate(this.state.date) + ' ' + "temps de trajet estimé:" + ' ' + this.formatTime(this.state.date))
+        fetch('http://40.85.113.74:3000/data/user/addride', data).then((res) => res.json())
+            .then((resjson) => {
+                if (resjson.success === true) {
+                    global.carList = resjson.vehicles;
+                    console.log('addRoute OK');
+                    alert("Voyage crée avec succés");
+                    this.props.navigation.navigate('Home');
+                }
+                else {
+                    alert(resjson.error);
+                    console.log("addRoute", resjson.error);
+                    return;
+                }
+            });
+        // alert("name:" + ' ' + this.state.name + ' ' +
+        //     "adresse de départ:" + ' ' + this.state.adresse1 + ' ' + ' ' + ' ' + this.state.cp1 + ' ' + ' ' + ' ' + this.state.ville1 + ' ' +
+        //     "adresse d\'arrivée:" + ' ' + this.state.adresse2 + ' ' + ' ' + ' ' + this.state.cp2 + ' ' + ' ' + ' ' + this.state.ville2 + ' ' +
+        //     "date de départ:" + ' ' + this.formatDate(this.state.date) + ' ' + "temps de trajet estimé:" + ' ' + this.formatTime(this.state.date))
+
         console.log("name:", this.state.name, 
         "adresse de départ:", this.state.adresse1 + ' ' + this.state.cp1 + ' ' + this.state.ville1, 
         "adresse d\'arrivée:", this.state.adresse2 + ' ' + this.state.cp2 + ' ' + this.state.ville2,
-            "date de départ:", this.formatDate(this.state.date), "temps de trajet estimé:", this.formatTime(this.state.date));
+            "date de départ:", this.formatDate(this.state.date));
     }
 
     render() {
-        const { show, date, showTime } = this.state;
+        const { show, date } = this.state;
         return (
             <View>
                 <KeyboardAvoidingView keyboardVerticalOffset={String(-heightPercentage('10%'))} behavior="position" enabled>
@@ -190,21 +192,6 @@ export default class AddRoute extends React.Component {
                             onChangeText={(text) => this.setState({ ville2: text })}>
                         </TextInput>
                     </View>
-
-                    <View>
-                        <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={1} onPress={() => this.show('time')}>
-                            <Text style={{ color: "Black" }}>temps de trajet estimé</Text>
-                            <Text style={{ color: "Black" }}>{this.formatTime(this.state.date)}</Text>
-                        </TouchableOpacity>
-                        {showTime && <DateTimePicker value={date}
-                            mode="time"
-                            display="spinner"
-                            onChange={this.setTime}
-                        />
-                        }
-                    </View>
-                    
-
 
                     <Button title="Valider"
                         onPress={() => this.sendTrajet()}

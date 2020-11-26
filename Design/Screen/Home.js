@@ -307,7 +307,7 @@ export default class Home extends React.Component {
                     elevation: 10
                 }}>
                     <Button
-                        onPress={() => this.props.navigation.navigate('InvoiceHistory')}
+                        onPress={() => this.props.navigation.navigate('Historique des factures')}
                         title="HISTORIQUE DES FACTURES"
                         buttonStyle={{
                             height: heightPercentage('6%'),
@@ -327,7 +327,7 @@ export default class Home extends React.Component {
                     elevation: 10
                 }}>
                     <Button
-                        onPress={() => this.props.navigation.navigate('RouteHistory')}
+                        onPress={() => this.props.navigation.navigate('Historique des trajets')}
                         title="HISTORIQUE DES FACTURES"
                         buttonStyle={{
                             height: heightPercentage('6%'),
