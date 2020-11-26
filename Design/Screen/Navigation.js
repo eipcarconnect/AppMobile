@@ -149,9 +149,9 @@ const AppStack = createDrawerNavigator(
     CarSelect: CarSelection,
     AddRoute: AddRouteScreen,
     AddInvoice: AddInvoiceScreen,
-    "Invoice History": InvoiceHistoryScreen,
-    "Route History": RouteHistoryScreen,
-    Settings: SettingsStack
+    "Historique des factures": InvoiceHistoryScreen,
+    "Historique des trajets": RouteHistoryScreen,
+    Options: SettingsStack
   }, 
   {
     transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS,
