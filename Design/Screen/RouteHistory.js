@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, TextInput, FlatList, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
+import NavBar from '../Tools/NavBar'
 
 const initialArr = [
     {
@@ -14,7 +15,7 @@ const initialArr = [
     },
     {
         name: "Pitch pour le peojet 'Pomme D'amour'",
-        date: "24 juikket 2020",
+        date: "24 juillet 2020",
         startAdress: "1 rue françois périer 34070 Montpellier",
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
     },
@@ -25,6 +26,39 @@ const initialArr = [
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
     },
 ];
+
+export class RouteItem extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            data: {},
+            elements: []
+        }
+    }
+
+    render () {
+        return(
+            <View style={{backgroundColor: "#2F2F2F", alignItems: "center", marginTop: heightPercentage('3%'), width: widthPercentage('85%'), elevation: 10}}>
+                <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20}}>
+                    {this.props.name.toUpperCase()}
+                </Text>
+                <View style={{ marginTop: heightPercentage('2%'), marginBottom: heightPercentage('3%'), width: widthPercentage("85%")}}> 
+                    <View style={{marginLeft: widthPercentage("4%") }}>
+                        <Text style={{color: "white"}}>{this.props.date}</Text>
+                    </View>
+                    <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%')}}>
+                        <Text style={{color: "#2c84cc"}}>Depart:</Text>
+                        <Text style={{color: "white"}}>{this.props.startAdress}</Text>
+                    </View>
+                    <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%') }}>
+                        <Text style={{color: "#2c84cc"}}>Arrivée:</Text>
+                        <Text style={{color: "white"}}>{this.props.destnationAdress}</Text>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+}
 
 export default class RouteHistory extends React.Component {
 
@@ -136,9 +170,15 @@ export default class RouteHistory extends React.Component {
         return routeList;
     }
 
+    renderItem = ({ item }) => (
+        <RouteItem name={item.name} startAdress={item.startAdress}
+        destnationAdress={item.destnationAdress} date={item.date}/>
+    );
+
     render() {
         return (
-            <View>
+            <View style={styles.View}>
+                <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
                 <Picker
                     selectedValue={this.state.searchType}
                     onValueChange={(text) => this.setState({ searchType: text })}
@@ -147,7 +187,12 @@ export default class RouteHistory extends React.Component {
                     <Picker.Item label="Recherche par Date" value="date" />
                 </Picker>
                 {this.displaySearch(this.state.searchType)}
-                {this.displayHistory(this.state.searchType)}
+                <FlatList
+                    data={this.getSearchArray(this.state.searchType)}
+                    renderItem={this.renderItem}
+                    keyExtractor={item => item.numberplate}
+                />
+                {/* {this.displayHistory(this.state.searchType)} */}
             </View>
         )
     }   
@@ -157,8 +202,8 @@ export default class RouteHistory extends React.Component {
 const styles = StyleSheet.create({
     View: {
         flex: 1,
-        paddingTop: 20,
-        backgroundColor: "#353535",
+        // paddingTop: 20,
+        backgroundColor: "#1E1E1E",
         alignItems: "center"
     },
     Logo: {
