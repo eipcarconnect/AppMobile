@@ -188,7 +188,6 @@ export default class SignUp extends React.Component {
                                 <Picker
                                     selectedValue={this.state.company}
                                     dropdownIconColor="white"
-                                    itemStyle={{backgroundColor:"red", fontSize: 10}}
                                     style={{color: "white", height: heightPercentage('6%'), width: widthPercentage('80%') }}
                                     onValueChange={(itemValue, itemIndex) => this.setState({ company: itemValue })}
                                     >
