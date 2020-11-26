@@ -8,19 +8,19 @@ import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 const initialArr = [
     {
         name: "Réunion",
-        date: "5/3/2020",
+        date: "5 mars 2020",
         startAdress: "1 rue françois périer 34070 Montpellier",
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
     },
     {
         name: "Pitch pour le peojet 'Pomme D'amour'",
-        date: "24/7/2020",
+        date: "24 juikket 2020",
         startAdress: "1 rue françois périer 34070 Montpellier",
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
     },
     {
         name: "Meeting avec des investisseur",
-        date: "11/11/2020",
+        date: "11 novembre 2020",
         startAdress: "1 rue françois périer 34070 Montpellier",
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
     },
@@ -56,7 +56,7 @@ export default class RouteHistory extends React.Component {
         }
         else if (type === 'date') {
             this.state.searchList.forEach((elem) => {
-                if (elem.date.toLowerCase() === this.formatDate(this.state.date))
+                if (elem.date.toLowerCase() === this.formatDate(this.state.date).toLowerCase())
                     tmp.push(elem);
             });
             console.log(tmp);
@@ -78,12 +78,18 @@ export default class RouteHistory extends React.Component {
     }
 
     formatDate(date) {
+        var monthNames = [
+            "Janvier", "Février", "Mars",
+            "Avril", "Mai", "Juin", "juillet",
+            "Août", "Septembre", "Octobre",
+            "Novembre", "Décembre"
+        ];
 
         var day = date.getDate();
         var monthIndex = date.getMonth();
         var year = date.getFullYear();
 
-        return day + '/' + (monthIndex + 1) + '/' + year;
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
 

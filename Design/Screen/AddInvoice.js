@@ -60,10 +60,10 @@ export default class AddInvoice extends React.Component {
         return (
             <View style={styles.View}>
                  <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
-                <Text style={{fontSize: 26, color: "white", marginTop: heightPercentage("4%") }}>Create an invoice</Text>
+                <Text style={{ fontSize: 26, color: "white", marginTop: heightPercentage("4%") }}>Créez votre facture</Text>
                 <TextInput
                     style={styles.TextInput}
-                    placeholder="Invoice name"
+                    placeholder="Nome de la facture"
                     autoCapitalize="none"
                     placeholderTextColor="white"
                     value={this.state.name}
@@ -101,7 +101,7 @@ export default class AddInvoice extends React.Component {
                 </TextInput>
                 <Button
                     onPress={() => this.sendFacture()}
-                    title="Send"
+                    title="Valider"
                     color="#32d7fb"
                     buttonStyle={styles.Button}>
                 </Button>             

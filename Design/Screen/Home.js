@@ -26,9 +26,6 @@ export default class Home extends React.Component {
             fuel: 10,
             maxfuel: 100
         }
-        // global.name="Loick MURY"
-        // global.email="loick.mury@gmail.com"
-
     }
 
     componentDidMount() {
