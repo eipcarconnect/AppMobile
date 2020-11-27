@@ -135,7 +135,16 @@ export default class InvoiceHistory extends React.Component {
     displaySearch(type) {
         if (type === 'name') {
             return (<TextInput 
-                style={styles.TextInput}
+                style={{
+                    fontSize: 16,
+                    paddingLeft: widthPercentage('2%'),
+                    marginTop: heightPercentage('2%'),
+                    height: heightPercentage('6%'),
+                    width: widthPercentage('80%'),
+                    borderColor: 'white',
+                    color: 'white',
+                    borderBottomWidth: 1
+                }}
                 placeholderTextColor='white'
                 placeholder="Rechercher"
                 value={this.state.search}
@@ -146,7 +155,7 @@ export default class InvoiceHistory extends React.Component {
             const { show, date } = this.state;
             return (<View>
                 <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={1} onPress={() => this.show('date')}>
-                    <Text style={{ color: "white" }}>{this.formatDate(this.state.date)}</Text>
+                    <Text style={{ color: "white", fontSize: 16 }}>{this.formatDate(this.state.date)}</Text>
                 </TouchableOpacity>
                 {show && <DateTimePicker value={date}
                     mode="date"
@@ -167,15 +176,15 @@ export default class InvoiceHistory extends React.Component {
         return (
             <View style={styles.View}>
                 <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
-                <View style={{ borderBottomWidth: 1, borderColor: "white", marginTop: heightPercentage('5%') }}>
+                <View style={{ borderBottomWidth: 1, borderColor: "white", marginTop: heightPercentage('1%') }}>
                     <Picker
                         selectedValue={this.state.searchType}
                         dropdownIconColor="white"
                         style={{ color: "white", height: heightPercentage('6%'), width: widthPercentage('80%') }}
                         onValueChange={(text) => this.setState({ searchType: text })} >
-                        <Picker.Item label="Recherche par Nom" value="name" />
-                        <Picker.Item label="Recherche par Date" value="date" />
-                    </Picker>
+                        <Picker.Item label="Rechercher par Nom" value="name" />
+                        <Picker.Item label="Rechercher par Date" value="date" />
+                </Picker>
                 </View>
                 {this.displaySearch(this.state.searchType)}
                 <FlatList
@@ -210,16 +219,17 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     TouchableOpacity: {
-        marginTop: heightPercentage('5%'),
+        marginTop: heightPercentage('2%'),
         height: heightPercentage('6%'),
         width: widthPercentage('80%'),
         borderColor: 'white',
         color: 'white',
         borderBottomWidth: 1,
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent:"space-between",
         alignItems: 'center',
-        padding: 4
+        padding: 4,
+        paddingLeft: "2%"
     },
     Button: {
         marginBottom: 20,
