@@ -14,7 +14,7 @@ const initialArr = [
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
     },
     {
-        name: "Pitch pour le peojet 'Pomme D'amour'",
+        name: "Pitch pour le projet 'Pomme D'amour'",
         date: "24 juillet 2020",
         startAdress: "1 rue françois périer 34070 Montpellier",
         destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
@@ -38,8 +38,8 @@ export class RouteItem extends React.Component {
 
     render () {
         return(
-            <View style={{backgroundColor: "#2F2F2F", alignItems: "center", marginTop: heightPercentage('3%'), width: widthPercentage('85%'), elevation: 10}}>
-                <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20}}>
+            <View style={{backgroundColor: "#2F2F2F", alignItems: "center", marginBottom: heightPercentage('3%'), width: widthPercentage('85%'), elevation: 10}}>
+                <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20, width: widthPercentage("75%")}}>
                     {this.props.name.toUpperCase()}
                 </Text>
                 <View style={{ marginTop: heightPercentage('2%'), marginBottom: heightPercentage('3%'), width: widthPercentage("85%")}}> 
@@ -132,6 +132,17 @@ export default class RouteHistory extends React.Component {
             return (<TextInput
                         placeholder="Rechercher"
                         value={this.state.search}
+                        placeholderTextColor= 'white'
+                        style={{
+                            fontSize: 16,
+                            paddingLeft: widthPercentage('2%'),
+                            marginTop: heightPercentage('2%'),
+                            height: heightPercentage('6%'),
+                            width: widthPercentage('80%'),
+                            borderColor: 'white',
+                            color: 'white',
+                            borderBottomWidth: 1
+                        }}
                         onChangeText={(text) => this.setState({ search: text })}>
                     </TextInput>);
         }
@@ -139,7 +150,7 @@ export default class RouteHistory extends React.Component {
             const { show, date } = this.state;
             return (<View>
                 <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={1} onPress={() => this.show('date')}>
-                    <Text style={{ color: "Black" }}>{this.formatDate(this.state.date)}</Text>
+                    <Text style={{ color: "white", fontSize: 16 }}>{this.formatDate(this.state.date)}</Text>
                 </TouchableOpacity>
                 {show && <DateTimePicker value={date}
                     mode="date"
@@ -179,15 +190,20 @@ export default class RouteHistory extends React.Component {
         return (
             <View style={styles.View}>
                 <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
-                <Picker
-                    selectedValue={this.state.searchType}
-                    onValueChange={(text) => this.setState({ searchType: text })}
-                >
-                    <Picker.Item label="Recherche par Nom" value="name" />
-                    <Picker.Item label="Recherche par Date" value="date" />
-                </Picker>
+                <View style={{ borderBottomWidth: 1, borderColor: "white", marginTop: heightPercentage('1%') }}>
+                    <Picker
+                        selectedValue={this.state.searchType}
+                        dropdownIconColor="white"
+                        style={{ color: "white", height: heightPercentage('6%'), width: widthPercentage('80%') }}
+                        onValueChange={(text) => this.setState({ searchType: text })} >
+                        <Picker.Item label="Rechercher par Nom" value="name" />
+                        <Picker.Item label="Rechercher par Date" value="date" />
+                    </Picker>
+                </View>
                 {this.displaySearch(this.state.searchType)}
                 <FlatList
+                    style={{width: widthPercentage("100%"), marginTop: heightPercentage("3%") }}
+                    contentContainerStyle={{alignItems: "center"}}
                     data={this.getSearchArray(this.state.searchType)}
                     renderItem={this.renderItem}
                     keyExtractor={item => item.numberplate}
@@ -218,6 +234,19 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         color: 'white',
         borderBottomWidth: 1
+    },
+    TouchableOpacity: {
+        marginTop: heightPercentage('2%'),
+        height: heightPercentage('6%'),
+        width: widthPercentage('80%'),
+        borderColor: 'white',
+        color: 'white',
+        borderBottomWidth: 1,
+        flexDirection: "row",
+        justifyContent:"space-between",
+        alignItems: 'center',
+        padding: 4,
+        paddingLeft: "2%"
     },
     Button: {
         marginBottom: 20,

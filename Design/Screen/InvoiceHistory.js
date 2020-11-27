@@ -4,7 +4,7 @@ import { Button } from 'react-native-elements'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import NavBar from '../Tools/NavBar'
-import { Picker } from '@react-native-picker/picker'
+import { Picker } from '@react-native-picker/picker';
 
 const initialArr = [
     {
@@ -187,7 +187,6 @@ export default class InvoiceHistory extends React.Component {
         )
     }
 }
-
 
 const styles = StyleSheet.create({
     View: {
