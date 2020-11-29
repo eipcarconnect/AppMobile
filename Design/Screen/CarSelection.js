@@ -6,12 +6,6 @@ import NavBar from '../Tools/NavBar'
 import StackBar from '../Tools/StackBar'
 import { save, getSaved } from '../Tools/Storage'
 
-const data = [
-{ model:"208", brand:"Peugeot", numberplate: "XX-666-XX" },
-{ model:"Polo" , brand:"Volkswagen", numberplate: "AB-123-CA" },
-{ model:"C4 Picasso" , brand:"Citroen", numberplate: "CA-321-AB" }
-]
-
 export class CarItem extends React.Component {
 
     constructor (props) {
@@ -27,8 +21,8 @@ export class CarItem extends React.Component {
             global.car = {
                 model: this.props.data.model.split(' ')[0],
                 brand: this.props.data.model,
-                numberplate: "??-???-??",
-                id: this.props.data.model,
+                numberplate: this.props.data.licencePlate,
+                id: this.props.data._id,
             }
             save("car", JSON.stringify(global.car));
             this.props.onTap();
@@ -40,7 +34,7 @@ export class CarItem extends React.Component {
                     <Text style={{color: "white", fontSize: 18}}>{this.props.data.model}</Text>
                 </View>
                 <View style={{marginRight: widthPercentage("5%"), flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                    <Text style={{color: "white", fontSize: 18}}>{"??-???-??"}</Text>
+                        <Text style={{ color: "white", fontSize: 18 }}>{this.props.data.licencePlate}</Text>
                 </View>
             </View>
         </TouchableOpacity>

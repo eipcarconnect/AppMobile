@@ -55,7 +55,17 @@ export default class AddRoute extends React.Component {
         return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
+    formatDate(date) {
+
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + '/' + (monthIndex + 1) + '/' + year;
+    }
+
     sendTrajet() {
+        console.log(global.car);
         let regCP = new RegExp("^[0-9]{5}$");
         if (this.state.name.length < 1) {
             alert('Veuillez entrer un nom de trajet');
@@ -87,15 +97,16 @@ export default class AddRoute extends React.Component {
             body: JSON.stringify({
                 token: global.token,
                 id: global.car.id,
+                licencePlate: global.car.numberplate,
                 start: this.state.adresse1 + ' ' + this.state.cp1 + ' ' + this.state.ville1,
                 end: this.state.adresse2 + ' ' + this.state.cp2 + ' ' + this.state.ville2,
-                name: this.state.name
+                name: this.state.name,
+                date: this.formatDate(this.state.date),
             }),
         }
         fetch('http://40.85.113.74:3000/data/user/addride', data).then((res) => res.json())
             .then((resjson) => {
                 if (resjson.success === true) {
-                    global.carList = resjson.vehicles;
                     console.log('addRoute OK');
                     alert("Voyage crée avec succés");
                     this.props.navigation.navigate('Home');
@@ -106,15 +117,6 @@ export default class AddRoute extends React.Component {
                     return;
                 }
             });
-        // alert("name:" + ' ' + this.state.name + ' ' +
-        //     "adresse de départ:" + ' ' + this.state.adresse1 + ' ' + ' ' + ' ' + this.state.cp1 + ' ' + ' ' + ' ' + this.state.ville1 + ' ' +
-        //     "adresse d\'arrivée:" + ' ' + this.state.adresse2 + ' ' + ' ' + ' ' + this.state.cp2 + ' ' + ' ' + ' ' + this.state.ville2 + ' ' +
-        //     "date de départ:" + ' ' + this.formatDate(this.state.date) + ' ' + "temps de trajet estimé:" + ' ' + this.formatTime(this.state.date))
-
-        console.log("name:", this.state.name, 
-        "adresse de départ:", this.state.adresse1 + ' ' + this.state.cp1 + ' ' + this.state.ville1, 
-        "adresse d\'arrivée:", this.state.adresse2 + ' ' + this.state.cp2 + ' ' + this.state.ville2,
-            "date de départ:", this.formatDate(this.state.date));
     }
 
     render() {

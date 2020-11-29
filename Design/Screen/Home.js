@@ -296,46 +296,6 @@ export default class Home extends React.Component {
                             titleStyle={{fontSize: 18}}>
                         </Button>
                     </View>
-                <View style={{
-                    width: widthPercentage("88%"),
-                    height: heightPercentage("12%"),
-                    backgroundColor: "#2F2F2F",
-                    marginTop: heightPercentage("3.5%"),
-                    elevation: 10
-                }}>
-                    <Button
-                        onPress={() => this.props.navigation.navigate('Historique des factures')}
-                        title="HISTORIQUE DES FACTURES"
-                        buttonStyle={{
-                            height: heightPercentage('6%'),
-                            width: widthPercentage('80%'),
-                            marginVertical: heightPercentage('3%'),
-                            marginHorizontal: widthPercentage('4%'),
-                            backgroundColor: "#2c84cc",
-                        }}
-                        titleStyle={{ fontSize: 18 }}>
-                    </Button>
-                </View>
-                <View style={{
-                    width: widthPercentage("88%"),
-                    height: heightPercentage("12%"),
-                    backgroundColor: "#2F2F2F",
-                    marginTop: heightPercentage("3.5%"),
-                    elevation: 10
-                }}>
-                    <Button
-                        onPress={() => this.props.navigation.navigate('Historique des trajets')}
-                        title="HISTORIQUE DES FACTURES"
-                        buttonStyle={{
-                            height: heightPercentage('6%'),
-                            width: widthPercentage('80%'),
-                            marginVertical: heightPercentage('3%'),
-                            marginHorizontal: widthPercentage('4%'),
-                            backgroundColor: "#2c84cc",
-                        }}
-                        titleStyle={{ fontSize: 18 }}>
-                    </Button>
-                </View>
             </View>
         )
     }

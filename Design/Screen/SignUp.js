@@ -125,7 +125,6 @@ export default class SignUp extends React.Component {
                 name:  this.state.firstname + " " + this.state.lastname,
                 password: this.state.password,
                 email: this.state.email,
-                birthdate: this.state.date,
                 company: this.state.company
             }),
         }

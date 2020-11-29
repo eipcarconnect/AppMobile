@@ -10,20 +10,20 @@ const initialArr = [
     {
         name: "Réunion",
         date: "5 mars 2020",
-        startAdress: "1 rue françois périer 34070 Montpellier",
-        destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
+        start: "1 rue françois périer 34070 Montpellier",
+        end: "8 rue du collège duvergier 34000 Montpellier",
     },
     {
         name: "Pitch pour le projet 'Pomme D'amour'",
         date: "24 juillet 2020",
-        startAdress: "1 rue françois périer 34070 Montpellier",
-        destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
+        start: "1 rue françois périer 34070 Montpellier",
+        end: "8 rue du collège duvergier 34000 Montpellier",
     },
     {
         name: "Meeting avec des investisseur",
         date: "11 novembre 2020",
-        startAdress: "1 rue françois périer 34070 Montpellier",
-        destnationAdress: "8 rue du collège duvergier 34000 Montpellier",
+        start: "1 rue françois périer 34070 Montpellier",
+        end: "8 rue du collège duvergier 34000 Montpellier",
     },
 ];
 
@@ -48,11 +48,11 @@ export class RouteItem extends React.Component {
                     </View>
                     <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%')}}>
                         <Text style={{color: "#2c84cc"}}>Depart:</Text>
-                        <Text style={{color: "white"}}>{this.props.startAdress}</Text>
+                        <Text style={{color: "white"}}>{this.props.start}</Text>
                     </View>
                     <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%') }}>
                         <Text style={{color: "#2c84cc"}}>Arrivée:</Text>
-                        <Text style={{color: "white"}}>{this.props.destnationAdress}</Text>
+                        <Text style={{color: "white"}}>{this.props.end}</Text>
                     </View>
                 </View>
             </View>
@@ -68,10 +68,41 @@ export default class RouteHistory extends React.Component {
         this.state = {
             search: '',
             date: new Date(),
-            searchList: initialArr,
+            searchList: [],
             searchType: 'name',
             show: false,
         }
+    }
+
+    componentDidMount() {
+        this.getRideArray();
+    }
+
+    getRideArray() {
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: global.token,
+            }),
+        }
+        fetch('http://40.85.113.74:3000/data/user/getrides', data).then((res) => res.json())
+            .then((resjson) => {
+                if (resjson.success === true) {
+                    console.log('getrides OK');
+                    // alert("Voyage crée avec succés");
+                    // this.props.navigation.navigate('Home');
+                    this.state.searchList = resjson.rides;
+                }
+                else {
+                    alert(resjson.error);
+                    console.log("getrides", resjson.error);
+                    return;
+                }
+            });
     }
 
     getSearchArray(type) {
@@ -86,7 +117,7 @@ export default class RouteHistory extends React.Component {
                 return tmp;
             }
             else
-                return initialArr; 
+                return this.state.searchList; 
         }
         else if (type === 'date') {
             this.state.searchList.forEach((elem) => {
@@ -174,16 +205,16 @@ export default class RouteHistory extends React.Component {
             }}>
                 Nom: {Infos.name}{"\n"}
                      Date: {Infos.date}{"\n"}
-                     Adresse de départ: {Infos.startAdress}{"\n"}
-                     Adresse d'arrivée: {Infos.destnationAdress}{"\n"}
+                     Adresse de départ: {Infos.start}{"\n"}
+                     Adresse d'arrivée: {Infos.end}{"\n"}
                     </Text>
         ));
         return routeList;
     }
 
     renderItem = ({ item }) => (
-        <RouteItem name={item.name} startAdress={item.startAdress}
-        destnationAdress={item.destnationAdress} date={item.date}/>
+        <RouteItem name={item.name} start={item.start}
+        end={item.end} date={item.date}/>
     );
 
     render() {
