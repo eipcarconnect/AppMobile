@@ -46,6 +46,7 @@ export default class SettingsAccounts extends React.Component {
     }
 
     formatDate(date) {
+        console.log(date);
         date = new Date(date);
         var monthNames = [
           "January", "February", "March",
@@ -79,10 +80,10 @@ export default class SettingsAccounts extends React.Component {
                         <Text style={{color: "white", fontSize: 17}}>Name</Text>
                         <Text style={styles.UnderText}>{global.name}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('BirthdaySettings')}>
+                    {/* <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('BirthdaySettings')}>
                         <Text style={{color: "white", fontSize: 17}}>Date of birth</Text>
-                        <Text style={styles.UnderText}>{this.formatDate(this.state.date)}</Text>
-                    </TouchableOpacity>
+                        <Text style={styles.UnderText}>{this.formatDate(global.date)}</Text>
+                    </TouchableOpacity> */}
                 </View>
             </View>
         )

@@ -3,10 +3,9 @@ import { TextInput, View, StyleSheet, TouchableOpacity, Text, KeyboardAvoidingVi
 import { Button } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
+import NavBar from '../Tools/NavBar';
 
 export default class AddRoute extends React.Component {
-
-
     constructor(props) {
         super(props)
         this.state = {
@@ -16,8 +15,7 @@ export default class AddRoute extends React.Component {
             ville1: '',
             adresse2: '',
             cp2: '',
-            ville2: '',
-            
+            ville2: '', 
             date: this.setFirstDate(),
             show: false,
         }
@@ -122,20 +120,22 @@ export default class AddRoute extends React.Component {
     render() {
         const { show, date } = this.state;
         return (
-            <View>
-                <KeyboardAvoidingView keyboardVerticalOffset={String(-heightPercentage('10%'))} behavior="position" enabled>
+            <View style={styles.View}>
+                 <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
+                <Text style={{ fontSize: 26, color: "white", marginTop: heightPercentage("3%") }}>Créez un trajet</Text>
+                {/* <KeyboardAvoidingView keyboardVerticalOffset={String(-heightPercentage('10%'))} behavior="position" enabled> */}
                     <TextInput
                         placeholder="Nom du trajet"
                         autoCapitalize="none"
-                        placeholderTextColor='black'
+                        placeholderTextColor='white'
                         value={this.state.name}
+                        style={styles.TextInput}
                         onChangeText={(text) => this.setState({ name: text })}>
                     </TextInput>
-
                     <View>
                         <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={1} onPress={() => this.show('date')}>
-                            <Text style={{ color: "Black" }}>Date du trajet</Text>
-                            <Text style={{ color: "Black" }}>{this.formatDate(this.state.date)}</Text>
+                            <Text style={{ color: "white" }}>Date du trajet</Text>
+                            <Text style={{ color: "white" }}>{this.formatDate(this.state.date)}</Text>
                         </TouchableOpacity>
                         {show && <DateTimePicker value={date}
                             mode="date"
@@ -144,26 +144,50 @@ export default class AddRoute extends React.Component {
                         />
                         }
                     </View>
-
                     <View>
                         <TextInput 
                             placeholder="Adresse de départ"
                             autoCapitalize="none"
-                            placeholderTextColor='black'
+                            placeholderTextColor='white'
                             value={this.state.adresse1}
+                            style={styles.TextInput}
                             onChangeText={(text) => this.setState({ adresse1: text })}>
                         </TextInput>
                         <TextInput 
                             placeholder="Code postal"
                             autoCapitalize="none"
-                            placeholderTextColor='black'
+                            placeholderTextColor='white'
+                            style={{
+                                marginTop: heightPercentage('1%'),
+                                height: heightPercentage('6%'),
+                                width: widthPercentage('80%'),
+                                borderColor: 'white',
+                                color: 'white',
+                                borderBottomWidth: 1,
+                                flexDirection: "row",
+                                justifyContent:"space-between",
+                                alignItems: 'center',
+                                padding: 4
+                            }}
                             value={this.state.cp1}
                             onChangeText={(text) => this.setState({ cp1: text })}>
                         </TextInput>
                         <TextInput 
                             placeholder="Ville"
                             autoCapitalize="none"
-                            placeholderTextColor='black'
+                            placeholderTextColor='white'
+                            style={{
+                                marginTop: heightPercentage('1%'),
+                                height: heightPercentage('6%'),
+                                width: widthPercentage('80%'),
+                                borderColor: 'white',
+                                color: 'white',
+                                borderBottomWidth: 1,
+                                flexDirection: "row",
+                                justifyContent:"space-between",
+                                alignItems: 'center',
+                                padding: 4
+                            }}
                             value={this.state.ville1}
                             onChangeText={(text) => this.setState({ ville1: text })}>
                         </TextInput>
@@ -173,30 +197,56 @@ export default class AddRoute extends React.Component {
                         <TextInput 
                             placeholder="Adresse d'arrivée"
                             autoCapitalize="none"
-                            placeholderTextColor='black'
+                            placeholderTextColor='white'
+                            style={styles.TextInput}
                             value={this.state.adresse2}
                             onChangeText={(text) => this.setState({ adresse2: text })}>
                         </TextInput>
                         <TextInput 
                             placeholder="Code postal"
                             autoCapitalize="none"
-                            placeholderTextColor='black'
+                            placeholderTextColor='white'
+                            style={{
+                                marginTop: heightPercentage('1%'),
+                                height: heightPercentage('6%'),
+                                width: widthPercentage('80%'),
+                                borderColor: 'white',
+                                color: 'white',
+                                borderBottomWidth: 1,
+                                flexDirection: "row",
+                                justifyContent:"space-between",
+                                alignItems: 'center',
+                                padding: 4
+                            }}
                             value={this.state.cp2}
                             onChangeText={(text) => this.setState({ cp2: text })}>
                         </TextInput>
                         <TextInput 
                             placeholder="Ville"
                             autoCapitalize="none"
-                            placeholderTextColor='black'
+                            placeholderTextColor='white'
+                            style={{
+                                marginTop: heightPercentage('1%'),
+                                height: heightPercentage('6%'),
+                                width: widthPercentage('80%'),
+                                borderColor: 'white',
+                                color: 'white',
+                                borderBottomWidth: 1,
+                                flexDirection: "row",
+                                justifyContent:"space-between",
+                                alignItems: 'center',
+                                padding: 4
+                            }}
                             value={this.state.ville2}
                             onChangeText={(text) => this.setState({ ville2: text })}>
                         </TextInput>
                     </View>
 
                     <Button title="Valider"
+                        buttonStyle={styles.Button}
                         onPress={() => this.sendTrajet()}
                     /> 
-                </KeyboardAvoidingView>
+                {/* </KeyboardAvoidingView> */}
             </View>
         )
     }
@@ -206,8 +256,8 @@ export default class AddRoute extends React.Component {
 const styles = StyleSheet.create({
     View: {
         flex: 1,
-        paddingTop: 20,
-        backgroundColor: "#353535",
+        //paddingTop: 20,
+        backgroundColor: "#1E1E1E",
         alignItems: "center"
     },
     Logo: {
@@ -215,16 +265,32 @@ const styles = StyleSheet.create({
         height: heightPercentage('25%'),
         marginTop: heightPercentage('8%')
     },
-    TextInput: {
-        marginTop: heightPercentage('7%'),
+    TouchableOpacity: {
+        marginTop: heightPercentage('4%'),
         height: heightPercentage('6%'),
         width: widthPercentage('80%'),
         borderColor: 'white',
         color: 'white',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        flexDirection: "row",
+        justifyContent:"space-between",
+        alignItems: 'center',
+        padding: 4
+    },
+    TextInput: {
+        marginTop: heightPercentage('3%'),
+        height: heightPercentage('6%'),
+        width: widthPercentage('80%'),
+        borderColor: 'white',
+        color: 'white',
+        borderBottomWidth: 1,
+        fontSize: 14
     },
     Button: {
-        marginBottom: 20,
+        marginTop: heightPercentage('4%'),
+        height: heightPercentage('6%'),
+        width: widthPercentage('80%'),
+        backgroundColor:"#2c84cc"
     },
     TextButton: {
         color: "#2c84cc",

@@ -75,7 +75,7 @@ export default class AddInvoice extends React.Component {
                         dropdownIconColor="white"
                         style={{color: "white", height: heightPercentage('6%'), width: widthPercentage('80%') }}
                         onValueChange={(text) => this.setState({ categorie: text })} >
-                            <Picker.Item label="Selectionner une cathégorie" value="none" />
+                            <Picker.Item label="Selectionner une catégorie" value="none" />
                             <Picker.Item label="Restauration" value="restauration" />
                             <Picker.Item label="Logement" value="logement" />
                             <Picker.Item label="Essence" value="essence" />
