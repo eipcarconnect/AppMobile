@@ -107,7 +107,7 @@ export default class AddRoute extends React.Component {
         fetch('http://40.85.113.74:3000/data/user/addride', data).then((res) => res.json())
             .then((resjson) => {
                 if (resjson.success === true) {
-                    console.log('addRoute OK');
+                    console.log('addRoute OK', resjson);
                     alert("Voyage crée avec succés");
                     this.props.navigation.navigate('Home');
                 }

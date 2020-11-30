@@ -6,27 +6,6 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import NavBar from '../Tools/NavBar'
 
-const initialArr = [
-    {
-        name: "Réunion",
-        date: "5 mars 2020",
-        start: "1 rue françois périer 34070 Montpellier",
-        end: "8 rue du collège duvergier 34000 Montpellier",
-    },
-    {
-        name: "Pitch pour le projet 'Pomme D'amour'",
-        date: "24 juillet 2020",
-        start: "1 rue françois périer 34070 Montpellier",
-        end: "8 rue du collège duvergier 34000 Montpellier",
-    },
-    {
-        name: "Meeting avec des investisseur",
-        date: "11 novembre 2020",
-        start: "1 rue françois périer 34070 Montpellier",
-        end: "8 rue du collège duvergier 34000 Montpellier",
-    },
-];
-
 export class RouteItem extends React.Component {
     constructor (props) {
         super(props)
@@ -44,7 +23,7 @@ export class RouteItem extends React.Component {
                 </Text>
                 <View style={{ marginTop: heightPercentage('2%'), marginBottom: heightPercentage('3%'), width: widthPercentage("85%")}}> 
                     <View style={{marginLeft: widthPercentage("4%") }}>
-                        <Text style={{color: "white"}}>{this.props.date}</Text>
+                        <Text style={{ color: "white" }}>{this.props.date}</Text>
                     </View>
                     <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%')}}>
                         <Text style={{color: "#2c84cc"}}>Depart:</Text>
@@ -78,6 +57,12 @@ export default class RouteHistory extends React.Component {
         this.getRideArray();
     }
 
+    parseDate(date) {
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAA", date);
+        let ret = new Date(date);
+        return this.formatDate(ret);
+    }
+
     getRideArray() {
         var data = {
             method: 'POST',
@@ -93,9 +78,11 @@ export default class RouteHistory extends React.Component {
             .then((resjson) => {
                 if (resjson.success === true) {
                     console.log('getrides OK');
-                    // alert("Voyage crée avec succés");
-                    // this.props.navigation.navigate('Home');
                     this.state.searchList = resjson.rides;
+                    this.state.searchList.forEach((elem, index) => {
+                        console.log(elem, index);
+                        elem.date = this.parseDate(elem.date);
+                    });
                 }
                 else {
                     alert(resjson.error);
@@ -193,25 +180,6 @@ export default class RouteHistory extends React.Component {
         }
     }
 
-    displayHistory(type) {
-        let toDisplay = this.getSearchArray(type);
-        let routeList = toDisplay.map(Infos => (
-            <Text style={{
-                marginVertical: heightPercentage('3%'),
-                marginHorizontal: widthPercentage('4%'),
-                backgroundColor: "#2F2F2F",
-                color: "white",
-                textAlign: "center"
-            }}>
-                Nom: {Infos.name}{"\n"}
-                     Date: {Infos.date}{"\n"}
-                     Adresse de départ: {Infos.start}{"\n"}
-                     Adresse d'arrivée: {Infos.end}{"\n"}
-                    </Text>
-        ));
-        return routeList;
-    }
-
     renderItem = ({ item }) => (
         <RouteItem name={item.name} start={item.start}
         end={item.end} date={item.date}/>
@@ -239,7 +207,6 @@ export default class RouteHistory extends React.Component {
                     renderItem={this.renderItem}
                     keyExtractor={item => item.numberplate}
                 />
-                {/* {this.displayHistory(this.state.searchType)} */}
             </View>
         )
     }   
