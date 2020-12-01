@@ -16,11 +16,6 @@ export default class SignUp extends React.Component {
             password: '',
             password2: '',
             company: '',
-
-            date: new Date('2000-01-01'),
-            maxDate: new Date('2004-12-31'),
-            minDate: new Date('1900-01-01'),
-            show: false
         }
     }
 
@@ -49,35 +44,6 @@ export default class SignUp extends React.Component {
         this.setState({password2: text})
     }
 
-    setDate = (event, date) => {
-        date = date || this.state.date;
-    
-        this.setState({
-          show: Platform.OS === 'ios' ? true : false,
-          date,
-        });
-    }
-
-    show()
-    {
-        this.setState({show: true})
-    }
-
-    formatDate(date) {
-        var monthNames = [
-          "January", "February", "March",
-          "April", "May", "June", "July",
-          "August", "September", "October",
-          "November", "December"
-        ];
-      
-        var day = date.getDate();
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
-      
-        return day + ' ' + monthNames[monthIndex] + ' ' + year;
-    }
-
     getCompagnyPickerItem() {
         let companyList = global.company.map(Infos => (
             <Picker.Item label={Infos} value={Infos} />
@@ -86,10 +52,6 @@ export default class SignUp extends React.Component {
     }
 
     handleSignUp() {
-        if (this.state.date.length < 1) {
-            alert('Select a Birth Date.');
-            return;
-        }
         if (this.state.firstname.length < 1) {
             alert('Please enter a First Name.');
             return;
@@ -128,8 +90,6 @@ export default class SignUp extends React.Component {
                 company: this.state.company
             }),
         }
-        console.log(data.body);
-
         fetch('http://40.85.113.74:3000/auth/signup', data).then((res) => res.json())
         .then((resjson) => {
             if (resjson.success === true) {
@@ -143,7 +103,6 @@ export default class SignUp extends React.Component {
     }
 
     render () {
-        const { show, date } = this.state;
         return (
             <View style={styles.View}>
                 <KeyboardAvoidingView keyboardVerticalOffset={String(-heightPercentage('5%'))} behavior="position" enabled>
@@ -151,7 +110,7 @@ export default class SignUp extends React.Component {
                         <Image source={require("../assets/Logo.png")} style={styles.Logo} />
                         <View style={{flexDirection:"row"}}>
                             <TextInput style={styles.TextInputVertical} 
-                                placeholder="First Name"
+                                placeholder="Prénom"
                                 autoCapitalize="none"
                                 textContentType="givenName"
                                 placeholderTextColor= 'white'
@@ -159,7 +118,7 @@ export default class SignUp extends React.Component {
                                 onChangeText={(text) => this.setFirstName(text)}>
                             </TextInput>
                             <TextInput style={styles.TextInputVertical}
-                                placeholder="Last Name"
+                                placeholder="Nom"
                                 autoCapitalize="none"
                                 textContentType="familyName"
                                 placeholderTextColor= 'white'
@@ -170,18 +129,6 @@ export default class SignUp extends React.Component {
 
 
                         <View>
-                            {/* <TouchableOpacity style={styles.TouchableOpacity} activeOpacity= {1} onPress={() => this.show()}>
-                                <Text style={{color: "white"}}>Birthday</Text>
-                                <Text style={{color: "white"}}>{this.formatDate(this.state.date)}</Text>
-                            </TouchableOpacity>
-                            { show && <DateTimePicker value={date}
-                                mode="date"
-                                display="spinner"
-                                maximumDate= {this.state.maxDate}
-                                minimumDate= {this.state.minDate}
-                                onChange={this.setDate}
-                                 />
-                            } */}
                             <View style={{borderBottomWidth: 1, borderColor: "white",  marginTop: heightPercentage('5%')}}>
                                 <Picker
                                     selectedValue={this.state.company}
@@ -206,7 +153,7 @@ export default class SignUp extends React.Component {
                         </TextInput>
                         <View style={{flexDirection:"row"}}>
                             <TextInput style={styles.TextInputVertical} 
-                                placeholder="Password"
+                                placeholder="Mot de passe"
                                 autoCapitalize="none"
                                 textContentType="password"
                                 secureTextEntry={true}
@@ -215,7 +162,7 @@ export default class SignUp extends React.Component {
                                 onChangeText={(text) => this.setPassword(text)}>
                             </TextInput>
                             <TextInput style={styles.TextInputVertical}
-                                placeholder="Confirm password"
+                                placeholder="Confirmer"
                                 autoCapitalize="none"
                                 textContentType="password"
                                 secureTextEntry={true}
@@ -226,12 +173,12 @@ export default class SignUp extends React.Component {
                         </View>
                         <Button
                             onPress={() => this.handleSignUp()}
-                            title="Sign Up"
+                            title="Inscription"
                             color="#32d7fb"
                             buttonStyle={styles.Button}>
                         </Button>
                         <Text style={styles.TextButton} onPress={() => this.props.navigation.navigate('SignIn')}>
-                            Sign in instead
+                            Se connecter
                         </Text>
                     </View>
                 </KeyboardAvoidingView>
