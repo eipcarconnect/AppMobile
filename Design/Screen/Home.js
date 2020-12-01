@@ -186,7 +186,7 @@ export default class Home extends React.Component {
                             marginHorizontal: widthPercentage('4%'),
                             backgroundColor: "#2c84cc",
                         }}
-                        titleStyle={{fontSize: 18}}>
+                        titleStyle={{fontSize: 16}}>
                     </Button>
                 </View>
             );
@@ -201,20 +201,20 @@ export default class Home extends React.Component {
                     marginTop: heightPercentage("3%"),
                     elevation: 10
                     }}>
-                    <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign:"center", fontSize: 25, width: widthPercentage("88%")}}>
+                    <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign:"center", fontSize: 22, width: widthPercentage("85%")}}>
                         {this.state.rideName.charAt(0).toUpperCase() + this.state.rideName.slice(1)}
                     </Text>
-                    <View style={{ marginTop: heightPercentage('1%'), marginBottom: heightPercentage('1%'), width: widthPercentage("88%")}}> 
+                    <View style={{ marginTop: heightPercentage('1%'), marginBottom: heightPercentage('1%'), width: widthPercentage("85%")}}> 
                         <View style={{}}>
-                            <Text style={{color: "white", width:widthPercentage("88%"), textAlign:"center"}}>{this.state.rideDate}</Text>
+                            <Text style={{color: "white", width: widthPercentage("85%"), textAlign: "center"}}>{this.state.rideDate}</Text>
                         </View>
                         <View style={{marginTop: heightPercentage('1%')}}>
                             <Text style={{color: "#2c84cc", marginLeft: widthPercentage("4%")}}>Depart:</Text>
-                            <Text style={{color: "white", width:widthPercentage("88%"), textAlign:"center"}}>{this.state.rideStart}</Text>
+                            <Text style={{color: "white", marginLeft: widthPercentage("12%")}}>{this.state.rideStart.charAt(0).toUpperCase() + this.state.rideStart.slice(1)}</Text>
                         </View>
                         <View style={{marginTop: heightPercentage('1%') }}>
                             <Text style={{color: "#2c84cc", marginLeft: widthPercentage("4%")}}>Arrivée:</Text>
-                            <Text style={{color: "white", width:widthPercentage("88%"), textAlign:"center"}}>{this.state.rideEnd}</Text>
+                            <Text style={{color: "white", marginLeft: widthPercentage("12%")}}>{this.state.rideEnd.charAt(0).toUpperCase() + this.state.rideEnd.slice(1)}</Text>
                         </View>
                     </View>
                     <Button
@@ -228,7 +228,7 @@ export default class Home extends React.Component {
                             marginHorizontal: widthPercentage('4%'),
                             backgroundColor: "#2c84cc",
                         }}
-                        titleStyle={{fontSize: 18}}>
+                        titleStyle={{fontSize: 16}}>
                         </Button>
                 </View>
             )
@@ -323,7 +323,7 @@ export default class Home extends React.Component {
                                     marginHorizontal: widthPercentage('4%'),
                                     backgroundColor: "#2c84cc",
                                 }}
-                                titleStyle={{fontSize: 18}}>
+                                titleStyle={{fontSize: 16}}>
                             </Button>
                         </View>
                     </View>
@@ -350,7 +350,7 @@ export default class Home extends React.Component {
                                 marginHorizontal: widthPercentage('4%'),
                                 backgroundColor: "#2c84cc",
                             }}
-                            titleStyle={{fontSize: 18}}>
+                            titleStyle={{fontSize: 16}}>
                         </Button>
                         <Button
                         onPress={() => this.goToAddInvoice()}
@@ -363,7 +363,7 @@ export default class Home extends React.Component {
                                 marginHorizontal: widthPercentage('4%'),
                                 backgroundColor: "#2c84cc",
                             }}
-                            titleStyle={{fontSize: 18}}>
+                            titleStyle={{fontSize: 16}}>
                         </Button>
                     </View>
             </View>

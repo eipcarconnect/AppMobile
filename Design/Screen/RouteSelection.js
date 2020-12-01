@@ -21,7 +21,7 @@ export class RouteItem extends React.Component {
             <View style={{backgroundColor: this.props.style, alignItems: "center", marginBottom: heightPercentage('3%'), width: widthPercentage('85%'), elevation: 10}}>
                 <TouchableOpacity onPress={this.props.onPress}>
 
-                <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20, width: widthPercentage("75%")}}>
+                <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20, width: widthPercentage("85%")}}>
                     {this.props.name.toUpperCase()}
                 </Text>
                 <View style={{ marginTop: heightPercentage('2%'), marginBottom: heightPercentage('3%'), width: widthPercentage("85%")}}> 
