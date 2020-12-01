@@ -4,34 +4,8 @@ import { Button } from 'react-native-elements'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import NavBar from '../Tools/NavBar'
-import { Picker } from '@react-native-picker/picker';
-
-const initialArr = [
-    {
-        name: "pause repas",
-        numberplate: "AA-389-BB",
-        type: "Restauration",
-        date: "11 novembre 2020",
-        HT: "10,34",
-        TTC: "12,54"
-    },
-    {
-        name: "Hotel",
-        numberplate: "AA-389-BB",
-        type: "Logement",
-        date: "10 novembre 2020",
-        HT: "23,34",
-        TTC: "25,54"
-    },
-    {
-        name: "péage",
-        numberplate: "AA-389-BB",
-        type: "Autoroute",
-        date: "9 novembre 2020",
-        HT: "9,34",
-        TTC: "11,54"
-    },
-];
+import { Picker } from '@react-native-picker/picker'
+import { NavigationEvents } from 'react-navigation'
 
 export class InvoiceItem extends React.Component {
     constructor (props) {
@@ -75,10 +49,14 @@ export default class InvoiceHistory extends React.Component {
         this.state = {
             search: '',
             date: new Date(),
-            searchList: initialArr,
+            searchList: [],
             searchType: 'name',
             show: false,
         }
+    }
+
+    componentDidMount() {
+        this.getInvoiceArray();
     }
 
     setSearchArray(type) {
@@ -92,7 +70,7 @@ export default class InvoiceHistory extends React.Component {
                 return tmp;
             }
             else
-                return initialArr;
+                return this.state.searchList;
         }
         else if (type === 'date') {
             this.state.searchList.forEach((elem) => {
@@ -130,6 +108,45 @@ export default class InvoiceHistory extends React.Component {
 
         return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
+
+    getInvoiceArray() {
+        if(global.actualRide === null) {
+            this.setState({ searchList: [] });
+        }
+        else {
+            var data = {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: global.actualRide._id,
+                }),
+            }
+            fetch('http://40.85.113.74:3000/data/getbills', data).then((res) => res.json())
+                .then((resjson) => {
+                    if (resjson.success === true) {
+                        console.log('getrides OK');
+                        this.setState({ searchList: resjson.bills });
+                        this.state.searchList.forEach((elem, index) => {
+                            console.log(elem, index);
+                            elem.date = this.parseDate(elem.date);
+                        });
+                        this.state.searchList.sort(this.date_sort);
+                        this.state.searchList.forEach((elem, index) => {
+                            elem.date = this.formatDate(new Date(elem.date));
+                        });
+                    }
+                    else {
+                        alert(resjson.error);
+                        console.log("getrides", resjson.error);
+                        return;
+                    }
+            });
+        }
+    }
+
 
 
     displaySearch(type) {
@@ -175,6 +192,7 @@ export default class InvoiceHistory extends React.Component {
     render() {
         return (
             <View style={styles.View}>
+                <NavigationEvents onDidFocus={() => this.componentDidMount()} />
                 <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
                 <View style={{ borderBottomWidth: 1, borderColor: "white", marginTop: heightPercentage('1%') }}>
                     <Picker
