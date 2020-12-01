@@ -18,6 +18,7 @@ export class CarItem extends React.Component {
     render () {
         return(
         <TouchableOpacity style={{marginTop: heightPercentage("2%")}} activeOpacity={0.7} onPress={() => {
+            global.actualRide = null;
             global.car = {
                 model: this.props.data.model.split(' ')[0],
                 brand: this.props.data.model,
