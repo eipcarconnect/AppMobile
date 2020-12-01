@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, StyleSheet, Text, TextInput, FlatList, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
-import { Picker } from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import NavBar from '../Tools/NavBar'
+import { NavigationEvents } from 'react-navigation'
 
 export class RouteItem extends React.Component {
     constructor (props) {
@@ -50,6 +51,7 @@ export default class RouteHistory extends React.Component {
             searchList: [],
             searchType: 'name',
             show: false,
+            test: '',
         }
     }
 
@@ -77,10 +79,9 @@ export default class RouteHistory extends React.Component {
         fetch('http://40.85.113.74:3000/data/user/getrides', data).then((res) => res.json())
             .then((resjson) => {
                 if (resjson.success === true) {
-                    console.log('getrides OK');
+                    console.log('getrides OK', resjson.rides);
                     this.setState({searchList: resjson.rides});
                     this.state.searchList.forEach((elem, index) => {
-                        console.log(elem, index);
                         elem.date = this.parseDate(elem.date);
                     });
                     this.state.searchList.sort(this.date_sort);
@@ -98,13 +99,13 @@ export default class RouteHistory extends React.Component {
 
     getSearchArray(type) {
         let tmp = [];
+        // this.getSearchArray();
         if(type === 'name') {
             if (this.state.search !== '') {
                 this.state.searchList.forEach((elem) => {
                     if (elem.name.toLowerCase().startsWith(this.state.search.toLowerCase()))
                         tmp.push(elem);
                 });
-                console.log(tmp);
                 return tmp;
             }
             else
@@ -196,6 +197,7 @@ export default class RouteHistory extends React.Component {
     render() {
         return (
             <View style={styles.View}>
+                <NavigationEvents onDidFocus={() => this.componentDidMount()} />
                 <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
                 <View style={{ borderBottomWidth: 1, borderColor: "white", marginTop: heightPercentage('1%') }}>
                     <Picker
