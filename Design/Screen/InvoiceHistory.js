@@ -34,6 +34,14 @@ export class InvoiceItem extends React.Component {
         return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
+    displayDate() {
+        if (global.actualRide.date.includes('/'))
+            return this.formatDate(new Date(this.parseDate(global.actualRide.date)));
+        else
+            return global.actualRide.date
+
+    }
+
     render () {
         return(
             <View style={{backgroundColor: "#2F2F2F", alignItems: "center", marginTop: heightPercentage('3%'), width: widthPercentage('85%'), elevation: 10}}>
@@ -43,7 +51,7 @@ export class InvoiceItem extends React.Component {
                 <View style={{width: widthPercentage("85%"), flexDirection: "row", alignItems: 'center',
                 marginTop: heightPercentage('2%')}}>
                     <View style={{marginLeft: widthPercentage("8%") }}>
-                        <Text style={{color: "white"}}>{this.formatDate(new Date(this.parseDate(global.actualRide.date)))}</Text>
+                        <Text style={{color: "white"}}>{this.displayDate()}</Text>
                     </View>
                     <View style={{marginRight: widthPercentage("8%"), flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
                         <Text style={{color: "#2c84cc"}}>{this.props.type}</Text>
