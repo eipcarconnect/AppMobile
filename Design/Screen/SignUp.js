@@ -5,17 +5,21 @@ import { Button } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
+const initialState = {
+    email: '',
+    lastname: '',
+    firstname: '',
+    password: '',
+    password2: '',
+    company: '',
+}
+
 export default class SignUp extends React.Component {
 
     constructor (props) {
         super(props)
         this.state = {
-            email: '',
-            lastname: '',
-            firstname: '',
-            password: '',
-            password2: '',
-            company: '',
+           ...initialState
         }
     }
 
@@ -94,6 +98,9 @@ export default class SignUp extends React.Component {
         .then((resjson) => {
             if (resjson.success === true) {
                 alert("Nouvel utilisateur crée avec succés");
+                this.setState({
+                    ...initialState
+                });
                 this.props.navigation.navigate('SignIn');
             }
             else {

@@ -5,26 +5,30 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import NavBar from '../Tools/NavBar';
 
+function setFirstDate() {
+    let d = new Date();
+    d.setHours(0, 0, 0, 0);
+    return d;
+}
+
+const initialState = {
+    name: '',
+    adresse1: '',
+    cp1: '',
+    ville1: '',
+    adresse2: '',
+    cp2: '',
+    ville2: '',
+    date: setFirstDate(),
+    show: false,
+}
+
 export default class AddRoute extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            adresse1: '',
-            cp1: '',
-            ville1: '',
-            adresse2: '',
-            cp2: '',
-            ville2: '', 
-            date: this.setFirstDate(),
-            show: false,
+           ...initialState
         }
-    }
-
-    setFirstDate() {
-        let d = new Date();
-        d.setHours(0, 0, 0, 0);
-        return d;
     }
 
     setDate = (event, date) => {
@@ -111,6 +115,9 @@ export default class AddRoute extends React.Component {
                     global.actualRide = resjson.ride;
                     console.log(global.actualRide);
                     alert("Voyage crée avec succés");
+                    this.setState({
+                        ...initialState
+                    });
                     this.props.navigation.navigate('Accueil');
                 }
                 else {

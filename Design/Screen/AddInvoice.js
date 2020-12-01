@@ -5,6 +5,13 @@ import { Button } from 'react-native-elements'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import NavBar from '../Tools/NavBar';
 
+const initialState = {
+    name: '',
+    prixHT: '',
+    prixTTC: '',
+    categorie: 'none',
+    tmp: '',
+}
 
 export default class AddInvoice extends React.Component {
 
@@ -12,12 +19,7 @@ export default class AddInvoice extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            numberplate: global.car.numberplate,
-            prixHT: '',
-            prixTTC: '',
-            categorie: 'none',
-            tmp: '',
+          ...initialState
         }
     }
 
@@ -72,6 +74,9 @@ export default class AddInvoice extends React.Component {
                 if (resjson.success === true) {
                     console.log('addBill OK', resjson);
                     alert("Facture crée avec succés");
+                    this.setState({
+                        ...initialState
+                    });
                     this.props.navigation.navigate('Accueil');
                 }
                 else {
@@ -89,7 +94,7 @@ export default class AddInvoice extends React.Component {
                 <Text style={{ fontSize: 26, color: "white", marginTop: heightPercentage("4%") }}>Créez votre facture</Text>
                 <TextInput
                     style={styles.TextInput}
-                    placeholder="Nome de la facture"
+                    placeholder="Nom de la facture"
                     autoCapitalize="none"
                     placeholderTextColor="white"
                     value={this.state.name}

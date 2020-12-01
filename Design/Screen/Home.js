@@ -13,6 +13,13 @@ import { deletSaved } from '../Tools/Storage'
 
 import NavBar from '../Tools/NavBar';
 
+const rideState = {
+    rideName: 'Aucun',
+    rideDate: '',
+    rideStart: '',
+    rideEnd: ''
+}
+
 export default class Home extends React.Component {
 
     constructor (props) {
@@ -24,10 +31,7 @@ export default class Home extends React.Component {
             brand: global.car.brand,
             model: global.car.model,
             numberplate: global.car.numberplate,
-            rideName: 'Aucun',
-            rideDate: '',
-            rideStart: '',
-            rideEnd: '',
+            ...rideState,
             kilometer: "23 871",
             fuel: 10,
             maxfuel: 100
@@ -103,6 +107,8 @@ export default class Home extends React.Component {
                 rideStart: global.actualRide.start, 
                 rideEnd: global.actualRide.end
             });
+        else 
+         this.setState({...rideState});
     }
 
     textScales(maxsize, width, charnumber)

@@ -51,7 +51,6 @@ export default class RouteHistory extends React.Component {
             searchList: [],
             searchType: 'name',
             show: false,
-            test: '',
         }
     }
 
@@ -79,7 +78,7 @@ export default class RouteHistory extends React.Component {
         fetch('http://40.85.113.74:3000/data/user/getrides', data).then((res) => res.json())
             .then((resjson) => {
                 if (resjson.success === true) {
-                    console.log('getrides OK', resjson.rides);
+                    console.log('getrides OK');
                     this.setState({searchList: resjson.rides});
                     this.state.searchList.forEach((elem, index) => {
                         elem.date = this.parseDate(elem.date);
@@ -99,7 +98,6 @@ export default class RouteHistory extends React.Component {
 
     getSearchArray(type) {
         let tmp = [];
-        // this.getSearchArray();
         if(type === 'name') {
             if (this.state.search !== '') {
                 this.state.searchList.forEach((elem) => {
@@ -116,7 +114,6 @@ export default class RouteHistory extends React.Component {
                 if (elem.date.toLowerCase() === this.formatDate(this.state.date).toLowerCase())
                     tmp.push(elem);
             });
-            console.log(tmp);
             return tmp;
         }
     }
