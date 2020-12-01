@@ -71,15 +71,18 @@ export class InvoiceItem extends React.Component {
     }
 }
 
+const initialState = {
+    search: '',
+    date: new Date(),
+    searchType: 'name',
+    show: false,
+}
+
 export default class InvoiceHistory extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            search: '',
-            date: new Date(),
             searchList: [],
-            searchType: 'name',
-            show: false,
         }
     }
 
@@ -154,7 +157,7 @@ export default class InvoiceHistory extends React.Component {
                 .then((resjson) => {
                     if (resjson.success === true) {
                         console.log('getBills OK');
-                        this.setState({ searchList: resjson.bills });
+                        this.setState({ searchList: resjson.bills, ...initialState });
                     }
                     else {
                         alert(resjson.error);

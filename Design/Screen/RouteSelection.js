@@ -43,20 +43,23 @@ export class RouteItem extends React.Component {
     }
 }
 
+const initialState= {
+    search: '',
+    date: new Date(),
+    show: false,
+    selectedId: null,
+    itemSelected: null,
+    searchType: 'name',
+}
+
 export default class RouteHistory extends React.Component {
 
 
     constructor(props) {
         super(props)
         this.state = {
-            search: '',
-            date: new Date(),
             searchList: [],
-            searchType: 'name',
-            show: false,
-
-            selectedId: null,
-            itemSelected: null
+            ...initialState
         }
 
     }
@@ -87,13 +90,14 @@ export default class RouteHistory extends React.Component {
                 if (resjson.success === true) {
                     console.log('getrides OK');
                     this.setState({searchList: resjson.rides});
-                    this.state.searchList.forEach((elem, index) => {
+                    this.state.searchList.forEach((elem) => {
                         elem.date = this.parseDate(elem.date);
                     });
                     this.state.searchList.sort(this.date_sort);
-                    this.state.searchList.forEach((elem, index) => {
+                    this.state.searchList.forEach((elem) => {
                         elem.date = this.formatDate(new Date(elem.date));
                     });
+                    this.setState({...initialState});
                 }
                 else {
                     alert(resjson.error);
