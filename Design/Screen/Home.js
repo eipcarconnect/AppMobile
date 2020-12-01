@@ -139,10 +139,10 @@ export default class Home extends React.Component {
             <View style={styles.View}>
                 <NavigationEvents onDidFocus={() => this.componentDidMount()}/>
                 <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
-                    <View style={{width: widthPercentage("88%"),
+                    {/* <View style={{width: widthPercentage("88%"),
                                 height: heightPercentage("10%"),
                                 backgroundColor: "#2F2F2F",
-                                marginTop: heightPercentage("3.5%"),
+                                marginTop: heightPercentage("2%"),
                                 elevation: 10,
                                 alignItems:"center"}}>
                         <Text
@@ -157,24 +157,11 @@ export default class Home extends React.Component {
                             ]}>
                             Bonjour {global.name.split(" ")[0]}
                         </Text>
-                        {/* <Text 
-                            numberOfLines={1}
-                            style={[this.textScales(18, widthPercentage("130%"), global.email.length),
-                                {
-                                    width: widthPercentage("80%"),
-                                    height: heightPercentage("4%"),
-                                    marginTop: heightPercentage("1%"),
-                                    //backgroundColor: "red",
-                                    color: "white"
-                                }
-                            ]}>
-                            {global.email}
-                        </Text> */}
-                    </View>
+                    </View> */}
                     <View style={{width: widthPercentage("88%"),
-                                height: heightPercentage("21%"),
+                                // height: heightPercentage("25%"),
                                 backgroundColor: "#2F2F2F",
-                                marginTop: heightPercentage("3.5%"),
+                                marginTop: heightPercentage("3%"),
                                 elevation: 10
                                 }}>
                         <View style={{flexDirection: "row", marginLeft: widthPercentage("3%")}}>
@@ -219,6 +206,7 @@ export default class Home extends React.Component {
                                     {this.state.numberplate}
                                 </Text>
                             </View>
+                        </View>
                             {/* <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', marginTop: heightPercentage("2%"), marginRight: widthPercentage("6%")}}>
                                 <Progress.Circle 
                                             progress={fuel/100}
@@ -238,28 +226,63 @@ export default class Home extends React.Component {
                                             color={'rgba(44,132,204,1)'}>
                                 </Progress.Circle>
                             </View> */}
-                        </View>
-                        <View style={{marginBottom:heightPercentage("2%")}}>  
-                            <Text 
-                                numberOfLines={1}
-                                style={[this.textScales(20, widthPercentage("130%"), this.state.numberplate.length),
-                                {
-                                    width: widthPercentage("88%"),
-                                    //height: heightPercentage("4%"),
-                                    marginTop: heightPercentage("1%"),
-                                    textAlign:"center",
-                                    //backgroundColor: "red",
-                                    color: "white"
-                                }
-                            ]}>
-                                {this.state.kilometer} Km
-                            </Text>
+                        <View style={{}}>  
+                            <Button
+                            onPress={() => {this.props.navigation.navigate('CarSelect')}}
+                                title="CHANGER DE VEHICULE"
+                                buttonStyle={{
+                                    height: heightPercentage('5%'),
+                                    width: widthPercentage('80%'),
+                                    marginTop: heightPercentage('3%'),
+                                    marginBottom: heightPercentage('2%'),
+                                    marginHorizontal: widthPercentage('4%'),
+                                    backgroundColor: "#2c84cc",
+                                }}
+                                titleStyle={{fontSize: 18}}>
+                            </Button>
                         </View>
                     </View>
+                    <View 
+                        style={{width: widthPercentage("88%"),
+                            //height: heightPercentage("30%"),
+                            backgroundColor: "#2F2F2F",
+                            marginTop: heightPercentage("3%"),
+                            elevation: 10
+                            }}>
+                            <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20, width: widthPercentage("75%")}}>
+                                Salut
+                            </Text>
+                            <View style={{ marginTop: heightPercentage('1%'), marginBottom: heightPercentage('1%'), width: widthPercentage("85%")}}> 
+                                <View style={{marginLeft: widthPercentage("4%") }}>
+                                    <Text style={{color: "white"}}>salut + {this.props.date}</Text>
+                                </View>
+                                <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%')}}>
+                                    <Text style={{color: "#2c84cc"}}>Depart:</Text>
+                                    <Text style={{color: "white"}}>{this.props.start}</Text>
+                                </View>
+                                <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%') }}>
+                                    <Text style={{color: "#2c84cc"}}>Arrivée:</Text>
+                                    <Text style={{color: "white"}}>{this.props.end}</Text>
+                                </View>
+                            </View>
+                            <Button
+                            onPress={() => {this.props.navigation.navigate('CarSelect')}}
+                                title="CHANGER LE TRAJET EN COURS"
+                                buttonStyle={{
+                                    height: heightPercentage('5%'),
+                                    width: widthPercentage('80%'),
+                                    marginTop: heightPercentage('1%'),
+                                    marginBottom: heightPercentage('2%'),
+                                    marginHorizontal: widthPercentage('4%'),
+                                    backgroundColor: "#2c84cc",
+                                }}
+                                titleStyle={{fontSize: 18}}>
+                                </Button>
+                    </View>
                     <View style={{width: widthPercentage("88%"),
-                                height: heightPercentage("12%"),
+                                height: heightPercentage("17%"),
                                 backgroundColor: "#2F2F2F",
-                                marginTop: heightPercentage("3.5%"),
+                                marginTop: heightPercentage("3%"),
                                 elevation: 10
                                 }}>
                         <Button
@@ -268,28 +291,22 @@ export default class Home extends React.Component {
                             }}
                             title="CREER UN VOYAGE"
                             buttonStyle={{
-                                height: heightPercentage('6%'),
+                                height: heightPercentage('5%'),
                                 width: widthPercentage('80%'),
-                                marginVertical: heightPercentage('3%'),
+                                marginTop: heightPercentage('2%'),
                                 marginHorizontal: widthPercentage('4%'),
                                 backgroundColor: "#2c84cc",
                             }}
                             titleStyle={{fontSize: 18}}>
                         </Button>
-                    </View>
-                    <View style={{width: widthPercentage("88%"),
-                                height: heightPercentage("12%"),
-                                backgroundColor: "#2F2F2F",
-                                marginTop: heightPercentage("3.5%"),
-                                elevation: 10
-                                }}>
                         <Button
                         onPress={() => this.props.navigation.navigate('AddInvoice')}
                             title="CREER UNE FACTURE"
                             buttonStyle={{
-                                height: heightPercentage('6%'),
+                                height: heightPercentage('5%'),
                                 width: widthPercentage('80%'),
-                                marginVertical: heightPercentage('3%'),
+                                marginTop: heightPercentage('3%'),
+                                marginBottom: heightPercentage('2%'),
                                 marginHorizontal: widthPercentage('4%'),
                                 backgroundColor: "#2c84cc",
                             }}
