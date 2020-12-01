@@ -11,7 +11,7 @@ export class CarItem extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            data: global.carList,
+            data: [],
         }
     }
 
@@ -47,8 +47,38 @@ export default class CarSelection extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            data: global.carList,
+            data: [],
         }
+    }
+
+    componentDidMount() {
+        this.getCarList();
+    }
+
+    getCarList() {
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: global.token,
+            }),
+        }
+        fetch('http://40.85.113.74:3000/data/user/getvehicles', data).then((res) => res.json())
+            .then((resjson) => {
+                if (resjson.success === true) {
+                    this.setState({data: resjson.vehicles});
+                    console.log('getCarList OK', this.state.data, resjson.vehicles);
+                    // console.log(this.state.data);
+                }
+                else {
+                    alert(resjson.error);
+                    console.log("getCarList", resjson.error);
+                    return;
+                }
+            });
     }
 
     renderItem = ({ item }) => (

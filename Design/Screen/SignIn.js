@@ -103,7 +103,7 @@ export default class SignIn extends React.Component {
                   this.props.navigation.navigate('Accueil');
                 }
                 else {
-                  this.getCarList();
+                  this.props.navigation.navigate('CarSelect');
                 }
               });
             }
@@ -115,31 +115,31 @@ export default class SignIn extends React.Component {
           });
       }
     
-  getCarList() {
-    var data = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        token: global.token,
-      }),
-    }
-    fetch('http://40.85.113.74:3000/data/user/getvehicles', data).then((res) => res.json())
-      .then((resjson) => {
-        if (resjson.success === true) {
-          global.carList = resjson.vehicles;
-          console.log('getCarList OK');
-          this.props.navigation.navigate('CarSelect');
-        }
-        else {
-          alert(resjson.error);
-          console.log("getCarList", resjson.error);
-          return;
-        }
-      });
-  }
+  // getCarList() {
+  //   var data = {
+  //     method: 'POST',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       token: global.token,
+  //     }),
+  //   }
+  //   fetch('http://40.85.113.74:3000/data/user/getvehicles', data).then((res) => res.json())
+  //     .then((resjson) => {
+  //       if (resjson.success === true) {
+  //         global.carList = resjson.vehicles;
+  //         console.log('getCarList OK');
+  //         this.props.navigation.navigate('CarSelect');
+  //       }
+  //       else {
+  //         alert(resjson.error);
+  //         console.log("getCarList", resjson.error);
+  //         return;
+  //       }
+  //     });
+  // }
 
   getCompanyList() {
     var data = {

@@ -182,7 +182,7 @@ const AppStack = createDrawerNavigator(
           </ScrollView>
           <View style={{position: 'absolute', bottom: 0, width: '100%'}}>
             <Button
-              onPress={() => { getCarList(); props.navigation.navigate('CarSelect'); }}
+              onPress={() => { props.navigation.navigate('CarSelect'); }}
               title="Changer de voiture"
               buttonStyle={{
                 height: heightPercentage('6%'),
