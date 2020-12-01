@@ -9,6 +9,8 @@ import * as Progress from 'react-native-progress';
 
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 
+import { deletSaved } from '../Tools/Storage'
+
 import NavBar from '../Tools/NavBar';
 
 export default class Home extends React.Component {
@@ -32,6 +34,32 @@ export default class Home extends React.Component {
         this.getUser()
         this.Refresh()
     }
+
+    getCarList() {
+        deletSaved("car");
+        var data = {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            token: global.token,
+          }),
+        }
+        fetch('http://40.85.113.74:3000/data/user/getvehicles', data).then((res) => res.json())
+          .then((resjson) => {
+            if (resjson.success === true) {
+              global.carList = resjson.vehicles;
+              console.log('getCarList OK');
+            }
+            else {
+              alert(resjson.error);
+              console.log("getCarList", resjson.error);
+              return;
+            }
+          });
+      }
 
     async getUser() {
         try
@@ -239,7 +267,7 @@ export default class Home extends React.Component {
                             </View> */}
                         <View style={{}}>  
                             <Button
-                            onPress={() => {this.props.navigation.navigate('CarSelect')}}
+                            onPress={() => {this.getCarList();this.props.navigation.navigate('CarSelect')}}
                                 title="CHANGER DE VEHICULE"
                                 buttonStyle={{
                                     height: heightPercentage('5%'),
@@ -277,7 +305,7 @@ export default class Home extends React.Component {
                                 </View>
                             </View>
                             <Button
-                            onPress={() => {this.props.navigation.navigate('CarSelect')}}
+                            onPress={() => {this.props.navigation.navigate('RouteSelection')}}
                                 title="CHANGER LE TRAJET EN COURS"
                                 buttonStyle={{
                                     height: heightPercentage('5%'),

@@ -6,18 +6,31 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import NavBar from '../Tools/NavBar'
 
-export class RouteItem extends React.Component {
+export class RouteSelectionItem extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
             data: {},
-            elements: []
+            elements: [],
+            selectedItem:null,
         }
     }
 
+    onPressAction = (rowItem) => {
+        console.log('ListItem was selected');
+        console.dir(rowItem);
+        this.setState({
+          selectedItem: rowItem.id.value
+        });
+      }
+
     render () {
+        const isSelectedUser = this.state.selectedItem === item.id.value;
+        console.log(`Rendered item - ${item.id.value} for ${isSelectedUser}`);
+        const viewStyle = isSelectedUser ? styles.selectedButton : styles.normalButton;
         return(
             <View style={{backgroundColor: "#2F2F2F", alignItems: "center", marginBottom: heightPercentage('3%'), width: widthPercentage('85%'), elevation: 10}}>
+                {/* <TouchableOpacity style={{}} onPress={() => this.onPressAction(item)}> */}
                 <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20, width: widthPercentage("75%")}}>
                     {this.props.name.toUpperCase()}
                 </Text>
@@ -34,6 +47,11 @@ export class RouteItem extends React.Component {
                         <Text style={{color: "white"}}>{this.props.end}</Text>
                     </View>
                 </View>
+                {/* {isSelectedUser ?
+                  <Text style={styles.selectedText}>{item.name.first} select</Text>
+                  : <Text style={styles.text}>{item.name.first} non select</Text>
+                } */}
+                {/* </TouchableOpacity> */}
             </View>
         );
     }
@@ -181,7 +199,7 @@ export default class RouteSelection extends React.Component {
     }
 
     renderItem = ({ item }) => (
-        <RouteItem name={item.name} start={item.start}
+        <RouteSelectionItem name={item.name} start={item.start}
         end={item.end} date={item.date}/>
     );
 

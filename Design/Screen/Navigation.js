@@ -14,6 +14,7 @@ import AddInvoiceScreen from './AddInvoice'
 import AddRouteScreen from './AddRoute'
 import InvoiceHistoryScreen from './InvoiceHistory'
 import RouteHistoryScreen from './RouteHistory'
+import RouteSelectionScreen from './RouteSelection'
 
 
 import SettingsAccountScreen from './Settings/SettingsAccount'
@@ -151,6 +152,7 @@ const AppStack = createDrawerNavigator(
     AddInvoice: AddInvoiceScreen,
     "Historique des factures": InvoiceHistoryScreen,
     "Historique des trajets": RouteHistoryScreen,
+    RouteSelection: RouteSelectionScreen,
     Options: SettingsStack
   }, 
   {
@@ -168,7 +170,7 @@ const AppStack = createDrawerNavigator(
     contentComponent: (props) => {
       var copyprops = Object.assign({}, props);
       copyprops.items = copyprops.items.filter(function(item) {
-        if (item.key !== 'AddInvoice' && item.key !== 'AddRoute' && item.key !== 'CarSelect' && item.key !== 'AuthStack') return true})
+        if (item.key !== 'AddInvoice' && item.key !== 'RouteSelection' && item.key !== 'AddRoute' && item.key !== 'CarSelect' && item.key !== 'AuthStack') return true})
       return (
         <SafeAreaView style={{height: '100%'}}>
             <View style={{height: heightPercentage('20%'),alignItems: 'center', justifyContent: 'center'}}>
