@@ -230,7 +230,7 @@ export default class RouteHistory extends React.Component {
                 />
                 <Button
                     onPress={() => {
-                        console.log("AAAAAAAAAAAAAAAA" + this.state.itemSelected);
+                        console.log("AAAAAAAAAAAAAAAA" + this.state.itemSelected.date);
                         console.log("AAAAAAAAAAAAAAAA" + this.state.selectedId);
 
                         if (this.state.selectedId !== null)

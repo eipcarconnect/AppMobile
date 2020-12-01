@@ -72,7 +72,6 @@ export default class Home extends React.Component {
     async getUser() {
         try
         {
-            //await AsyncStorage.removeItem("HomePageConfiguration")
             let res = await AsyncStorage.getItem("HomePageConfiguration");
             if (res == null)
             {
@@ -99,14 +98,25 @@ export default class Home extends React.Component {
     }
 
     Refresh() {
+        console.log(global.actualRide);
        this.setState({brand: global.car.brand, model: global.car.model, numberplate: global.car.numberplate});
         if(global.actualRide !== null)
-            this.setState({
-                rideName: global.actualRide.name, 
-                rideDate: this.formatDate(new Date(this.parseDate(global.actualRide.date))), 
-                rideStart: global.actualRide.start, 
-                rideEnd: global.actualRide.end
-            });
+            if(!global.actualRide.date.includes('/')) {
+                this.setState({
+                    rideName: global.actualRide.name, 
+                    rideDate: global.actualRide.date, 
+                    rideStart: global.actualRide.start,
+                    rideEnd: global.actualRide.end
+                });
+            }
+            else {
+                this.setState({
+                    rideName: global.actualRide.name,
+                    rideDate: this.formatDate(new Date(this.parseDate(global.actualRide.date))),
+                    rideStart: global.actualRide.start,
+                    rideEnd: global.actualRide.end
+                });
+            }
         else 
          this.setState({...rideState});
     }

@@ -58,7 +58,6 @@ export default class AddRoute extends React.Component {
 
         return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
-
     formatDate(date) {
 
         var day = date.getDate();
@@ -111,7 +110,7 @@ export default class AddRoute extends React.Component {
         fetch('http://40.85.113.74:3000/data/user/addride', data).then((res) => res.json())
             .then((resjson) => {
                 if (resjson.success === true) {
-                    console.log('addRoute OK', resjson);
+                    console.log('addRoute OK');
                     global.actualRide = resjson.ride;
                     console.log(global.actualRide);
                     alert("Voyage crée avec succés");
