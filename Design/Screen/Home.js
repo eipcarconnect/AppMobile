@@ -98,7 +98,6 @@ export default class Home extends React.Component {
     }
 
     Refresh() {
-        console.log(global.actualRide);
        this.setState({brand: global.car.brand, model: global.car.model, numberplate: global.car.numberplate});
         if(global.actualRide !== null)
             if(!global.actualRide.date.includes('/')) {
@@ -130,7 +129,6 @@ export default class Home extends React.Component {
     }
 
     goToAddInvoice() {
-        console.log(global.actualRide);
         if (global.actualRide === null) {
             alert("Veuillez créer ou sélectionner un trajet avant de créer une facture");
             return;

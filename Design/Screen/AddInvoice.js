@@ -24,7 +24,6 @@ export default class AddInvoice extends React.Component {
     }
 
     sendFacture() {
-        console.log(global.actualRide);
         let regPrix1 = new RegExp("^([0-9]+[\,]?[0-9]?[0-9]?|[0-9]+)$");
         let regPrix2 = new RegExp("^([0-9]+[\.]?[0-9]?[0-9]?|[0-9]+)$");
         if (this.state.name.length < 1) {
@@ -68,11 +67,10 @@ export default class AddInvoice extends React.Component {
                 type: this.state.categorie
             }),
         }
-        console.log("data: ", data);
         fetch('http://40.85.113.74:3000/data/user/addbill', data).then((res) => res.json())
             .then((resjson) => {
                 if (resjson.success === true) {
-                    console.log('addBill OK', resjson);
+                    console.log('addBill OK');
                     alert("Facture crée avec succés");
                     this.setState({
                         ...initialState

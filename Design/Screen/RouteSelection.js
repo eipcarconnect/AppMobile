@@ -88,7 +88,6 @@ export default class RouteHistory extends React.Component {
                     console.log('getrides OK');
                     this.setState({searchList: resjson.rides});
                     this.state.searchList.forEach((elem, index) => {
-                        console.log(elem, index);
                         elem.date = this.parseDate(elem.date);
                     });
                     this.state.searchList.sort(this.date_sort);
@@ -112,7 +111,6 @@ export default class RouteHistory extends React.Component {
                     if (elem.name.toLowerCase().startsWith(this.state.search.toLowerCase()))
                         tmp.push(elem);
                 });
-                console.log(tmp);
                 return tmp;
             }
             else
@@ -123,7 +121,6 @@ export default class RouteHistory extends React.Component {
                 if (elem.date.toLowerCase() === this.formatDate(this.state.date).toLowerCase())
                     tmp.push(elem);
             });
-            console.log(tmp);
             return tmp;
         }
     }

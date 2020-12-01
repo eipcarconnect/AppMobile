@@ -13,7 +13,6 @@ export default class EmailSettings extends React.Component {
         this.state = {
             newemail: ""
         }
-        console.log("actual token:" + global.token);
     }
 
 
@@ -35,9 +34,6 @@ export default class EmailSettings extends React.Component {
             .then((resjson) => {
                 if (resjson.success === true) {
                     global.token = resjson.token;
-                    //console.log("new token: " + str);
-                    //global.token = str.slice(4, str.length);
-                    console.log("new token: " + global.token);
                     this.props.navigation.navigate('SettingsAccount');
                 }
                 else {

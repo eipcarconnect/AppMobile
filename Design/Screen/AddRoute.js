@@ -68,7 +68,6 @@ export default class AddRoute extends React.Component {
     }
 
     sendTrajet() {
-        console.log(global.car);
         let regCP = new RegExp("^[0-9]{5}$");
         if (this.state.name.length < 1) {
             alert('Veuillez entrer un nom de trajet');
@@ -76,7 +75,6 @@ export default class AddRoute extends React.Component {
         }
         if (this.state.adresse1.length < 1 || this.state.cp1.length < 1 || this.state.ville1.length < 1) {
             alert('Veuillez entrer une adresse de départ complète');
-            console.log(this.state.adresse1, this.state.cp1, this.state.ville1)
             return (84);
         }
         else if (!regCP.test(this.state.cp1)) {
@@ -112,7 +110,6 @@ export default class AddRoute extends React.Component {
                 if (resjson.success === true) {
                     console.log('addRoute OK');
                     global.actualRide = resjson.ride;
-                    console.log(global.actualRide);
                     alert("Voyage crée avec succés");
                     this.setState({
                         ...initialState

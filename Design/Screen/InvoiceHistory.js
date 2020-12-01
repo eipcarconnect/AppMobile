@@ -94,7 +94,6 @@ export default class InvoiceHistory extends React.Component {
 
     setSearchArray(type) {
         let tmp = [];
-        console.log("AAAAAAAAAAAAAAAAAA", this.state.searchList);
         if (type === 'name') {
             if (this.state.search !== '') {
                 this.state.searchList.forEach((elem) => {
@@ -156,7 +155,6 @@ export default class InvoiceHistory extends React.Component {
                     if (resjson.success === true) {
                         console.log('getBills OK');
                         this.setState({ searchList: resjson.bills });
-                        console.log(this.state.searchList);
                     }
                     else {
                         alert(resjson.error);

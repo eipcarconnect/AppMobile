@@ -8,8 +8,6 @@ import CarSelection from './CarSelection'
 
 import { deletSaved } from '../Tools/Storage'
 
-import MapScreen from './Map'
-
 import AddInvoiceScreen from './AddInvoice'
 import AddRouteScreen from './AddRoute'
 import InvoiceHistoryScreen from './InvoiceHistory'
@@ -20,7 +18,6 @@ import RouteSelectionScreen from './RouteSelection'
 import SettingsAccountScreen from './Settings/SettingsAccount'
 import SettingsHomePageScreen from './Settings/SettingsHomePage/SettingsHomePage'
 
-import BirthdaySettingsScreen from './Settings/BirthdaySettings'
 import EmailSettingsScreen from './Settings/EmailSettings'
 import NameSettingsScreen from './Settings/NameSettings'
 import PasswordSettingsScreen from './Settings/PasswordSettings'
@@ -42,49 +39,12 @@ function disconnect() {
   deletSaved("car");
 }
 
-function getCarList() {
-  deletSaved("car");
-  var data = {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      token: global.token,
-    }),
-  }
-  fetch('http://40.85.113.74:3000/data/user/getvehicles', data).then((res) => res.json())
-    .then((resjson) => {
-      if (resjson.success === true) {
-        global.carList = resjson.vehicles;
-        console.log('getCarList OK');
-      }
-      else {
-        alert(resjson.error);
-        console.log("getCarList", resjson.error);
-        return;
-      }
-    });
-}
-
 const SettingsStack = createStackNavigator({
   Settings: 
   {
     screen: SettingsAccountScreen,
     navigationOptions:{
       header: null,
-    }
-  },
-  BirthdaySettings:
-  {
-    screen: BirthdaySettingsScreen,
-    navigationOptions:{
-      title: 'Change date of birth',
-      headerStyle: {
-        backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
-      },
-      headerTintColor: 'white'
     }
   },
   EmailSettings:
@@ -140,7 +100,6 @@ SettingsStack.navigationOptions = ({ navigation }) => {
 const AuthStack = createSwitchNavigator({
   SignIn: SignInScreen,
   SignUp: SignUpScreen,
-  Map: MapScreen,
 });
 
 const AppStack = createDrawerNavigator(
