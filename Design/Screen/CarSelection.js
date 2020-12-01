@@ -54,7 +54,7 @@ export default class CarSelection extends React.Component {
     renderItem = ({ item }) => (
         <CarItem data={item} 
         onTap={()=>{
-            this.props.navigation.navigate('Home');
+            this.props.navigation.navigate('Accueil');
         }}/>
     );
 

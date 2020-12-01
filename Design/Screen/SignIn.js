@@ -20,6 +20,7 @@ export default class SignIn extends React.Component {
         global.car = {};
         global.company = [];
         global.carList = [];
+        global.actualRide = null;
     }
 
     setEmail(text)
@@ -99,7 +100,7 @@ export default class SignIn extends React.Component {
               getSaved('car').then((value) => {
                 if (value) {
                   global.car = JSON.parse(value);
-                  this.props.navigation.navigate('Home');
+                  this.props.navigation.navigate('Accueil');
                 }
                 else {
                   this.getCarList();

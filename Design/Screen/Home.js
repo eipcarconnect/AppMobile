@@ -77,6 +77,17 @@ export default class Home extends React.Component {
         return {fontSize: s}
     }
 
+    goToAddInvoice() {
+        console.log(global.actualRide);
+        if (global.actualRide === null) {
+            alert("Veuillez créer ou sélectionner un trajet avant de créer une facture");
+            return;
+        }
+        else
+            this.props.navigation.navigate('AddInvoice');
+
+    }
+
 
     // RouteModal(modalVisible, setModalVisible)
     // {
@@ -266,7 +277,7 @@ export default class Home extends React.Component {
                             onPress={() => {
                             this.props.navigation.navigate('AddRoute')
                             }}
-                            title="CREER UN VOYAGE"
+                            title="CREER UN TRAJET"
                             buttonStyle={{
                                 height: heightPercentage('6%'),
                                 width: widthPercentage('80%'),
@@ -284,7 +295,7 @@ export default class Home extends React.Component {
                                 elevation: 10
                                 }}>
                         <Button
-                        onPress={() => this.props.navigation.navigate('AddInvoice')}
+                        onPress={() => this.goToAddInvoice()}
                             title="CREER UNE FACTURE"
                             buttonStyle={{
                                 height: heightPercentage('6%'),
