@@ -160,64 +160,83 @@ export default class Home extends React.Component {
         return (ret[1] + '/' + ret[0] + '/' + ret[2]);
     }
 
-
-    // RouteModal(modalVisible, setModalVisible)
-    // {
-    //     return (
-    //         <Modal
-    //           animationType="slide"
-    //           transparent={true}
-    //           visible={modalVisible}
-    //           onRequestClose={() => {
-    //             Alert.alert("Modal has been closed.");
-    //           }}
-    //         >
-    //           <View style={styles.centeredView}>
-    //             <View style={styles.modalView}>
-    //               <Text style={styles.modalText}>Hello World!</Text>
-      
-    //               <TouchableHighlight
-    //                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-    //                 onPress={() => {
-    //                   setModalVisible(!modalVisible);
-    //                 }}
-    //               >
-    //                 <Text style={styles.textStyle}>Hide Modal</Text>
-    //               </TouchableHighlight>
-    //             </View>
-    //           </View>
-    //         </Modal>
-    //     )
-    // }
+    actualTravel()
+    {
+        if (global.actualRide === null)
+        {
+            return (
+                <View 
+                    style={{width: widthPercentage("88%"),
+                    //height: heightPercentage("30%"),
+                    backgroundColor: "#2F2F2F",
+                    marginTop: heightPercentage("3%"),
+                    elevation: 10
+                    }}>
+                    <Text style={{marginTop: heightPercentage('2%'),marginBottom: widthPercentage("2%"), color: "white", textAlign: "center", fontSize: 20, width: widthPercentage("85%")}}>
+                    Aucun trajet selectionné
+                    </Text>
+                    <Button
+                        onPress={() => {this.props.navigation.navigate('RouteSelection')}}
+                        title="SELECTIONNER UN TRAJET"
+                        buttonStyle={{
+                            height: heightPercentage('5%'),
+                            width: widthPercentage('80%'),
+                            marginTop: heightPercentage('1%'),
+                            marginBottom: heightPercentage('2%'),
+                            marginHorizontal: widthPercentage('4%'),
+                            backgroundColor: "#2c84cc",
+                        }}
+                        titleStyle={{fontSize: 18}}>
+                    </Button>
+                </View>
+            );
+        }
+        else
+        {
+            return (
+                <View 
+                style={{width: widthPercentage("88%"),
+                    //height: heightPercentage("30%"),
+                    backgroundColor: "#2F2F2F",
+                    marginTop: heightPercentage("3%"),
+                    elevation: 10
+                    }}>
+                    <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign:"center", fontSize: 25, width: widthPercentage("88%")}}>
+                        {this.state.rideName.charAt(0).toUpperCase() + this.state.rideName.slice(1)}
+                    </Text>
+                    <View style={{ marginTop: heightPercentage('1%'), marginBottom: heightPercentage('1%'), width: widthPercentage("88%")}}> 
+                        <View style={{}}>
+                            <Text style={{color: "white", width:widthPercentage("88%"), textAlign:"center"}}>{this.state.rideDate}</Text>
+                        </View>
+                        <View style={{marginTop: heightPercentage('1%')}}>
+                            <Text style={{color: "#2c84cc", marginLeft: widthPercentage("4%")}}>Depart:</Text>
+                            <Text style={{color: "white", width:widthPercentage("88%"), textAlign:"center"}}>{this.state.rideStart}</Text>
+                        </View>
+                        <View style={{marginTop: heightPercentage('1%') }}>
+                            <Text style={{color: "#2c84cc", marginLeft: widthPercentage("4%")}}>Arrivée:</Text>
+                            <Text style={{color: "white", width:widthPercentage("88%"), textAlign:"center"}}>{this.state.rideEnd}</Text>
+                        </View>
+                    </View>
+                    <Button
+                    onPress={() => {this.props.navigation.navigate('RouteSelection')}}
+                        title="CHANGER LE TRAJET EN COURS"
+                        buttonStyle={{
+                            height: heightPercentage('5%'),
+                            width: widthPercentage('80%'),
+                            marginTop: heightPercentage('1%'),
+                            marginBottom: heightPercentage('2%'),
+                            marginHorizontal: widthPercentage('4%'),
+                            backgroundColor: "#2c84cc",
+                        }}
+                        titleStyle={{fontSize: 18}}>
+                        </Button>
+                </View>
+            )
+        }
+    }
  
 
     render () {
-        //const [modalVisible, setModalVisible] = useState(false);
-        // const mod = 
-        //     <Modal
-        //       animationType="slide"
-        //       transparent={true}
-        //       visible={modalVisible}
-        //       onRequestClose={() => {
-        //         Alert.alert("Modal has been closed.");
-        //       }}
-        //     >
-        //       <View style={styles.centeredView}>
-        //         <View style={styles.modalView}>
-        //           <Text style={styles.modalText}>Hello World!</Text>
-      
-        //           <TouchableHighlight
-        //             style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-        //             onPress={() => {
-        //               setModalVisible(!modalVisible);
-        //             }}
-        //           >
-        //             <Text style={styles.textStyle}>Hide Modal</Text>
-        //           </TouchableHighlight>
-        //         </View>
-        //       </View>
-        //     </Modal>
-
         return (
             <View style={styles.View}>
                 <NavigationEvents onDidFocus={() => this.componentDidMount()}/>
@@ -247,14 +266,16 @@ export default class Home extends React.Component {
                                 marginTop: heightPercentage("3%"),
                                 elevation: 10
                                 }}>
-                        <View style={{flexDirection: "row", marginLeft: widthPercentage("3%")}}>
-                            <View style={{marginTop: heightPercentage("1%")}}>
+                        <View style={{flexDirection: "row"}}>
+                            <View style={{marginTop: heightPercentage("1%"), width: widthPercentage("88%"),  alignItems: "center"}}>
                                 <Text
                                     numberOfLines={1}
                                     style={[this.textScales(25, widthPercentage("130%"), this.state.brand.length),
                                     {
                                         //width: widthPercentage("80%"),
                                             //height: heightPercentage("4%"),
+                                            //textAlign: "center",
+                                            //width: widthPercentage("85%"),
                                             marginTop: heightPercentage("1%"),
                                             //backgroundColor: "red",
                                             color: "white"
@@ -306,43 +327,11 @@ export default class Home extends React.Component {
                             </Button>
                         </View>
                     </View>
-                    <View 
-                        style={{width: widthPercentage("88%"),
-                            //height: heightPercentage("30%"),
-                            backgroundColor: "#2F2F2F",
-                            marginTop: heightPercentage("3%"),
-                            elevation: 10
-                            }}>
-                            <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20, width: widthPercentage("75%")}}>
-                                {this.state.rideName}
-                            </Text>
-                            <View style={{ marginTop: heightPercentage('1%'), marginBottom: heightPercentage('1%'), width: widthPercentage("85%")}}> 
-                                <View style={{marginLeft: widthPercentage("4%") }}>
-                                    <Text style={{color: "white"}}>{this.state.rideDate}</Text>
-                                </View>
-                                <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%')}}>
-                                    <Text style={{color: "#2c84cc"}}>Depart:</Text>
-                                    <Text style={{color: "white"}}>{this.state.rideStart}</Text>
-                                </View>
-                                <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%') }}>
-                                    <Text style={{color: "#2c84cc"}}>Arrivée:</Text>
-                                    <Text style={{color: "white"}}>{this.state.rideEnd}</Text>
-                                </View>
-                            </View>
-                            <Button
-                            onPress={() => {this.props.navigation.navigate('RouteSelection')}}
-                                title="CHANGER LE TRAJET EN COURS"
-                                buttonStyle={{
-                                    height: heightPercentage('5%'),
-                                    width: widthPercentage('80%'),
-                                    marginTop: heightPercentage('1%'),
-                                    marginBottom: heightPercentage('2%'),
-                                    marginHorizontal: widthPercentage('4%'),
-                                    backgroundColor: "#2c84cc",
-                                }}
-                                titleStyle={{fontSize: 18}}>
-                                </Button>
-                    </View>
+                    
+
+                        {this.actualTravel()}
+
+
                     <View style={{width: widthPercentage("88%"),
                                 height: heightPercentage("17%"),
                                 backgroundColor: "#2F2F2F",

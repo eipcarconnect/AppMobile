@@ -198,12 +198,18 @@ export default class InvoiceHistory extends React.Component {
             <View style={styles.View}>
                 <NavigationEvents onDidFocus={() => this.componentDidMount()} />
                 <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
-                <View style={{ borderBottomWidth: 1, borderColor: "white", marginTop: heightPercentage('1%') }}>
+                <View style={{ borderBottomWidth: 1, borderColor: "white", marginTop: heightPercentage('2%'), width: widthPercentage('80%'), }}>
                     <Text
-                        style={{ color: "white", height: heightPercentage('6%'), width: widthPercentage('80%') }}
+                        style={{ 
+                            color: "white",
+                            fontSize:16,
+                            width: widthPercentage('80%'),
+                            marginBottom: heightPercentage("2%"),
+                            marginLeft: widthPercentage("2%")
+                        }}
                         >
                         Rechercher par Nom
-                </Text>
+                    </Text>
                 </View>
                 {this.displaySearch()}
                 <FlatList
