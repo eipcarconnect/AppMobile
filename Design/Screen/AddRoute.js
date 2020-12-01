@@ -108,8 +108,10 @@ export default class AddRoute extends React.Component {
             .then((resjson) => {
                 if (resjson.success === true) {
                     console.log('addRoute OK', resjson);
+                    global.actualRide = resjson.ride;
+                    console.log(global.actualRide);
                     alert("Voyage crée avec succés");
-                    this.props.navigation.navigate('Home');
+                    this.props.navigation.navigate('Accueil');
                 }
                 else {
                     alert(resjson.error);

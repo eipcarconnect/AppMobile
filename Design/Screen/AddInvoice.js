@@ -22,6 +22,7 @@ export default class AddInvoice extends React.Component {
     }
 
     sendFacture() {
+        console.log(global.actualRide);
         let regPrix1 = new RegExp("^([0-9]+[\,]?[0-9]?[0-9]?|[0-9]+)$");
         let regPrix2 = new RegExp("^([0-9]+[\.]?[0-9]?[0-9]?|[0-9]+)$");
         if (this.state.name.length < 1) {
@@ -48,12 +49,37 @@ export default class AddInvoice extends React.Component {
             alert('Format du Prix TTC invalide');
             return (84);
         }
-        let prixHT = parseFloat(this.state.prixHT.replace(",", "."));
-        let prixTTC = parseFloat(this.state.prixTTC.replace(",", "."));
-        alert("name:" + ' ' + this.state.name + ' ' + "numberplate:" + ' ' + this.state.numberplate + ' ' + "categorie:" + ' ' + this.state.categorie,
-            "prixHT:" + ' ' + prixHT + ' ' + "prixTTC:" + ' ' + prixTTC);
-        console.log("name:", this.state.name, "numberplate:", this.state.numberplate, "categorie:", this.state.categorie,
-            "prixHT:", prixHT, "prixTTC:", prixTTC);
+        this.state.prixHT = parseFloat(this.state.prixHT.replace(",", "."));
+        this.state.prixTTC = parseFloat(this.state.prixTTC.replace(",", "."));
+        var data = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: global.token,
+                rideId: global.actualRide._id,
+                priceTTC: this.state.prixTTC,
+                priceHT: this.state.prixHT,
+                name: this.state.name,
+                type: this.state.categorie
+            }),
+        }
+        console.log("data: ", data);
+        fetch('http://40.85.113.74:3000/data/user/addbill', data).then((res) => res.json())
+            .then((resjson) => {
+                if (resjson.success === true) {
+                    console.log('addBill OK', resjson);
+                    alert("Facture crée avec succés");
+                    this.props.navigation.navigate('Accueil');
+                }
+                else {
+                    alert(resjson.error);
+                    console.log("addBill", resjson.error);
+                    return;
+                }
+            });
     }
 
     render() {

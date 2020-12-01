@@ -57,10 +57,10 @@ export default class RouteHistory extends React.Component {
         this.getRideArray();
     }
 
+    
     parseDate(date) {
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAA", date);
-        let ret = new Date(date);
-        return this.formatDate(ret);
+        let ret = date.split('/');
+        return (ret[1] + '/' + ret[0] + '/' + ret[2]);
     }
 
     getRideArray() {
@@ -78,10 +78,14 @@ export default class RouteHistory extends React.Component {
             .then((resjson) => {
                 if (resjson.success === true) {
                     console.log('getrides OK');
-                    this.state.searchList = resjson.rides;
+                    this.setState({searchList: resjson.rides});
                     this.state.searchList.forEach((elem, index) => {
                         console.log(elem, index);
                         elem.date = this.parseDate(elem.date);
+                    });
+                    this.state.searchList.sort(this.date_sort);
+                    this.state.searchList.forEach((elem, index) => {
+                        elem.date = this.formatDate(new Date(elem.date));
                     });
                 }
                 else {
@@ -127,6 +131,10 @@ export default class RouteHistory extends React.Component {
 
     show() {
         this.setState({ show: true })
+    }
+
+    date_sort(a, b) {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
     }
 
     formatDate(date) {

@@ -144,7 +144,7 @@ const AuthStack = createSwitchNavigator({
 
 const AppStack = createDrawerNavigator(
   {
-    Home: HomeScreen,
+    Accueil: HomeScreen,
     AuthStack: AuthStack,
     CarSelect: CarSelection,
     AddRoute: AddRouteScreen,
