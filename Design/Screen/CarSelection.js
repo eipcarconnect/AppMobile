@@ -70,8 +70,7 @@ export default class CarSelection extends React.Component {
             .then((resjson) => {
                 if (resjson.success === true) {
                     this.setState({data: resjson.vehicles});
-                    console.log('getCarList OK', this.state.data, resjson.vehicles);
-                    // console.log(this.state.data);
+                    console.log('getCarList OK');
                 }
                 else {
                     alert(resjson.error);

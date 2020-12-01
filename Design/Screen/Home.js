@@ -24,6 +24,10 @@ export default class Home extends React.Component {
             brand: global.car.brand,
             model: global.car.model,
             numberplate: global.car.numberplate,
+            rideName: 'Aucun',
+            rideDate: '',
+            rideStart: '',
+            rideEnd: '',
             kilometer: "23 871",
             fuel: 10,
             maxfuel: 100
@@ -92,14 +96,18 @@ export default class Home extends React.Component {
 
     Refresh() {
        this.setState({brand: global.car.brand, model: global.car.model, numberplate: global.car.numberplate});
+        if(global.actualRide !== null)
+            this.setState({
+                rideName: global.actualRide.name, 
+                rideDate: this.formatDate(new Date(this.parseDate(global.actualRide.date))), 
+                rideStart: global.actualRide.start, 
+                rideEnd: global.actualRide.end
+            });
     }
 
-    textScales(maxsize, width, charnumber) 
+    textScales(maxsize, width, charnumber)
     {
-        // console.log(charnumber);
-        // console.log(width);
         let s = (width / charnumber);
-        // console.log(s);
         if (s > maxsize)
             return {fontSize: maxsize}
         return {fontSize: s}
@@ -114,6 +122,26 @@ export default class Home extends React.Component {
         else
             this.props.navigation.navigate('AddInvoice');
 
+    }
+
+    formatDate(date) {
+        var monthNames = [
+            "Janvier", "Février", "Mars",
+            "Avril", "Mai", "Juin", "juillet",
+            "Août", "Septembre", "Octobre",
+            "Novembre", "Décembre"
+        ];
+
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
+
+    parseDate(date) {
+        let ret = date.split('/');
+        return (ret[1] + '/' + ret[0] + '/' + ret[2]);
     }
 
 
@@ -246,25 +274,6 @@ export default class Home extends React.Component {
                                 </Text>
                             </View>
                         </View>
-                            {/* <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', marginTop: heightPercentage("2%"), marginRight: widthPercentage("6%")}}>
-                                <Progress.Circle 
-                                            progress={fuel/100}
-                                            size={heightPercentage("12%")}
-                                            showsText={true}
-                                            formatText={(progress) => 
-                                            {
-                                                if ((progress*100)%1 > 0)
-                                                    return("Fuel\n " + ((progress*100) - ((progress*100)%1)) + "%")
-                                                return("Fuel\n " + progress*100 + "%")
-                                            }}
-                                            thickness={5} 
-                                            borderWidth={1}
-                                            strokeCap={"round"} 
-                                            borderRadius={0}
-                                            borderColor={'rgba(44,132,204,1)'}
-                                            color={'rgba(44,132,204,1)'}>
-                                </Progress.Circle>
-                            </View> */}
                         <View style={{}}>  
                             <Button
                             onPress={() => {this.getCarList();this.props.navigation.navigate('CarSelect')}}
@@ -289,19 +298,19 @@ export default class Home extends React.Component {
                             elevation: 10
                             }}>
                             <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20, width: widthPercentage("75%")}}>
-                                Salut
+                                {this.state.rideName}
                             </Text>
                             <View style={{ marginTop: heightPercentage('1%'), marginBottom: heightPercentage('1%'), width: widthPercentage("85%")}}> 
                                 <View style={{marginLeft: widthPercentage("4%") }}>
-                                    <Text style={{color: "white"}}>salut + {this.props.date}</Text>
+                                    <Text style={{color: "white"}}>{this.state.rideDate}</Text>
                                 </View>
                                 <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%')}}>
                                     <Text style={{color: "#2c84cc"}}>Depart:</Text>
-                                    <Text style={{color: "white"}}>{this.props.start}</Text>
+                                    <Text style={{color: "white"}}>{this.state.rideStart}</Text>
                                 </View>
                                 <View style={{marginLeft: widthPercentage("4%"), marginTop: heightPercentage('1%') }}>
                                     <Text style={{color: "#2c84cc"}}>Arrivée:</Text>
-                                    <Text style={{color: "white"}}>{this.props.end}</Text>
+                                    <Text style={{color: "white"}}>{this.state.rideEnd}</Text>
                                 </View>
                             </View>
                             <Button
