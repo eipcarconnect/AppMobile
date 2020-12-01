@@ -4,33 +4,23 @@ import { Button } from 'react-native-elements'
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
+import {NavigationEvents} from 'react-navigation';
 import NavBar from '../Tools/NavBar'
 
-export class RouteSelectionItem extends React.Component {
+export class RouteItem extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
             data: {},
-            elements: [],
-            selectedItem:null,
+            elements: []
         }
     }
 
-    onPressAction = (rowItem) => {
-        console.log('ListItem was selected');
-        console.dir(rowItem);
-        this.setState({
-          selectedItem: rowItem.id.value
-        });
-      }
-
     render () {
-        const isSelectedUser = this.state.selectedItem === item.id.value;
-        console.log(`Rendered item - ${item.id.value} for ${isSelectedUser}`);
-        const viewStyle = isSelectedUser ? styles.selectedButton : styles.normalButton;
         return(
-            <View style={{backgroundColor: "#2F2F2F", alignItems: "center", marginBottom: heightPercentage('3%'), width: widthPercentage('85%'), elevation: 10}}>
-                {/* <TouchableOpacity style={{}} onPress={() => this.onPressAction(item)}> */}
+            <View style={{backgroundColor: this.props.style, alignItems: "center", marginBottom: heightPercentage('3%'), width: widthPercentage('85%'), elevation: 10}}>
+                <TouchableOpacity onPress={this.props.onPress}>
+
                 <Text style={{marginTop: heightPercentage('2%'), color: "white", textAlign: "center", fontSize: 20, width: widthPercentage("75%")}}>
                     {this.props.name.toUpperCase()}
                 </Text>
@@ -47,17 +37,13 @@ export class RouteSelectionItem extends React.Component {
                         <Text style={{color: "white"}}>{this.props.end}</Text>
                     </View>
                 </View>
-                {/* {isSelectedUser ?
-                  <Text style={styles.selectedText}>{item.name.first} select</Text>
-                  : <Text style={styles.text}>{item.name.first} non select</Text>
-                } */}
-                {/* </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
         );
     }
 }
 
-export default class RouteSelection extends React.Component {
+export default class RouteHistory extends React.Component {
 
 
     constructor(props) {
@@ -68,17 +54,21 @@ export default class RouteSelection extends React.Component {
             searchList: [],
             searchType: 'name',
             show: false,
+
+            selectedId: null,
+            itemSelected: null
         }
+
     }
 
     componentDidMount() {
         this.getRideArray();
     }
 
+    
     parseDate(date) {
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAA", date);
-        let ret = new Date(date);
-        return this.formatDate(ret);
+        let ret = date.split('/');
+        return (ret[1] + '/' + ret[0] + '/' + ret[2]);
     }
 
     getRideArray() {
@@ -96,10 +86,14 @@ export default class RouteSelection extends React.Component {
             .then((resjson) => {
                 if (resjson.success === true) {
                     console.log('getrides OK');
-                    this.state.searchList = resjson.rides;
+                    this.setState({searchList: resjson.rides});
                     this.state.searchList.forEach((elem, index) => {
                         console.log(elem, index);
                         elem.date = this.parseDate(elem.date);
+                    });
+                    this.state.searchList.sort(this.date_sort);
+                    this.state.searchList.forEach((elem, index) => {
+                        elem.date = this.formatDate(new Date(elem.date));
                     });
                 }
                 else {
@@ -145,6 +139,10 @@ export default class RouteSelection extends React.Component {
 
     show() {
         this.setState({ show: true })
+    }
+
+    date_sort(a, b) {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
     }
 
     formatDate(date) {
@@ -197,15 +195,19 @@ export default class RouteSelection extends React.Component {
             </View>);
         }
     }
+    
 
-    renderItem = ({ item }) => (
-        <RouteSelectionItem name={item.name} start={item.start}
-        end={item.end} date={item.date}/>
-    );
+    renderItem = ({ item }) => {
+        const backgroundColor = item._id === this.state.selectedId ? "#606060" : "#2F2F2F";
+        return (
+        <RouteItem name={item.name} start={item.start}
+        end={item.end} date={item.date} style={backgroundColor} onPress={() => {this.setState({selectedId: item._id, itemSelected: item})}}/>
+    )};
 
     render() {
         return (
             <View style={styles.View}>
+                <NavigationEvents onDidFocus={() => this.componentDidMount()}/>
                 <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
                 <View style={{ borderBottomWidth: 1, borderColor: "white", marginTop: heightPercentage('1%') }}>
                     <Picker
@@ -223,8 +225,23 @@ export default class RouteSelection extends React.Component {
                     contentContainerStyle={{alignItems: "center"}}
                     data={this.getSearchArray(this.state.searchType)}
                     renderItem={this.renderItem}
-                    keyExtractor={item => item.numberplate}
+                    keyExtractor={item => item._id}
+                    extraData={this.state.selectedId}
                 />
+                <Button
+                    onPress={() => {
+                        console.log("AAAAAAAAAAAAAAAA" + this.state.itemSelected);
+                        console.log("AAAAAAAAAAAAAAAA" + this.state.selectedId);
+
+                        if (this.state.selectedId !== null)
+                        {
+                            global.actualRide = this.state.itemSelected;
+                            this.props.navigation.navigate('Accueil');
+                        }
+                    }}
+                    title="Validez"
+                    buttonStyle={styles.Button}>
+                </Button>
             </View>
         )
     }   
@@ -265,7 +282,11 @@ const styles = StyleSheet.create({
         paddingLeft: "2%"
     },
     Button: {
-        marginBottom: 20,
+        marginTop: heightPercentage('2%'),
+        marginBottom: heightPercentage('2%'),
+        height: heightPercentage('6%'),
+        width: widthPercentage('80%'),
+        backgroundColor:"#2c84cc"
     },
     TextButton: {
         color: "#2c84cc",
