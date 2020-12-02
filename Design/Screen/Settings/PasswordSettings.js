@@ -58,7 +58,7 @@ export default class PasswordSettings extends React.Component {
         return (
             <View style={styles.View}>
                 <TextInput style={styles.TextInput} 
-                    placeholder="New Password"
+                    placeholder="Nouveau mot de passe"
                     autoCapitalize="none"
                     textContentType="password"
                     secureTextEntry={true}
@@ -67,7 +67,7 @@ export default class PasswordSettings extends React.Component {
                     onChangeText={(text) => this.setNewPassword(text)}>
                 </TextInput>
                 <TextInput style={styles.TextInput} 
-                    placeholder="Confirm new password"
+                    placeholder="Confirmez le nouveau mot de passe"
                     autoCapitalize="none"
                     textContentType="password"
                     secureTextEntry={true}
@@ -77,7 +77,7 @@ export default class PasswordSettings extends React.Component {
                 </TextInput>
                 <Button
                     onPress={() => this.editInfos()}
-                    title="Confirm"
+                    title="Confirmer"
                     buttonStyle={styles.Button}>
                 </Button>
             </View>

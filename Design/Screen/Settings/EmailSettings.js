@@ -52,7 +52,7 @@ export default class EmailSettings extends React.Component {
         return (
             <View style={styles.View}>
                 <TextInput style={styles.TextInput} 
-                    placeholder="New email address"
+                    placeholder="Nouvelle E-mail"
                     autoCapitalize="none"
                     textContentType="emailAddress"
                     placeholderTextColor= 'white'
@@ -61,7 +61,7 @@ export default class EmailSettings extends React.Component {
                 </TextInput>
                 <Button
                     onPress={() => this.editInfos()}
-                    title="Confirm"
+                    title="Confirmer"
                     buttonStyle={styles.Button}>
                 </Button>
             </View>

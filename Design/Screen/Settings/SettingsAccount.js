@@ -69,15 +69,15 @@ export default class SettingsAccounts extends React.Component {
                 <NavigationEvents onDidFocus={() => this.Reload()}/>
                 <View>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('EmailSettings')}>
-                        <Text style={{color: "white", fontSize: 17}}>E-mail address</Text>
+                        <Text style={{color: "white", fontSize: 17}}>E-mail</Text>
                         <Text style={{color: "#8C8C8C", fontSize: 14 }}>{global.email}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('PasswordSettings')}>
-                        <Text style={{color: "white", fontSize: 17}}>Password</Text>
+                        <Text style={{color: "white", fontSize: 17}}>Mot de passe</Text>
                         <Text style={styles.UnderText}>*********</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('NameSettings')}>
-                        <Text style={{color: "white", fontSize: 17}}>Name</Text>
+                        <Text style={{color: "white", fontSize: 17}}>Nom</Text>
                         <Text style={styles.UnderText}>{global.name}</Text>
                     </TouchableOpacity>
                     {/* <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('BirthdaySettings')}>

@@ -51,7 +51,7 @@ const SettingsStack = createStackNavigator({
   {
     screen: EmailSettingsScreen,
     navigationOptions:{
-      title: 'Change e-mail address',
+      title: 'Changer d\'e-mail',
       headerStyle: {
         backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
       },
@@ -61,7 +61,7 @@ const SettingsStack = createStackNavigator({
   NameSettings: {
     screen: NameSettingsScreen,
     navigationOptions:{
-      title: 'Change name',
+      title: 'Changer le nom',
       headerStyle: {
         backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
       },
@@ -71,7 +71,7 @@ const SettingsStack = createStackNavigator({
   PasswordSettings: {
     screen: PasswordSettingsScreen,
     navigationOptions:{
-      title: 'Change password',
+      title: 'Changer de mot de passe',
       headerStyle: {
         backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
       },
@@ -142,16 +142,6 @@ const AppStack = createDrawerNavigator(
               } />
           </ScrollView>
           <View style={{position: 'absolute', bottom: 0, width: '100%'}}>
-            <Button
-              onPress={() => { props.navigation.navigate('CarSelect'); }}
-              title="Changer de voiture"
-              buttonStyle={{
-                height: heightPercentage('6%'),
-                marginVertical: heightPercentage('1%'),
-                marginHorizontal: widthPercentage('2%'),
-                backgroundColor: "#2c84cc"
-              }}>
-            </Button>
             <Button
               onPress={() => { disconnect(); props.navigation.navigate('AuthStack'); }}
               title="Deconnection"

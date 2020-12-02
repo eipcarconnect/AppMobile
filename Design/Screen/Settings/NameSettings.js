@@ -50,7 +50,7 @@ export default class NameSettings extends React.Component {
         fetch('http://40.85.113.74:3000/auth/edit', data).then((res) => res.json())
             .then((resjson) => {
                 if (resjson.success === true) {
-                    this.props.navigation.navigate('SettingsAccount');
+                    this.props.navigation.navigate('Settings');
                 }
                 else {
                     alert(resjson.error);
@@ -63,7 +63,7 @@ export default class NameSettings extends React.Component {
         return (
             <View style={styles.View}>
                 <TextInput style={styles.TextInput} 
-                    placeholder="New first name"
+                    placeholder="Nouveau prenom"
                     autoCapitalize="none"
                     textContentType="givenName"
                     placeholderTextColor= 'white'
@@ -71,7 +71,7 @@ export default class NameSettings extends React.Component {
                     onChangeText={(text) => this.setNewFirstName(text)}>
                 </TextInput>
                 <TextInput style={styles.TextInput} 
-                    placeholder="New last name"
+                    placeholder="Nouveau nom"
                     autoCapitalize="none"
                     textContentType="familyName"
                     placeholderTextColor= 'white'
@@ -80,7 +80,7 @@ export default class NameSettings extends React.Component {
                 </TextInput>
                 <Button
                     onPress={() => this.editInfos()}
-                    title="Confirm"
+                    title="Confirmer"
                     buttonStyle={styles.Button}>
                 </Button>
             </View>

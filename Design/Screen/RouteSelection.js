@@ -6,6 +6,8 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 import {NavigationEvents} from 'react-navigation';
 import NavBar from '../Tools/NavBar'
+import StackBar from '../Tools/StackBar';
+
 
 export class RouteItem extends React.Component {
     constructor (props) {
@@ -209,7 +211,12 @@ export default class RouteHistory extends React.Component {
         return (
             <View style={styles.View}>
                 <NavigationEvents onDidFocus={() => this.componentDidMount()}/>
-                <NavBar onPushButton={() => this.props.navigation.openDrawer()}/>
+                {/* <NavBar onPushButton={() => this.props.navigation.openDrawer()}/> */}
+                <View style={{flexDirection: "row", height: heightPercentage('7%'), width: widthPercentage('100%'), backgroundColor:"#1E1E1E", borderBottomWidth: 1, borderBottomColor: "#DDDDDD"}}>
+                    <View style={{height: heightPercentage('7%'), width: widthPercentage('100%'), marginLeft: widthPercentage('6%'), justifyContent: 'center'}}>
+                        <Text style={{color: "white", fontSize: 20}}>Selectionnez un trajet</Text>
+                    </View>
+                </View>
                 <View style={{ borderBottomWidth: 1, borderColor: "white", marginTop: heightPercentage('1%') }}>
                     <Picker
                         selectedValue={this.state.searchType}
@@ -250,6 +257,7 @@ const styles = StyleSheet.create({
     View: {
         flex: 1,
         // paddingTop: 20,
+        marginTop: 0,
         backgroundColor: "#1E1E1E",
         alignItems: "center"
     },

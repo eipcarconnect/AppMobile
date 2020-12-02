@@ -16,7 +16,7 @@ export default class StackBar extends React.Component {
         return (
             <View style={{flexDirection: "row", height: heightPercentage('7%'), width: widthPercentage('100%'), backgroundColor:"#1E1E1E", borderBottomWidth: 1, borderBottomColor: "#DDDDDD"}}>
 
-                <TouchableOpacity style={{marginVertical: heightPercentage('2%'), marginLeft: widthPercentage('4.5%') }}activeOpacity={0.7} onPress={() => this.props.onPushButton()}>
+                <TouchableOpacity style={{marginVertical: heightPercentage('2%'), marginLeft: widthPercentage('4.5%') }}activeOpacity={0.7} onPress={() => this.props.onPushButton}>
                     <Image source={require("../assets/back-icon.png")} style={{height: heightPercentage('3%'), width: heightPercentage('3%'), tintColor: "#FFFFFF", resizeMode: "cover"}} ></Image>
                 </TouchableOpacity>
                 
