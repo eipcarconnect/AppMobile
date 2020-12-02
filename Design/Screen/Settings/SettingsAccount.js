@@ -14,9 +14,12 @@ export default class SettingsAccounts extends React.Component {
         this.state = {
             email: global.email,
             name: global.name,
-            birthdate: global.date,
             token: global.token
         }
+    }
+
+    componentDidMount() {
+        this.Reload();
     }
 
     Reload() {
@@ -35,7 +38,6 @@ export default class SettingsAccounts extends React.Component {
             if (resjson.success === true) {
                 global.name = resjson.name;
                 global.email = resjson.email
-                global.date = resjson.birthdate.split('T')[0];
                 this.setState({ email: global.email, name: global.name, date: global.date });
             }
             else {
@@ -66,7 +68,7 @@ export default class SettingsAccounts extends React.Component {
         return (
             <View style={styles.View}>
                 <NavBar onPushButton={() => this.props.navigation.openDrawer()} />
-                <NavigationEvents onDidFocus={() => this.Reload()}/>
+                <NavigationEvents onDidFocus={() => this.componentDidMount()}/>
                 <View>
                     <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('EmailSettings')}>
                         <Text style={{color: "white", fontSize: 17}}>E-mail</Text>
@@ -80,10 +82,6 @@ export default class SettingsAccounts extends React.Component {
                         <Text style={{color: "white", fontSize: 17}}>Nom</Text>
                         <Text style={styles.UnderText}>{global.name}</Text>
                     </TouchableOpacity>
-                    {/* <TouchableOpacity style={styles.TouchableOpacity} activeOpacity={0.7} onPress={() => this.props.navigation.navigate('BirthdaySettings')}>
-                        <Text style={{color: "white", fontSize: 17}}>Date of birth</Text>
-                        <Text style={styles.UnderText}>{this.formatDate(global.date)}</Text>
-                    </TouchableOpacity> */}
                 </View>
             </View>
         )

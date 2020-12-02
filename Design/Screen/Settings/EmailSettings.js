@@ -34,7 +34,7 @@ export default class EmailSettings extends React.Component {
             .then((resjson) => {
                 if (resjson.success === true) {
                     global.token = resjson.token;
-                    this.props.navigation.navigate('SettingsAccount');
+                    this.props.navigation.navigate('Settings');
                 }
                 else {
                     alert(resjson.error);

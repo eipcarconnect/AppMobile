@@ -57,11 +57,11 @@ export default class SignUp extends React.Component {
 
     handleSignUp() {
         if (this.state.firstname.length < 1) {
-            alert('Please enter a First Name.');
+            alert('Veuilez saisir un prénom.');
             return;
         }
         if (this.state.lastname.length < 1) {
-            alert('Please enter a Last Name.');
+            alert('Veuilez saisir un nom.');
             return;
         }
         if (this.state.company == 'none') {
@@ -69,11 +69,11 @@ export default class SignUp extends React.Component {
             return;
         }
         if (this.state.email.length < 1) {
-            alert('Please enter an email address.');
+            alert('Veuilez saisir une adresse email.');
             return;
         }
-        if (this.state.password.length < 4) {
-            alert('Your password is too short.');
+        if (this.state.password.length < 8) {
+            alert('Votre mot de passe est trop court');
             return;
         }
         if (this.state.password != this.state.password2) {
@@ -104,7 +104,11 @@ export default class SignUp extends React.Component {
                 this.props.navigation.navigate('SignIn');
             }
             else {
-                alert(resjson.error);
+                if(resjson.error === "UserAlreadyExist")
+                    alert("L'adresse email est déjà utilisée");
+                else if (resjson.error === "PasswordIsWeak")
+                    alert("Le mot de passe est trop faible");
+                console.log(resjson.error);
                 return;
             } });
     }

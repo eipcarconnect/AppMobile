@@ -45,7 +45,7 @@ export default class PasswordSettings extends React.Component {
         fetch('http://40.85.113.74:3000/auth/edit', data).then((res) => res.json())
             .then((resjson) => {
                 if (resjson.success === true) {
-                    this.props.navigation.navigate('SettingsAccount');
+                    this.props.navigation.navigate('Settings');
                 }
                 else {
                     alert(resjson.error);

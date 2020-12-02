@@ -39,11 +39,11 @@ export default class SignIn extends React.Component {
 
     toggleSignIn() {
         if (this.state.email.length < 1) {
-          alert('Please enter an email address.');
+          alert('Veuillez saisir une adresse email');
           return(84);
         }
         if (this.state.password.length < 1) {
-          alert('Please enter a password.');
+          alert('Veuillez saisir un mot de passe');
           return(84);
         }
     
@@ -67,13 +67,17 @@ export default class SignIn extends React.Component {
               this.getUserInfos();
             }
             else {
-              alert(resjson.error);
+              if(resjson.error === "UserNotFound")
+                alert("L'adresse email n'existe pas");
+              else if (resjson.error === "WrongPassword")
+                alert("Le mot de passe est invalide");
               console.log("signin", resjson.error);
               return;
             }
           })
           .catch((error) => {
-            alert(error);
+            console.log(error);
+            alert("Impossible de se connecter au serveur");
           })
       }
     
