@@ -1,7 +1,6 @@
 import React from 'react'
 import { TextInput, Text, View, Image, StyleSheet, KeyboardAvoidingView, TouchableHighlight } from 'react-native'
 import { Button } from 'react-native-elements'
-import AsyncStorage from '@react-native-community/async-storage';
 import { save, getSaved } from '../Tools/Storage'
 import { heightPercentage, widthPercentage } from '../Tools/ResponsiveTool'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { TextInput, Animated, Text, PanResponder,View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from 'react-native-elements'
 import { heightPercentage, widthPercentage } from '../../../Tools/ResponsiveTool'
 import DraggableBattery from './Component/DraggableBattery'

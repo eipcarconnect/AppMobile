@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextInput, Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity, AppRegistry } from 'react-native'
 import { Button } from 'react-native-elements'
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationEvents} from 'react-navigation';
 //import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 
