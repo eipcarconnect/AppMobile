@@ -51,7 +51,7 @@ const SettingsStack = createStackNavigator({
   {
     screen: EmailSettingsScreen,
     navigationOptions:{
-      title: 'Changer d\'e-mail',
+      title: 'Changer d\'adresse email',
       headerStyle: {
         backgroundColor: '#1E1E1E', borderBottomWidth: 1, borderBottomColor: "#DDDDDD"
       },

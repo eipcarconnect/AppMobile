@@ -52,7 +52,7 @@ export default class EmailSettings extends React.Component {
         return (
             <View style={styles.View}>
                 <TextInput style={styles.TextInput} 
-                    placeholder="Nouvelle E-mail"
+                    placeholder="Nouvelle adresse email"
                     autoCapitalize="none"
                     textContentType="emailAddress"
                     placeholderTextColor= 'white'
