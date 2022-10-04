@@ -15,7 +15,7 @@
     "@react-native-community/geolocation": "^2.0.2",
     "@react-native-picker/picker": "^1.9.2",
     "axios": "^0.18.0",
-    "expo": "^32.0.0",
+    "expo": "^46.0.14",
     "global": "^4.4.0",
     "react": "16.9.0",
     "react-dom": "^16.13.1",
